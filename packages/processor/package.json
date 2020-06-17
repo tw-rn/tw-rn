@@ -35,7 +35,7 @@
     "postcss": "^7.0.32",
     "tailwindcss": "^1.4.6"
   },
-  "publicConfig": {
+  "publishConfig": {
     "access": "public",
     "registry": "https://github.com/tw-rn/tw-rn/"
   },

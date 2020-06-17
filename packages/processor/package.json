@@ -1,0 +1,38 @@
+{
+  "name": "@tw-rn/processor",
+  "author": "Erick Tamayo",
+  "version": "0.0.1",
+  "license": "MIT",
+  "private": false,
+  "main": "dist/index.js",
+  "module": "dist/index.es.js",
+  "types": "dist/index.d.ts",
+  "peerDependencies": {
+    "next": "^9"
+  },
+  "devDependencies": {
+    "@types/md5": "^2.2.0",
+    "@types/node": "^14.0.6",
+    "css-loader": "^3.5.3",
+    "ts-loader": "^7.0.5",
+    "typescript": "^3.9.3"
+  },
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "test": "echo test"
+  },
+  "dependencies": {
+    "chalk": "^4.0.0",
+    "css-to-react-native": "^3.0.0",
+    "css-to-react-native-transform": "^1.9.0",
+    "deepmerge": "^4.2.2",
+    "fast-memoize": "^2.5.2",
+    "html-tags": "^3.1.0",
+    "lodash.escaperegexp": "^4.1.2",
+    "md5": "^2.2.1",
+    "node-cache": "^5.1.1",
+    "postcss": "^7.0.32",
+    "tailwindcss": "^1.4.6"
+  }
+}

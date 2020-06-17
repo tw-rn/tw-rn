@@ -1,0 +1,1 @@
+export { useMediaStyle } from "./useMediaStyle";

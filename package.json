@@ -1,0 +1,24 @@
+{
+  "description": "Tailwind CSS for React Native",
+  "author": "Erick Tamayo",
+  "license": "MIT",
+  "private": true,
+  "workspaces": {
+    "packages": [
+      "packages/*"
+    ],
+    "nohoist": []
+  },
+  "scripts": {
+    "dev": "echo dev",
+    "build": "echo build",
+    "test": "echo test",
+    "core": "yarn workspace tailwindcss-native",
+    "playground": "yarn workspace @tailwindcss-native/playground",
+    "reset": "find . -type dir -name node_modules | xargs rm -rf && yarn"
+  },
+  "devDependencies": {
+    "lerna": "^3.22.0"
+  },
+  "resolutions": {}
+}

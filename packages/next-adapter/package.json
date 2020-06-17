@@ -1,0 +1,29 @@
+{
+  "name": "@tw-rn/next-adapter",
+  "author": "Erick Tamayo",
+  "version": "0.0.1",
+  "license": "MIT",
+  "private": false,
+  "main": "dist/index.js",
+  "module": "dist/index.es.js",
+  "types": "dist/index.d.ts",
+  "peerDependencies": {
+    "next": "^9"
+  },
+  "devDependencies": {
+    "@types/node": "^14.0.6",
+    "rollup": "^2.12.1",
+    "rollup-plugin-typescript2": "^0.27.1",
+    "typescript": "^3.9.3"
+  },
+  "scripts": {
+    "build": "rollup -c rollup.config.js",
+    "dev": "rollup -c rollup.config.js --watch",
+    "test": "echo test"
+  },
+  "dependencies": {
+    "@tw-rn/loader": "^0.0.1",
+    "deepmerge": "^4.2.2",
+    "fast-memoize": "^2.5.2"
+  }
+}

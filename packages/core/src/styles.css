@@ -1,0 +1,11 @@
+/* @tailwind base; */
+@tailwind components;
+@tailwind utilities;
+
+.outline-none {
+  outline-style: none;
+}
+
+.flex-1 {
+  flex: 1;
+}

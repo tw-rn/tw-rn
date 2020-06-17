@@ -1,5 +1,5 @@
 {
-  "description": "Tailwind CSS for React Native",
+  "description": "TailwindCSS in React Native",
   "author": "Erick Tamayo",
   "license": "MIT",
   "private": true,
@@ -13,8 +13,8 @@
     "dev": "echo dev",
     "build": "echo build",
     "test": "echo test",
-    "core": "yarn workspace tailwindcss-native",
-    "playground": "yarn workspace @tailwindcss-native/playground",
+    "core": "yarn workspace tw-rn",
+    "playground": "yarn workspace @tw-rn/playground",
     "reset": "find . -type dir -name node_modules | xargs rm -rf && yarn"
   },
   "devDependencies": {

@@ -1,14 +1,14 @@
 {
   "name": "@tw-rn/loader",
   "author": "Erick Tamayo",
-  "version": "0.0.1-alpha.2+5b3a994",
+  "version": "0.0.1-alpha.7+2bc609a",
   "license": "MIT",
   "private": false,
   "main": "dist/index.js",
   "module": "dist/index.es.js",
   "types": "dist/index.d.ts",
   "devDependencies": {
-    "@tw-rn/processor": "^0.0.1-alpha.2+5b3a994",
+    "@tw-rn/processor": "^0.0.1-alpha.7+2bc609a",
     "@types/node": "^14.0.6",
     "typescript": "^3.9.3"
   },
@@ -22,8 +22,7 @@
     "fast-memoize": "^2.5.2"
   },
   "publishConfig": {
-    "access": "public",
-    "registry": "https://github.com/tw-rn/tw-rn/"
+    "access": "public"
   },
-  "gitHead": "5b3a994655360325aef141acb1d99c4ab1ee679d"
+  "gitHead": "2bc609a8edc8ac366bad27923ba14b75c404f01e"
 }

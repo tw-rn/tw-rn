@@ -1,7 +1,7 @@
 {
   "name": "@tw-rn/next-adapter",
   "author": "Erick Tamayo",
-  "version": "0.0.1-alpha.2+5b3a994",
+  "version": "0.0.1-alpha.7+2bc609a",
   "license": "MIT",
   "private": false,
   "main": "dist/index.js",
@@ -22,13 +22,12 @@
     "test": "echo test"
   },
   "dependencies": {
-    "@tw-rn/loader": "^0.0.1-alpha.2+5b3a994",
+    "@tw-rn/loader": "^0.0.1-alpha.7+2bc609a",
     "deepmerge": "^4.2.2",
     "fast-memoize": "^2.5.2"
   },
   "publishConfig": {
-    "access": "public",
-    "registry": "https://github.com/tw-rn/tw-rn/"
+    "access": "public"
   },
-  "gitHead": "5b3a994655360325aef141acb1d99c4ab1ee679d"
+  "gitHead": "2bc609a8edc8ac366bad27923ba14b75c404f01e"
 }

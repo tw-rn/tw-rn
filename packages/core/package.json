@@ -1,7 +1,7 @@
 {
   "name": "tw-rn",
   "author": "Erick Tamayo",
-  "version": "0.0.1-alpha.7+2bc609a",
+  "version": "0.0.1-alpha.8+f8f11a8",
   "license": "MIT",
   "private": false,
   "main": "dist/index.js",
@@ -12,7 +12,7 @@
     "react-native": "*"
   },
   "devDependencies": {
-    "@tw-rn/transformer": "^0.0.1-alpha.7+2bc609a",
+    "@tw-rn/transformer": "^0.0.1-alpha.8+f8f11a8",
     "@types/node": "^14.0.6",
     "@types/react": "^16.9.35",
     "@types/react-native": "^0.62.12",
@@ -31,7 +31,7 @@
   },
   "publishConfig": {
     "access": "public",
-    "registry": "https://github.com/tw-rn/tw-rn/"
+    "registry": "https://github.com/tw-rn/"
   },
-  "gitHead": "2bc609a8edc8ac366bad27923ba14b75c404f01e"
+  "gitHead": "f8f11a8d9187b7a943cd88020df8df033a777ff9"
 }

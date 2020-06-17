@@ -1,7 +1,7 @@
 {
   "name": "@tw-rn/processor",
   "author": "Erick Tamayo",
-  "version": "0.0.1-alpha.7+2bc609a",
+  "version": "0.0.1-alpha.8+f8f11a8",
   "license": "MIT",
   "private": false,
   "main": "dist/index.js",
@@ -38,5 +38,5 @@
   "publishConfig": {
     "access": "public"
   },
-  "gitHead": "2bc609a8edc8ac366bad27923ba14b75c404f01e"
+  "gitHead": "f8f11a8d9187b7a943cd88020df8df033a777ff9"
 }

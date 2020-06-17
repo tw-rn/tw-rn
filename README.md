@@ -1,6 +1,126 @@
 # tw-rn
 
-#### 🚧 Experimental - Not ready for production. Use at you own risk 🚧
+#### 🚧 [WIP] Experimental - Not ready for production. Use at you own risk 🚧
+
+tw-rn is a library that transpiles TaiwindCSS to React Native and React Native web Styles.
+
+The difference between the current solutions is that these are already pre-compiled or harcoded. The intent of this library is to be able to use TailwindCSS and at the same time keeping the flexibility that TailwindCSS brings with the `tailwind.config.js` and also be able to declare your own classes in a .css file.
+
+### Usage
+
+**Note** For now only `<View/>` and `<Text/>` are supported.
+
+```jsx
+import "./app.css";
+import React from "react";
+import { tw, Text, View } from "tw-rn";
+
+export default function App() {
+  return (
+    <View style={tw`justify-center items-center flex`}>
+      <View style={tw`bg-green-500 p-4 h-32 w-32 rounded-lg justify-center`}>
+        <Text style={tw`text-white text-center`}>Open up App.js to start working on your app!</Text>
+      </View>
+    </View>
+  );
+}
+```
+
+### Installation
+
+**This is a work in progress**
+
+#### Expo Only
+
+1. Installation
+
+```shell
+# Using npm
+npm install tw-rn
+npm install --save-dev @tw-rn/transformer
+
+# Using Yarn
+yarn add tw-rn
+yarn add -D @tw-rn/transformer
+```
+
+2. Create file `app.css` and copy and paste this code:
+
+```css
+/* We don't need @tailwind base*/
+@tailwind components;
+@tailwind utilities;
+
+/* Temporary flex polyfill */
+.flex {
+  flex: 1;
+}
+```
+
+3. create a `metro.config.js` if is not created and copy and paste this code:
+
+```js
+const { getDefaultConfig } = require("metro-config");
+
+module.exports = (async () => {
+  const {
+    resolver: { sourceExts, assetExts },
+  } = await getDefaultConfig();
+
+  return {
+    transformer: {
+      babelTransformerPath: require.resolve("@tw-rn/transformer"),
+    },
+    resolver: {
+      assetExts: assetExts.filter((ext) => ext !== "css"),
+      sourceExts: [...sourceExts, "css"],
+    },
+  };
+})();
+```
+
+4. In your `app.json` file change or add this line
+
+```diff
+{
+  "expo": {
+    "name": "tw-rn-expo",
+    "slug": "tw-rn-expo",
+    "platforms": ["ios", "android", "web"],
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "assetBundlePatterns": ["**/*"],
+    "ios": {
+      "supportsTablet": true
+    },
++    "packagerOpts": {
++      "config": "./metro.config.js",
++      "sourceExts": ["js", "jsx", "ts", "tsx", "css"]
++    }
+  }
+}
+```
+
+5. Add `app.css` to your entry point.
+
+6. You can test the installation running `yarn start`
+
+#### Expo + Web
+
+TBD
+
+#### React Native
+
+TBD
 
 ### Styles
 

@@ -36,7 +36,8 @@
     "tailwindcss": "^1.4.6"
   },
   "publicConfig": {
-    "access": "public"
+    "access": "public",
+    "registry": "https://github.com/tw-rn/tw-rn/"
   },
   "gitHead": "5b3a994655360325aef141acb1d99c4ab1ee679d"
 }

@@ -1,6 +1,6 @@
 {
   "name": "@tw-rn/playground",
-  "version": "1.0.0",
+  "version": "0.0.1-alpha.0",
   "private": true,
   "main": "__generated__/AppEntry.js",
   "scripts": {

@@ -1,6 +1,12 @@
 {
   "name": "tw-rn",
   "author": "Erick Tamayo",
+  "description": "TailwindCSS in React Native",
+  "keywords": [
+    "tailwindcss",
+    "react native",
+    "tailwind"
+  ],
   "version": "0.0.1-alpha.9+0e4548d",
   "license": "MIT",
   "private": false,

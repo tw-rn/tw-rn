@@ -1,0 +1,108 @@
+---
+id: getting-started
+title: Getting Started
+---
+
+import Tabs from "@theme/Tabs";
+import TabItem from "@theme/TabItem";
+
+## Installation
+
+### Using Expo
+
+Install the required packages in your Expo project:
+
+<Tabs
+  defaultValue="npm"
+  values={[
+    { label: "npm", value: "npm" },
+    { label: "Yarn", value: "yarn" },
+  ]}
+>
+  <TabItem value="npm">
+
+```bash
+npm install tw-rn
+```
+
+```bash
+npm install --save-dev @tw-rn/transformer
+```
+
+  </TabItem>
+  <TabItem value="yarn">
+
+```bash
+yarn add tw-rn
+```
+
+```bash
+yarn add -D @tw-rn/transformer
+```
+
+  </TabItem>
+</Tabs>
+
+Create file `app.css` and copy and paste the following code
+
+```css title="app.css"
+/* We don't need @tailwind base*/
+@tailwind components;
+@tailwind utilities;
+
+/* Temporary flex polyfill */
+.flex {
+  flex: 1;
+}
+```
+
+Create or modify `metro.config.js` and copy and paste this code:
+
+```js title="metro.config.js"
+const { getDefaultConfig } = require("metro-config");
+
+module.exports = (async () => {
+  const {
+    resolver: { sourceExts, assetExts },
+  } = await getDefaultConfig();
+
+  return {
+    transformer: {
+      babelTransformerPath: require.resolve("@tw-rn/transformer"),
+    },
+    resolver: {
+      assetExts: assetExts.filter((ext) => ext !== "css"),
+      sourceExts: [...sourceExts, "css"],
+    },
+  };
+})();
+```
+
+In your app.json file change or add the `packagerOpts` property
+
+```json title="app.json"
+  "packagerOpts": {
+    "config": "./metro.config.js",
+    "sourceExts": ["js", "jsx", "ts", "tsx", "css"]
+  }
+```
+
+Add app.css to your entry point, in this case would be `App.js`
+
+```js title="App.js"
+import "./app.css";
+import React from "react";
+// ...
+```
+
+### Using Expo + React Native Web
+
+TBD
+
+### Using React Native
+
+TBD
+
+### Using React Native + React Native Web
+
+TBD

@@ -1,0 +1,48 @@
+---
+id: align-items
+title: Align Items
+---
+
+## React Native
+
+| Style          | Properties                 |
+| :------------- | :------------------------- |
+| items-stretch  | `alignItems: 'stretch'`    |
+| items-start    | `alignItems: 'flex-start'` |
+| items-center   | `alignItems: 'center'`     |
+| items-end      | `alignItems: 'flex-end'`   |
+| items-baseline | `alignItems: 'baseline'`   |
+
+### Usage
+
+<!-- prettier-ignore-start -->
+```jsx
+<View style={tw`items-stretch`}>
+  {/* ... */}
+</View>
+```
+<!-- prettier-ignore-end -->
+
+## React Native Web
+
+| Style          | Properties                 |
+| :------------- | :------------------------- |
+| items-stretch  | `alignItems: 'stretch'`    |
+| items-start    | `alignItems: 'flex-start'` |
+| items-center   | `alignItems: 'center'`     |
+| items-end      | `alignItems: 'flex-end'`   |
+| items-baseline | `alignItems: 'baseline'`   |
+
+### Usage
+
+For web-only styles, you can use them with the `web:` platform pseudo selector.
+
+<!-- prettier-ignore-start -->
+```jsx
+<View style={tw`web:items-start`}>
+  {/* ... */}
+</View>
+```
+<!-- prettier-ignore-end -->
+
+See in Tailwind website for more information [here](https://tailwindcss.com/docs/align-items)

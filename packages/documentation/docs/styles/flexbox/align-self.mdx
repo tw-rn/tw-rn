@@ -1,0 +1,48 @@
+---
+id: align-self
+title: Align Self
+---
+
+## React Native
+
+| Style        | Properties                |
+| :----------- | :------------------------ |
+| self-auto    | `alignSelf: 'auto'`       |
+| self-start   | `alignSelf: 'flex-start'` |
+| self-center  | `alignSelf: 'center'`     |
+| self-end     | `alignSelf: 'flex-end'`   |
+| self-stretch | `alignSelf: 'stretch'`    |
+
+### Usage
+
+<!-- prettier-ignore-start -->
+```jsx
+<View style={tw`self-auto`}>
+  {/* ... */}
+</View>
+```
+<!-- prettier-ignore-end -->
+
+## React Native Web
+
+| Style        | Properties                |
+| :----------- | :------------------------ |
+| self-auto    | `alignSelf: 'auto'`       |
+| self-start   | `alignSelf: 'flex-start'` |
+| self-center  | `alignSelf: 'center'`     |
+| self-end     | `alignSelf: 'flex-end'`   |
+| self-stretch | `alignSelf: 'stretch'`    |
+
+### Usage
+
+For web-only styles, you can use them with the `web:` platform pseudo selector.
+
+<!-- prettier-ignore-start -->
+```jsx
+<View style={tw`web:self-start`}>
+  {/* ... */}
+</View>
+```
+<!-- prettier-ignore-end -->
+
+See in Tailwind website for more information [here](https://tailwindcss.com/docs/align-self)

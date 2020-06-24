@@ -1,0 +1,44 @@
+---
+id: overflow
+title: Overflow
+---
+
+### React Native
+
+| Style            | Properties            |
+| :--------------- | :-------------------- |
+| overflow-hidden  | `overflow: 'hidden'`  |
+| overflow-visible | `overflow: 'visible'` |
+| overflow-scroll  | `overflow: 'scroll'`  |
+
+## Usage
+
+<!-- prettier-ignore-start -->
+```jsx
+<View style={tw`overflow-hidden`}>
+  {/* ... */}
+</View>
+```
+<!-- prettier-ignore-end -->
+
+### React Native Web
+
+| Style            | Properties            |
+| :--------------- | :-------------------- |
+| overflow-hidden  | `overflow: 'hidden'`  |
+| overflow-visible | `overflow: 'visible'` |
+| overflow-scroll  | `overflow: 'scroll'`  |
+
+## Usage
+
+For web-only styles, you can use them with the `web:` platform pseudo selector.
+
+<!-- prettier-ignore-start -->
+```jsx
+<View style={tw`web:overflow-scroll`}>
+  {/* ... */}
+</View>
+```
+<!-- prettier-ignore-end -->
+
+See in Tailwind website for more information [here](https://tailwindcss.com/docs/overflow)

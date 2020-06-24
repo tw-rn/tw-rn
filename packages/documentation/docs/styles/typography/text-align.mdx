@@ -1,0 +1,44 @@
+---
+id: text-align
+title: Text Align
+---
+
+### React Native
+
+| Style       | Properties            |
+| :---------- | :-------------------- |
+| text-left   | `textAlign: 'left'`   |
+| text-center | `textAlign: 'center'` |
+| text-right  | `textAlign: 'right'`  |
+
+### Usage
+
+<!-- prettier-ignore-start -->
+```jsx
+<Text style={tw`text-center`}>
+  {/* ... */}
+</Text>
+```
+<!-- prettier-ignore-end -->
+
+### React Native Web
+
+| Style       | Properties            |
+| :---------- | :-------------------- |
+| text-left   | `textAlign: 'left'`   |
+| text-center | `textAlign: 'center'` |
+| text-right  | `textAlign: 'right'`  |
+
+### Usage
+
+For web-only styles, you can use them with the `web:` platform pseudo selector.
+
+<!-- prettier-ignore-start -->
+```jsx
+<Text style={tw`web:text-right`}>
+  {/* ... */}
+</Text>
+```
+<!-- prettier-ignore-end -->
+
+See in Tailwind website for more information [here](https://tailwindcss.com/docs/text-align)

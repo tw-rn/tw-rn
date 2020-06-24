@@ -1,0 +1,42 @@
+---
+id: min-width
+title: Min-Width
+---
+
+### React Native
+
+| Style      | Properties         |
+| :--------- | :----------------- |
+| min-w-0    | `minWidth: 0`      |
+| min-w-full | `minWidth: '100%'` |
+
+### Usage
+
+<!-- prettier-ignore-start -->
+```jsx
+<View style={tw`min-w-0`}>
+  {/* ... */}
+</View>
+```
+<!-- prettier-ignore-end -->
+
+### React Native Web
+
+| Style      | Properties         |
+| :--------- | :----------------- |
+| min-w-0    | `minWidth: 0`      |
+| min-w-full | `minWidth: '100%'` |
+
+### Usage
+
+For web-only styles, you can use them with the `web:` platform pseudo selector.
+
+<!-- prettier-ignore-start -->
+```jsx
+<View style={tw`web:min-w-full`}>
+  {/* ... */}
+</View>
+```
+<!-- prettier-ignore-end -->
+
+See in Tailwind website for more information [here](https://tailwindcss.com/docs/min-width)

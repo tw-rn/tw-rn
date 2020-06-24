@@ -1,0 +1,46 @@
+---
+id: flex-direction
+title: Flex Direction
+---
+
+## React Native
+
+| Style            | Properties                         |
+| :--------------- | :--------------------------------- |
+| flex-row         | `flex-direction: 'row'`            |
+| flex-row-reverse | `flex-direction: 'row-reverse'`    |
+| flex-col         | `flex-direction: 'column'`         |
+| flex-col-reverse | `flex-direction: 'column-reverse'` |
+
+### Usage
+
+<!-- prettier-ignore-start -->
+```jsx
+<View style={tw`flex-row`}>
+  {/* ... */}
+</View>
+```
+<!-- prettier-ignore-end -->
+
+## React Native Web
+
+| Style            | Properties                         |
+| :--------------- | :--------------------------------- |
+| flex-row         | `flex-direction: 'row'`            |
+| flex-row-reverse | `flex-direction: 'row-reverse'`    |
+| flex-col         | `flex-direction: 'column'`         |
+| flex-col-reverse | `flex-direction: 'column-reverse'` |
+
+### Usage
+
+For web-only styles, you can use them with the `web:` platform pseudo selector.
+
+<!-- prettier-ignore-start -->
+```jsx
+<View style={tw`web:flex-row`}>
+  {/* ... */}
+</View>
+```
+<!-- prettier-ignore-end -->
+
+See in Tailwind website for more information [here](https://tailwindcss.com/docs/flex-direction)

@@ -1,0 +1,52 @@
+---
+id: top-right-bottom-left
+title: Top / Right / Bottom / Left
+---
+
+### React Native
+
+| Style     | Properties                                                  |
+| :-------- | :---------------------------------------------------------- |
+| inset-0   | `top: 0` <br/> `right: 0` <br/> `bottom: 0` <br/> `left: 0` |
+| inset-y-0 | `top: 0` <br/> `bottom: 0`                                  |
+| inset-x-0 | `right: 0` <br/> `left: 0`                                  |
+| top-0     | `top: 0`                                                    |
+| right-0   | `right: 0`                                                  |
+| bottom-0  | `bottom: 0`                                                 |
+| left-0    | `left: 0`                                                   |
+
+## Usage
+
+<!-- prettier-ignore-start -->
+```jsx
+<View style={tw`inset-0`}>
+  {/* ... */}
+</View>
+```
+<!-- prettier-ignore-end -->
+
+### React Native Web
+
+| Style     | Properties                                                  |
+| :-------- | :---------------------------------------------------------- |
+| inset-0   | `top: 0` <br/> `right: 0` <br/> `bottom: 0` <br/> `left: 0` |
+| inset-y-0 | `top: 0` <br/> `bottom: 0`                                  |
+| inset-x-0 | `right: 0` <br/> `left: 0`                                  |
+| top-0     | `top: 0`                                                    |
+| right-0   | `right: 0`                                                  |
+| bottom-0  | `bottom: 0`                                                 |
+| left-0    | `left: 0`                                                   |
+
+## Usage
+
+For web-only styles, you can use them with the `web:` platform pseudo selector.
+
+<!-- prettier-ignore-start -->
+```jsx
+<View style={tw`web:inset-y-0`}>
+  {/* ... */}
+</View>
+```
+<!-- prettier-ignore-end -->
+
+See in Tailwind website for more information [here](https://tailwindcss.com/docs/top-right-bottom-left)

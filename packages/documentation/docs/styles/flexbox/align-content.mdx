@@ -1,0 +1,48 @@
+---
+id: align-content
+title: Align Content
+---
+
+## React Native
+
+| Style           | Properties                      |
+| :-------------- | :------------------------------ |
+| content-start   | `alignContent: 'flex-start'`    |
+| content-center  | `alignContent: 'center'`        |
+| content-end     | `alignContent: 'flex-end'`      |
+| content-between | `alignContent: 'space-between'` |
+| content-around  | `alignContent: 'space-around'`  |
+
+### Usage
+
+<!-- prettier-ignore-start -->
+```jsx
+<View style={tw`content-start`}>
+  {/* ... */}
+</View>
+```
+<!-- prettier-ignore-end -->
+
+## React Native Web
+
+| Style           | Properties                      |
+| :-------------- | :------------------------------ |
+| content-start   | `alignContent: 'flex-start'`    |
+| content-center  | `alignContent: 'center'`        |
+| content-end     | `alignContent: 'flex-end'`      |
+| content-between | `alignContent: 'space-between'` |
+| content-around  | `alignContent: 'space-around'`  |
+
+### Usage
+
+For web-only styles, you can use them with the `web:` platform pseudo selector.
+
+<!-- prettier-ignore-start -->
+```jsx
+<View style={tw`web:content-center`}>
+  {/* ... */}
+</View>
+```
+<!-- prettier-ignore-end -->
+
+See in Tailwind website for more information [here](https://tailwindcss.com/docs/align-content)

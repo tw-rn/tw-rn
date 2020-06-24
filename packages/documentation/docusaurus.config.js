@@ -7,6 +7,7 @@ module.exports = {
   organizationName: "tw-rn", // Usually your GitHub org/user name.
   projectName: "tw-rn", // Usually your repo name.
   themeConfig: {
+    // sidebarCollapsible: false,
     navbar: {
       title: "",
       logo: {

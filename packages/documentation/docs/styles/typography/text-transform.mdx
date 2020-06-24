@@ -1,0 +1,46 @@
+---
+id: text-transform
+title: Text Transform
+---
+
+### React Native
+
+| Style       | Properties                     |
+| :---------- | :----------------------------- |
+| uppercase   | `text-transform: 'uppercase'`  |
+| lowercase   | `text-transform: 'lowercase'`  |
+| capitalize  | `text-transform: 'capitalize'` |
+| normal-case | `text-transform: 'none'`       |
+
+### Usage
+
+<!-- prettier-ignore-start -->
+```jsx
+<Text style={tw`uppercase`}>
+  {/* ... */}
+</Text>
+```
+<!-- prettier-ignore-end -->
+
+### React Native Web
+
+| Style       | Properties                     |
+| :---------- | :----------------------------- |
+| uppercase   | `text-transform: 'uppercase'`  |
+| lowercase   | `text-transform: 'lowercase'`  |
+| capitalize  | `text-transform: 'capitalize'` |
+| normal-case | `text-transform: 'none'`       |
+
+### Usage
+
+For web-only styles, you can use them with the `web:` platform pseudo selector.
+
+<!-- prettier-ignore-start -->
+```jsx
+<Text style={tw`web:lowercase`}>
+  {/* ... */}
+</Text>
+```
+<!-- prettier-ignore-end -->
+
+See in Tailwind website for more information [here](https://tailwindcss.com/docs/text-transform)

@@ -1,0 +1,44 @@
+---
+id: flex-wrap
+title: Flex Wrap
+---
+
+## React Native
+
+| Style             | Properties                  |
+| :---------------- | :-------------------------- |
+| flex-no-wrap      | `flex-wrap: 'nowrap'`       |
+| flex-wrap         | `flex-wrap: 'wrap'`         |
+| flex-wrap-reverse | `flex-wrap: 'wrap-reverse'` |
+
+### Usage
+
+<!-- prettier-ignore-start -->
+```jsx
+<View style={tw`flex-no-wrap`}>
+  {/* ... */}
+</View>
+```
+<!-- prettier-ignore-end -->
+
+## React Native Web
+
+| Style             | Properties                  |
+| :---------------- | :-------------------------- |
+| flex-no-wrap      | `flex-wrap: 'nowrap'`       |
+| flex-wrap         | `flex-wrap: 'wrap'`         |
+| flex-wrap-reverse | `flex-wrap: 'wrap-reverse'` |
+
+### Usage
+
+For web-only styles, you can use them with the `web:` platform pseudo selector.
+
+<!-- prettier-ignore-start -->
+```jsx
+<View style={tw`web:flex-wrap`}>
+  {/* ... */}
+</View>
+```
+<!-- prettier-ignore-end -->
+
+See in Tailwind website for more information [here](https://tailwindcss.com/docs/flex-wrap)

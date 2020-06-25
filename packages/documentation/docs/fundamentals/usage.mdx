@@ -1,0 +1,47 @@
+---
+id: usage
+title: Usage
+---
+
+To be able to use tw-rn, you need to use a Higher Order Component and a template literal.
+
+```jsx
+import { tw, withTwrn } from "tw-rn";
+```
+
+Then you can wrap React Native basic components to use:
+
+<!-- prettier-ignore-start -->
+```jsx
+import React from "react";
+import { View } from "react-native";
+import { tw, withTwrn } from "tw-rn";
+
+const TwrnView = withTwrn(View);
+
+export default function Component() {
+  return (
+    <TwrnView style={tw`flex justify-center items-center`}>
+      {/* ... */}
+    </TwrnView>
+  );
+}
+```
+<!-- prettier-ignore-end -->
+
+Or, for convenience, you can import the components wrapped directly from `tw-rn`
+
+<!-- prettier-ignore-start -->
+```jsx
+import React from "react";
+import { tw, View } from "tw-rn";
+
+export default function Component() {
+  return (
+    <View style={tw`flex justify-center items-center`}>
+      {/* ... */}
+    </View>
+  );
+}
+```
+<!-- prettier-ignore-end -->

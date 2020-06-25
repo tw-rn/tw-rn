@@ -1,0 +1,76 @@
+---
+id: max-width
+title: Max-Width
+---
+
+### React Native
+
+<div style={{ overflow: 'scroll', maxHeight: '500px', border: '1px solid var(--ifm-table-border-color)'}}>
+
+| Style           | Properties         |
+| :-------------- | :----------------- |
+| max-w-xs        | `maxWidth 320`     |
+| max-w-sm        | `maxWidth 384`     |
+| max-w-md        | `maxWidth 448`     |
+| max-w-lg        | `maxWidth 512`     |
+| max-w-xl        | `maxWidth 576`     |
+| max-w-2xl       | `maxWidth 672`     |
+| max-w-3xl       | `maxWidth 768`     |
+| max-w-4xl       | `maxWidth 896`     |
+| max-w-5xl       | `maxWidth 1024`    |
+| max-w-6xl       | `maxWidth 1152`    |
+| max-w-full      | `maxWidth: '100%'` |
+| max-w-screen-sm | `maxWidth: 640`    |
+| max-w-screen-md | `maxWidth: 768`    |
+| max-w-screen-lg | `maxWidth: 1024`   |
+| max-w-screen-xl | `maxWidth: 1280`   |
+
+</div>
+
+### Usage
+
+<!-- prettier-ignore-start -->
+```jsx
+<View style={tw`max-w-xs`}>
+  {/* ... */}
+</View>
+```
+<!-- prettier-ignore-end -->
+
+### React Native Web
+
+<div style={{ overflow: 'scroll', maxHeight: '500px', border: '1px solid var(--ifm-table-border-color)'}}>
+
+| Style           | Properties         |
+| :-------------- | :----------------- |
+| max-w-xs        | `maxWidth 320`     |
+| max-w-sm        | `maxWidth 384`     |
+| max-w-md        | `maxWidth 448`     |
+| max-w-lg        | `maxWidth 512`     |
+| max-w-xl        | `maxWidth 576`     |
+| max-w-2xl       | `maxWidth 672`     |
+| max-w-3xl       | `maxWidth 768`     |
+| max-w-4xl       | `maxWidth 896`     |
+| max-w-5xl       | `maxWidth 1024`    |
+| max-w-6xl       | `maxWidth 1152`    |
+| max-w-full      | `maxWidth: '100%'` |
+| max-w-screen-sm | `maxWidth: 640`    |
+| max-w-screen-md | `maxWidth: 768`    |
+| max-w-screen-lg | `maxWidth: 1024`   |
+| max-w-screen-xl | `maxWidth: 1280`   |
+
+</div>
+
+### Usage
+
+For web-only styles, you can use them with the `web:` platform pseudo selector.
+
+<!-- prettier-ignore-start -->
+```jsx
+<View style={tw`web:max-w-full`}>
+  {/* ... */}
+</View>
+```
+<!-- prettier-ignore-end -->
+
+See in Tailwind website for more information [here](https://tailwindcss.com/docs/max-width)

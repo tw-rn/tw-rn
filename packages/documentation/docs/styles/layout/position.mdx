@@ -1,0 +1,45 @@
+---
+id: position
+title: Position
+---
+
+### React Native
+
+| Style    | Properties             |
+| :------- | :--------------------- |
+| absolute | `position: 'absolute'` |
+| relative | `position: 'relative'` |
+
+## Usage
+
+<!-- prettier-ignore-start -->
+```jsx
+<View style={tw`absolute`}>
+  {/* ... */}
+</View>
+```
+<!-- prettier-ignore-end -->
+
+### React Native Web
+
+| Style    | Properties             |
+| :------- | :--------------------- |
+| static   | `position: 'static'`   |
+| fixed    | `position: 'fixed'`    |
+| absolute | `position: 'absolute'` |
+| relative | `position: 'relative'` |
+| sticky   | `position: 'sticky'`   |
+
+## Usage
+
+For web-only styles, you can use them with the `web:` platform pseudo selector.
+
+<!-- prettier-ignore-start -->
+```jsx
+<View style={tw`web:fixed`}>
+  {/* ... */}
+</View>
+```
+<!-- prettier-ignore-end -->
+
+See in Tailwind website for more information [here](https://tailwindcss.com/docs/position)

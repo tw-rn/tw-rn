@@ -1,0 +1,31 @@
+---
+id: user-select
+title: User Select
+---
+
+### React Native
+
+Not supported.
+
+## React Native Web
+
+| Style       | Properties           |
+| :---------- | :------------------- |
+| select-none | `userSelect: 'none'` |
+| select-text | `userSelect: 'text'` |
+| select-all  | `userSelect: 'all'`  |
+| select-auto | `userSelect: 'auto'` |
+
+### Usage
+
+For web-only styles, you can use them with the `web:` platform pseudo selector.
+
+<!-- prettier-ignore-start -->
+```jsx
+<View style={tw`web:select-none`}>
+  {/* ... */}
+</View>
+```
+<!-- prettier-ignore-end -->
+
+See in Tailwind website for more information [here](https://tailwindcss.com/docs/cursor)

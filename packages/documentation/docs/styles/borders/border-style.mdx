@@ -1,0 +1,44 @@
+---
+id: border-style
+title: Border Style
+---
+
+## React Native
+
+| Style         | Properties              |
+| :------------ | :---------------------- |
+| border-solid  | `borderStyle: 'solid'`  |
+| border-dashed | `borderStyle: 'dashed'` |
+| border-dotted | `borderStyle: 'dotted'` |
+
+### Usage
+
+<!-- prettier-ignore-start -->
+```jsx
+<View style={tw`border border-solid`}>
+  {/* ... */}
+</View>
+```
+<!-- prettier-ignore-end -->
+
+## React Native Web
+
+| Style         | Properties              |
+| :------------ | :---------------------- |
+| border-solid  | `borderStyle: 'solid'`  |
+| border-dashed | `borderStyle: 'dashed'` |
+| border-dotted | `borderStyle: 'dotted'` |
+
+### Usage
+
+For web-only styles, you can use them with the `web:` platform pseudo selector.
+
+<!-- prettier-ignore-start -->
+```jsx
+<View style={tw`border web:border-dashed`}>
+  {/* ... */}
+</View>
+```
+<!-- prettier-ignore-end -->
+
+See in Tailwind website for more information [here](https://tailwindcss.com/docs/border-styl)

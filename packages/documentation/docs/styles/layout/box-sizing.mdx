@@ -1,0 +1,36 @@
+---
+id: box-sizing
+title: Box Sizing
+---
+
+## React Native
+
+Not supported.
+
+## React Native Web
+
+| Style       | Properties                 |
+| :---------- | :------------------------- |
+| box-border  | `boxSizing: 'border-box'`  |
+| box-content | `boxSizing: 'content-box'` |
+
+### Usage
+
+For web-only styles, you can use them with the `web:` platform pseudo selector.
+
+<!-- prettier-ignore-start -->
+```jsx
+<View style={tw`web:box-border`}>
+  {/* ... */}
+</View>
+```
+
+```jsx
+<View style={tw`web:box-content`}>
+  {/* ... */}
+</View>
+```
+
+<!-- prettier-ignore-end -->
+
+See in Tailwind website for more information [here](https://tailwindcss.com/docs/box-sizing)

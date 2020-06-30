@@ -5,7 +5,7 @@ const postCSSExtensions = ["css"];
 
 const transformCss = async (content: string, filename: string, options: any) => {
   const styles = await process(content, "mobile");
-  const newSrc = `global.__TAILWINDCSS_NATIVE_STYLES__ = ${JSON.stringify(styles)}`;
+  const newSrc = `global.__TW_RN_STYLES__ = ${JSON.stringify(styles)}`;
 
   const transformed = upstreamTransformer.transform({ src: newSrc, filename, options });
 

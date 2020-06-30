@@ -1,8 +1,8 @@
 import React, { useMemo, useCallback, useState, FunctionComponent, ComponentType } from "react";
 import { StyleSheet, Platform, NativeSyntheticEvent, TargetedEvent } from "react-native";
 import { Style } from "./types";
-import { combineStyle } from "./helpers";
-import { useMediaStyle } from "./hooks";
+import { convertToTailwindReactNativeStyle } from "./helpers";
+import { usePlatformStyle, useMediaStyle, useTailwindReactNativeStyle } from "./hooks";
 
 export type TailwindNativeHocProps = {
   style?: Style;
@@ -12,7 +12,7 @@ export type TailwindNativeHocProps = {
   onBlur?: (e: NativeSyntheticEvent<TargetedEvent>) => void;
 };
 
-const withTailwindNative = <P extends object>(
+const withTwrn = <P extends object>(
   Component: ComponentType<P>
 ): FunctionComponent<TailwindNativeHocProps & Omit<P, "style">> => ({
   style,
@@ -22,44 +22,49 @@ const withTailwindNative = <P extends object>(
   onBlur,
   ...props
 }) => {
-  const combinedStyle = useMemo(() => combineStyle(style), [style]);
+  const tailwindReactNativeStyle = useTailwindReactNativeStyle(style);
 
-  const { mediaStyle, currentMediaQueryValue } = useMediaStyle(combinedStyle);
+  const platformStyle = usePlatformStyle(tailwindReactNativeStyle);
 
-  const [isHovered, setIsHovered] = useState(false);
-  const [isFocused, setIsFocused] = useState(false);
+  const mediaStyle = useMediaStyle(platformStyle);
 
-  const handleMouseEnter = useCallback(
-    (e) => {
-      setIsHovered(true);
-      onMouseEnter && onMouseEnter(e);
-    },
-    [onMouseEnter]
-  );
+  console.log({ platformStyle, mediaStyle });
 
-  const handleMouseLeave = useCallback(
-    (e) => {
-      setIsHovered(false);
-      onMouseLeave && onMouseLeave(e);
-    },
-    [onMouseLeave]
-  );
+  // const [isHovered, setIsHovered] = useState(false);
 
-  const handleFocus = useCallback(
-    (e) => {
-      setIsFocused(true);
-      onFocus && onFocus(e);
-    },
-    [onFocus]
-  );
+  // const [isFocused, setIsFocused] = useState(false);
 
-  const handleBlur = useCallback(
-    (e) => {
-      setIsFocused(false);
-      onBlur && onBlur(e);
-    },
-    [onBlur]
-  );
+  // const handleMouseEnter = useCallback(
+  //   (e) => {
+  //     setIsHovered(true);
+  //     onMouseEnter && onMouseEnter(e);
+  //   },
+  //   [onMouseEnter]
+  // );
+
+  // const handleMouseLeave = useCallback(
+  //   (e) => {
+  //     setIsHovered(false);
+  //     onMouseLeave && onMouseLeave(e);
+  //   },
+  //   [onMouseLeave]
+  // );
+
+  // const handleFocus = useCallback(
+  //   (e) => {
+  //     setIsFocused(true);
+  //     onFocus && onFocus(e);
+  //   },
+  //   [onFocus]
+  // );
+
+  // const handleBlur = useCallback(
+  //   (e) => {
+  //     setIsFocused(false);
+  //     onBlur && onBlur(e);
+  //   },
+  //   [onBlur]
+  // );
 
   // console.log({ style });
 
@@ -83,13 +88,14 @@ const withTailwindNative = <P extends object>(
   // const composedStyle = style
   // if (Platform.OS === "web" && typeof window === "undefined") return null;
 
-  if (currentMediaQueryValue === null) return null;
+  // if (currentMediaQueryValue === null) return null;
 
   // console.log({ mediaStyle });
 
   return (
     <Component
       style={mediaStyle}
+      // style={mediaStyle}
       // onMouseEnter={handleMouseEnter} // Should work only if this has a class that uses this
       // onMouseLeave={handleMouseLeave} // Should work only if this has a class that uses this
       // onFocus={handleFocus} // Should work only if this has a class that uses this
@@ -98,4 +104,5 @@ const withTailwindNative = <P extends object>(
     />
   );
 };
-export default withTailwindNative;
+
+export default withTwrn;

@@ -1,8 +1,8 @@
 import * as RN from "react-native";
-import withTwrn from "./hoc";
+import withTwrn from "./withTwrn";
 
 export { tw } from "./tw";
-export { default as withTwrn } from "./hoc";
+export { default as withTwrn } from "./withTwrn";
 
 // Basic Components
 export const View = withTwrn(RN.View);

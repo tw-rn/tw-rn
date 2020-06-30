@@ -15,7 +15,7 @@
     "test": "echo test",
     "core": "yarn workspace tw-rn",
     "playground": "yarn workspace @tw-rn/playground",
-    "reset": "find . -type dir -name node_modules | xargs rm -rf && yarn"
+    "reset": "find . -type dir -name node_modules | xargs rm -rf && lerna bootstrap"
   },
   "devDependencies": {
     "lerna": "^3.22.0"

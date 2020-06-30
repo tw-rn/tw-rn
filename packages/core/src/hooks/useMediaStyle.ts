@@ -3,20 +3,13 @@ import { Platform } from "react-native";
 import merge from "deepmerge";
 import { PlatformVariantStyle, ReactNativeStyle } from "../types";
 
-const isWeb = Platform.OS === "web";
-const isSSR = typeof window === "undefined" || typeof window.matchMedia === "undefined";
-
 export const useMediaStyle = (style: PlatformVariantStyle): ReactNativeStyle | undefined => {
   // Get the media query list matches from window
+  const isWeb = Platform.OS === "web";
+  const isNotBrowser = typeof window === "undefined" || typeof window.matchMedia === "undefined";
+
   const mediaQueryList = useMemo((): { [key: string]: MediaQueryList } => {
-    console.log({
-      isWeb,
-      isSSR,
-      window,
-      t1: typeof window === "undefined",
-      t2: typeof window.matchMedia === "undefined",
-    });
-    if (!isWeb || isSSR) return {};
+    if (!isWeb || isNotBrowser) return {};
 
     const { media = {} } = style;
     const queries = Object.keys(media);
@@ -29,8 +22,6 @@ export const useMediaStyle = (style: PlatformVariantStyle): ReactNativeStyle | u
   // Get the media query that current matches
   const getCurrentMediaQueryValue = useCallback(() => {
     const queries = Object.keys(mediaQueryList);
-
-    console.log({ mediaQueryList });
 
     // If is not found, set '' as default
     return queries.reverse().find((key) => mediaQueryList[key].matches) || "";
@@ -50,7 +41,7 @@ export const useMediaStyle = (style: PlatformVariantStyle): ReactNativeStyle | u
   // If we don't have any media queries this won't add anything, so if we're not
   // in a Window (web w/o SRR) it won't crash
   useEffect(() => {
-    if (isWeb && !isSSR) {
+    if (isWeb && !isNotBrowser) {
       const handler = () => setCurrentMediaQueryValue(getCurrentMediaQueryValue);
 
       const queries = Object.keys(mediaQueryList);
@@ -67,13 +58,12 @@ export const useMediaStyle = (style: PlatformVariantStyle): ReactNativeStyle | u
     const { media = {} } = style;
 
     // if is SSR, return undefined
-    if (isSSR) return;
-
-    // If is web, combine the non related media query values ('')
-    // with the current media query
+    if (isWeb && isNotBrowser) return;
 
     const defaultStyles = media?.[""] || {};
 
+    // If is web, combine the non related media query values ('')
+    // with the current media query
     if (isWeb) {
       const mediaQueryStyles = media?.[currentMediaQueryValue] || {};
       return merge(defaultStyles, mediaQueryStyles);

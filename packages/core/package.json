@@ -15,7 +15,8 @@
   "types": "dist/index.d.ts",
   "peerDependencies": {
     "react": "*",
-    "react-native": "*"
+    "react-native": "*",
+    "react-native-web": "^0.13.1"
   },
   "devDependencies": {
     "@testing-library/react-native": "^5.0.3",
@@ -41,6 +42,12 @@
   "dependencies": {
     "deepmerge": "^4.2.2",
     "fast-memoize": "^2.5.2"
+  },
+  "workspaces": {
+    "nohoist": [
+      "react-native-web",
+      "react-native-web/**"
+    ]
   },
   "publishConfig": {
     "access": "public"

@@ -19,11 +19,11 @@ describe("tw", () => {
       { __: { native: { media: { "(min-width: 640px)": { backgroundColor: "#ff0000" } } } } },
     ],
     [
-      ["md:bg-blue"],
+      ["md:bg-green"],
       { __: { native: { media: { "(min-width: 768px)": { backgroundColor: "#00ff00" } } } } },
     ],
     [
-      ["lg:bg-green"],
+      ["lg:bg-blue"],
       { __: { native: { media: { "(min-width: 1024px)": { backgroundColor: "#0000ff" } } } } },
     ],
     [
@@ -31,7 +31,7 @@ describe("tw", () => {
       { __: { native: { media: { "(min-width: 1280px)": { backgroundColor: "#000000" } } } } },
     ],
     [
-      ["bg-white", "sm:bg-red", "md:bg-blue", "lg:bg-green", "xl:bg-black"],
+      ["bg-white", "sm:bg-red", "md:bg-green", "lg:bg-blue", "xl:bg-black"],
       {
         __: {
           native: {
@@ -52,11 +52,11 @@ describe("tw", () => {
       { __: { web: { media: { "(min-width: 640px)": { backgroundColor: "#ff0000" } } } } },
     ],
     [
-      ["web:md:bg-blue"],
+      ["web:md:bg-green"],
       { __: { web: { media: { "(min-width: 768px)": { backgroundColor: "#00ff00" } } } } },
     ],
     [
-      ["web:lg:bg-green"],
+      ["web:lg:bg-blue"],
       { __: { web: { media: { "(min-width: 1024px)": { backgroundColor: "#0000ff" } } } } },
     ],
     [
@@ -64,7 +64,7 @@ describe("tw", () => {
       { __: { web: { media: { "(min-width: 1280px)": { backgroundColor: "#000000" } } } } },
     ],
     [
-      ["web:bg-white", "web:sm:bg-red", "web:md:bg-blue", "web:lg:bg-green", "web:xl:bg-black"],
+      ["web:bg-white", "web:sm:bg-red", "web:md:bg-green", "web:lg:bg-blue", "web:xl:bg-black"],
       {
         __: {
           web: {
@@ -85,11 +85,11 @@ describe("tw", () => {
       { __: { ios: { media: { "(min-width: 640px)": { backgroundColor: "#ff0000" } } } } },
     ],
     [
-      ["ios:md:bg-blue"],
+      ["ios:md:bg-green"],
       { __: { ios: { media: { "(min-width: 768px)": { backgroundColor: "#00ff00" } } } } },
     ],
     [
-      ["ios:lg:bg-green"],
+      ["ios:lg:bg-blue"],
       { __: { ios: { media: { "(min-width: 1024px)": { backgroundColor: "#0000ff" } } } } },
     ],
     [
@@ -97,7 +97,7 @@ describe("tw", () => {
       { __: { ios: { media: { "(min-width: 1280px)": { backgroundColor: "#000000" } } } } },
     ],
     [
-      ["ios:bg-white", "ios:sm:bg-red", "ios:md:bg-blue", "ios:lg:bg-green", "ios:xl:bg-black"],
+      ["ios:bg-white", "ios:sm:bg-red", "ios:md:bg-green", "ios:lg:bg-blue", "ios:xl:bg-black"],
       {
         __: {
           ios: {
@@ -118,11 +118,11 @@ describe("tw", () => {
       { __: { android: { media: { "(min-width: 640px)": { backgroundColor: "#ff0000" } } } } },
     ],
     [
-      ["android:md:bg-blue"],
+      ["android:md:bg-green"],
       { __: { android: { media: { "(min-width: 768px)": { backgroundColor: "#00ff00" } } } } },
     ],
     [
-      ["android:lg:bg-green"],
+      ["android:lg:bg-blue"],
       { __: { android: { media: { "(min-width: 1024px)": { backgroundColor: "#0000ff" } } } } },
     ],
     [
@@ -133,8 +133,8 @@ describe("tw", () => {
       [
         "android:bg-white",
         "android:sm:bg-red",
-        "android:md:bg-blue",
-        "android:lg:bg-green",
+        "android:md:bg-green",
+        "android:lg:bg-blue",
         "android:xl:bg-black",
       ],
       {

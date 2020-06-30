@@ -7,9 +7,8 @@ import { tw } from "../tw";
 const View = withTwrn(RnView);
 
 describe("withTwrn", () => {
-  afterEach(() => {
-    jest.resetModules();
-    delete global.window;
+  afterAll(() => {
+    Platform.OS = "ios";
   });
 
   it("should render correctly with no styles", () => {
@@ -39,35 +38,73 @@ describe("withTwrn", () => {
     expect(asJSON()).toMatchSnapshot();
   });
 
-  it("should not render media queries on ios", () => {
-    const { asJSON } = render(<View style={tw`sm:bg-red`} />);
+  describe("ios", () => {
+    beforeAll(() => {
+      Platform.OS = "ios";
+    });
 
-    expect(asJSON()).toMatchSnapshot();
+    it("should not render media queries", () => {
+      const { asJSON } = render(<View style={tw`sm:bg-red`} />);
+
+      expect(asJSON()).toMatchSnapshot();
+    });
   });
 
-  it("should not render media queries on android", () => {
-    const { asJSON } = render(<View style={tw`sm:bg-red`} />);
+  describe("android", () => {
+    beforeAll(() => {
+      Platform.OS = "android";
+    });
 
-    expect(asJSON()).toMatchSnapshot();
+    it("should not render media queries on android", () => {
+      const { asJSON } = render(<View style={tw`sm:bg-red`} />);
+
+      expect(asJSON()).toMatchSnapshot();
+    });
   });
 
-  it("should not render media queries on SSR", () => {
-    const { asJSON } = render(<View style={tw`sm:bg-red`} />);
+  describe("web", () => {
+    beforeAll(() => {
+      Platform.OS = "web";
+    });
 
-    expect(asJSON()).toMatchSnapshot();
-  });
+    afterAll(() => {
+      delete global.window;
+    });
 
-  it.only("should render media queries on web", () => {
-    // Platform.OS = "web";
+    beforeEach(() => {
+      (global.window as any) = {
+        matchMedia: jest.fn().mockImplementation(() => ({
+          matches: true,
+          addListener: jest.fn(),
+          removeListener: jest.fn(),
+        })),
+      };
+    });
 
-    (global.window as any) = {
-      matchMedia: jest.fn().mockImplementation(() => ({
-        matches: true,
-      })),
-    };
+    it("should not render on SSR", () => {
+      delete global.window;
 
-    const { asJSON } = render(<View style={tw`sm:bg-red`} />);
+      const { asJSON } = render(<View style={tw`sm:bg-red`} />);
 
-    expect(asJSON()).toMatchSnapshot();
+      expect(asJSON()).toMatchSnapshot();
+    });
+
+    it("should render media queries on web", () => {
+      const { asJSON } = render(<View style={tw`sm:bg-red`} />);
+
+      expect(asJSON()).toMatchSnapshot();
+    });
+
+    it("should render non media queries styles along media queries styles", () => {
+      const { asJSON } = render(<View style={tw`p-1 sm:bg-red`} />);
+
+      expect(asJSON()).toMatchSnapshot();
+    });
+
+    it("should respect queries order styles", () => {
+      const { asJSON } = render(<View style={tw`p-1 sm:bg-red md:bg-green`} />);
+
+      expect(asJSON()).toMatchSnapshot();
+    });
   });
 });

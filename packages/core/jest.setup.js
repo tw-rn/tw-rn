@@ -1,4 +1,4 @@
-// jest.mock("react-native/Libraries/Utilities/Platform", () => ({
-//   OS: "ios",
-//   select: jest.fn((selector) => selector.ios),
-// }));
+jest.mock("react-native/Libraries/Utilities/Platform", () => ({
+  OS: "ios",
+  select: jest.fn((selector) => selector.ios),
+}));

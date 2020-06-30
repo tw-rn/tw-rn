@@ -1,8 +1,14 @@
-import React, { useMemo, useCallback, useState, FunctionComponent, ComponentType } from "react";
-import { StyleSheet, Platform, NativeSyntheticEvent, TargetedEvent } from "react-native";
+import React, { useMemo, FunctionComponent, ComponentType } from "react";
+import { NativeSyntheticEvent, TargetedEvent } from "react-native";
+import merge from "deepmerge";
 import { Style } from "./types";
-import { convertToTailwindReactNativeStyle } from "./helpers";
-import { usePlatformStyle, useMediaStyle, useTailwindReactNativeStyle } from "./hooks";
+import {
+  usePlatformStyle,
+  useMediaStyle,
+  useTailwindReactNativeStyle,
+  useHoverStyle,
+  useFocusStyle,
+} from "./hooks";
 
 export type TailwindNativeHocProps = {
   style?: Style;
@@ -28,78 +34,31 @@ const withTwrn = <P extends object>(
 
   const mediaStyle = useMediaStyle(platformStyle);
 
-  console.log({ platformStyle, mediaStyle });
+  const { hoverStyle, handleOnMouseEnter, handleOnMouseLeave } = useHoverStyle(
+    platformStyle,
+    onMouseEnter,
+    onMouseLeave
+  );
 
-  // const [isHovered, setIsHovered] = useState(false);
+  const { focusStyle, handleOnFocus, handleOnBlur } = useFocusStyle(platformStyle, onFocus, onBlur);
 
-  // const [isFocused, setIsFocused] = useState(false);
+  const combinedStyle = useMemo(() => merge.all([mediaStyle || {}, hoverStyle, focusStyle]), [
+    mediaStyle,
+    hoverStyle,
+    focusStyle,
+  ]);
 
-  // const handleMouseEnter = useCallback(
-  //   (e) => {
-  //     setIsHovered(true);
-  //     onMouseEnter && onMouseEnter(e);
-  //   },
-  //   [onMouseEnter]
-  // );
-
-  // const handleMouseLeave = useCallback(
-  //   (e) => {
-  //     setIsHovered(false);
-  //     onMouseLeave && onMouseLeave(e);
-  //   },
-  //   [onMouseLeave]
-  // );
-
-  // const handleFocus = useCallback(
-  //   (e) => {
-  //     setIsFocused(true);
-  //     onFocus && onFocus(e);
-  //   },
-  //   [onFocus]
-  // );
-
-  // const handleBlur = useCallback(
-  //   (e) => {
-  //     setIsFocused(false);
-  //     onBlur && onBlur(e);
-  //   },
-  //   [onBlur]
-  // );
-
-  // console.log({ style });
-
-  // const platformComposed = useMemo(() => {
-  //   // const { native, web, ios, android } = reducedStyles;
-  //   // return StyleSheet.compose(native, Platform.select({ web, ios, android }));
-  // }, [reducedStyles]);
-
-  // const composedStyle = useMemo(() => {
-  //   const { hover, focus } = reducedStyles;
-
-  //   const hoverComposed = isHovered
-  //     ? StyleSheet.compose(platformComposed, hover)
-  //     : platformComposed;
-
-  //   const focusComposed = isFocused ? StyleSheet.compose(hoverComposed, focus) : hoverComposed;
-
-  //   return focusComposed;
-  // }, [platformComposed, isHovered, isFocused]);
-
-  // const composedStyle = style
-  // if (Platform.OS === "web" && typeof window === "undefined") return null;
-
-  // if (currentMediaQueryValue === null) return null;
-
-  // console.log({ mediaStyle });
+  // If media style is not applied, it means that we're in SSR and should not
+  // render because we don't have the destination size. Note: can be improved.
+  if (mediaStyle === undefined) return null;
 
   return (
     <Component
-      style={mediaStyle}
-      // style={mediaStyle}
-      // onMouseEnter={handleMouseEnter} // Should work only if this has a class that uses this
-      // onMouseLeave={handleMouseLeave} // Should work only if this has a class that uses this
-      // onFocus={handleFocus} // Should work only if this has a class that uses this
-      // onBlur={handleBlur} // Should work only if this has a class that uses this
+      style={combinedStyle}
+      onMouseEnter={handleOnMouseEnter}
+      onMouseLeave={handleOnMouseLeave}
+      onFocus={handleOnFocus}
+      onBlur={handleOnBlur}
       {...(props as P)}
     />
   );

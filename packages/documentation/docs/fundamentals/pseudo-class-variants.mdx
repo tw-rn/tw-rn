@@ -51,22 +51,6 @@ Add the `android:` prefix to apply a style when the platform is Android
 
 ## Other Variants
 
-### Landscape
-
-Add the `landscape:` prefix to apply a style when the device orientation is in landscape
-
-**Note**: This won't work in web
-
-```jsx
-// bg-teal-200 will be applied when the device is on landscape mode
-// once is on portrait mode, bg-teal-100 style will be applied
-<View style={tw`bg-teal-100 landscape:bg-teal-200`} />
-
-// bg-teal-200 will only be applied to landscape mode
-// no styles will be applied when the device is on portrait mode
-<View style={tw`landscape:bg-teal-200`} />
-```
-
 ### Focus
 
 Add the `focus:` prefix to apply a style on focus
@@ -79,20 +63,6 @@ Add the `focus:` prefix to apply a style on focus
 // bg-teal-200 will only be applied to focus mode
 // no styles will be applied when the device is on portrait mode
 <View style={tw`focus:bg-teal-200`} />
-```
-
-### Active
-
-Add the `active:` prefix to apply a style when an element is active
-
-```jsx
-// bg-teal-200 will be applied when the device is on active mode
-// once is on portrait mode, bg-teal-100 style will be applied
-<View style={tw`bg-teal-100 active:bg-teal-200`} />
-
-// bg-teal-200 will only be applied to active mode
-// no styles will be applied when the device is on portrait mode
-<View style={tw`active:bg-teal-200`} />
 ```
 
 ### Hover
@@ -110,6 +80,40 @@ Add the `hover:` prefix to apply a style when an element is hover
 // no styles will be applied when the device is on portrait mode
 <View style={tw`hover:bg-teal-200`} />
 ```
+
+### Landscape
+
+Coming soon.
+
+<!-- Add the `landscape:` prefix to apply a style when the device orientation is in landscape
+
+**Note**: This won't work in web
+
+```jsx
+// bg-teal-200 will be applied when the device is on landscape mode
+// once is on portrait mode, bg-teal-100 style will be applied
+<View style={tw`bg-teal-100 landscape:bg-teal-200`} />
+
+// bg-teal-200 will only be applied to landscape mode
+// no styles will be applied when the device is on portrait mode
+<View style={tw`landscape:bg-teal-200`} />
+``` -->
+
+### Active
+
+Coming soon.
+
+<!-- Add the `active:` prefix to apply a style when an element is active
+
+```jsx
+// bg-teal-200 will be applied when the device is on active mode
+// once is on portrait mode, bg-teal-100 style will be applied
+<View style={tw`bg-teal-100 active:bg-teal-200`} />
+
+// bg-teal-200 will only be applied to active mode
+// no styles will be applied when the device is on portrait mode
+<View style={tw`active:bg-teal-200`} />
+``` -->
 
 <!-- ### Disabled
 

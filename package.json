@@ -3,12 +3,6 @@
   "author": "Erick Tamayo",
   "license": "MIT",
   "private": true,
-  "workspaces": {
-    "packages": [
-      "packages/*"
-    ],
-    "nohoist": []
-  },
   "scripts": {
     "dev": "echo dev",
     "build": "echo build",

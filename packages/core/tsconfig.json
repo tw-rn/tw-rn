@@ -13,7 +13,7 @@
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "rootDir": "src",
-    "outDir": "build",
+    "outDir": "dist",
     "jsx": "react",
     "declaration": true,
     "declarationMap": true

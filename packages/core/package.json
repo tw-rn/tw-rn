@@ -16,9 +16,10 @@
   "peerDependencies": {
     "react": "*",
     "react-native": "*",
-    "react-native-web": "^0.13.1"
+    "react-native-web": "*"
   },
   "devDependencies": {
+    "@react-native-community/bob": "^0.16.2",
     "@testing-library/react-native": "^5.0.3",
     "@tw-rn/transformer": "^0.0.1-alpha.14",
     "@types/jest": "^26.0.3",
@@ -26,28 +27,31 @@
     "@types/react": "^16.9.35",
     "@types/react-native": "^0.62.12",
     "babel-jest": "^26.1.0",
+    "concurrently": "^5.2.0",
+    "declaration-bundler-webpack-plugin": "^1.0.3",
+    "install-peers-cli": "^2.2.0",
     "jest": "^26.1.0",
     "metro-react-native-babel-preset": "^0.59.0",
     "react-test-renderer": "^16.13.1",
-    "rollup": "^2.16.1",
+    "rollup": "^2.18.1",
     "rollup-plugin-typescript2": "^0.27.1",
     "ts-jest": "^26.1.1",
-    "typescript": "^3.9.3"
+    "ts-loader": "^7.0.5",
+    "typescript": "^3.9.3",
+    "webpack": "^4.43.0",
+    "webpack-cli": "^3.3.12"
   },
   "scripts": {
-    "build": "rollup -c rollup.config.js",
-    "dev": "rollup -c rollup.config.js --watch",
-    "test": "jest"
+    "build": "webpack --config webpack.config.js --mode production && tsc --emitDeclarationOnly",
+    "dev": "concurrently \"npm run dev:webpack\" \"npm run dev:tsc\"",
+    "dev:webpack": "webpack --config webpack.config.js --watch --mode development",
+    "dev:tsc": "tsc --emitDeclarationOnly --watch",
+    "test": "jest",
+    "prepare": "install-peers -f"
   },
   "dependencies": {
     "deepmerge": "^4.2.2",
     "fast-memoize": "^2.5.2"
-  },
-  "workspaces": {
-    "nohoist": [
-      "react-native-web",
-      "react-native-web/**"
-    ]
   },
   "publishConfig": {
     "access": "public"

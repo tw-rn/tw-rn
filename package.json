@@ -4,7 +4,7 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "dev": "echo dev",
+    "dev": "lerna run dev --stream --parallel --ignore @tw-rn/playground",
     "build": "echo build",
     "test": "echo test",
     "core": "yarn workspace tw-rn",

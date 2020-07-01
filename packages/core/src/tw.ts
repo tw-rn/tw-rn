@@ -29,19 +29,19 @@ const stylesEntries = Object.entries(styles || []);
 
 const emptyStyles: ComputedTailwindReactNativeStyles = {};
 
-const findStyleWithMedia = (
+const findStylesWithMedia = (
   styleName: string
-): { media: string; style: ReactNativeStyle } | undefined => {
-  const found = stylesEntries.find(([, styles]) => typeof styles[styleName] !== "undefined");
+): { media: string; style: ReactNativeStyle }[] | undefined => {
+  const matchingStyles = stylesEntries.filter(
+    ([, styles]) => typeof styles[styleName] !== "undefined"
+  );
 
-  if (!found) return;
+  if (matchingStyles.length === 0) return;
 
-  const [media, styles] = found;
-
-  return { media, style: styles[styleName] };
+  return matchingStyles.map(([media, styles]) => ({ media, style: styles[styleName] }));
 };
 
-const findStyleWithMediaMemoized = memoize(findStyleWithMedia);
+const findStylesWithMediaMemoized = memoize(findStylesWithMedia);
 
 export const generate = (styleNames: string[]): TailwindReactNativeStyle => {
   if (typeof styles === "undefined") return {};
@@ -62,15 +62,21 @@ export const generate = (styleNames: string[]): TailwindReactNativeStyle => {
 
       const [, variant = "media", styleStyleName] = styleRegExpExecArray;
 
-      const foundStyle = findStyleWithMediaMemoized(styleStyleName);
+      const foundStyles = findStylesWithMediaMemoized(styleStyleName);
 
-      if (!foundStyle) return acc;
+      if (!foundStyles) return acc;
 
-      const { media, style } = foundStyle;
+      const computedStyles = foundStyles.reduce<ComputedTailwindReactNativeStyles>(
+        (acc, { media, style }) => {
+          const computed = {
+            [platform]:
+              variant === "media" ? { [variant]: { [media]: style } } : { [variant]: style },
+          };
 
-      const computedStyles: ComputedTailwindReactNativeStyles = {
-        [platform]: variant === "media" ? { [variant]: { [media]: style } } : { [variant]: style },
-      };
+          return merge(acc, computed);
+        },
+        {}
+      );
 
       return merge(acc, computedStyles);
     },
@@ -89,14 +95,14 @@ export const generateTailwindReactNativeStyle = (
     return {};
   }
 
-  const computedStyles = stylesArray
+  const mergedStyles = stylesArray
     .map((chunk, index) => `${chunk}${variables[index] || ""}`)
     .join("")
     .replace(/\s{2,}/g, " ")
     .split(" ")
     .filter(Boolean);
 
-  return generate(computedStyles);
+  return generate(mergedStyles);
 };
 
 export const tw = memoize(generateTailwindReactNativeStyle, {

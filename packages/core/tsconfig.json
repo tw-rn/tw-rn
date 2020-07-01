@@ -13,11 +13,10 @@
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "rootDir": "src",
-    "outDir": "build",
     "jsx": "react",
     "declaration": true,
     "declarationMap": true
   },
-  "include": ["./src"],
+  "include": ["./src", "jest.setup.js"],
   "exclude": ["node_modules"]
 }

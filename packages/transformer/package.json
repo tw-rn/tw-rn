@@ -10,7 +10,7 @@
   "peerDependencies": {
     "metro-config": "^0.59.0",
     "react": "*",
-    "react-native": ""
+    "react-native": "*"
   },
   "devDependencies": {
     "@types/node": "^14.0.6",

@@ -4,10 +4,11 @@
   "private": true,
   "main": "__generated__/AppEntry.js",
   "scripts": {
-    "dev": "next",
+    "dev": "concurrently \"npm run rsync\" \"next\"",
+    "rsync": "nodemon --exec \"rsync -av ../core/* ./node_modules/tw-rn/ --exclude node_modules/ --exclude .jest/\"",
     "build": "next build",
     "start": "expo start",
-    "expo:start": "expo start --clear",
+    "expo:start": "concurrently \"npm run rsync\" \"expo start\"",
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "next",
@@ -17,12 +18,14 @@
     "postinstall": "expo-yarn-workspaces postinstall"
   },
   "dependencies": {
+    "deepmerge": "^4.2.2",
     "expo": "~37.0.3",
+    "fast-memoize": "^2.5.2",
     "next": "latest",
     "react": "~16.9.0",
     "react-dom": "~16.9.0",
     "react-native": "https://github.com/expo/react-native/archive/sdk-37.0.1.tar.gz",
-    "react-native-web": "~0.11.7",
+    "react-native-web": "^0.13.1",
     "tw-rn": "^0.0.1-alpha.14"
   },
   "devDependencies": {
@@ -31,13 +34,15 @@
     "@tw-rn/loader": "^0.0.1-alpha.14",
     "@tw-rn/next-adapter": "^0.0.1-alpha.14",
     "@tw-rn/transformer": "^0.0.1-alpha.14",
-    "@types/node": "14.0.4",
+    "@types/node": "14.0.6",
     "@types/react": "16.9.35",
     "@types/react-dom": "16.9.8",
-    "@types/react-native": "0.62.10",
+    "@types/react-native": "0.62.12",
     "babel-preset-expo": "~8.1.0",
+    "concurrently": "^5.2.0",
     "expo-yarn-workspaces": "^1.2.1",
     "next-transpile-modules": "^3.3.0",
+    "nodemon": "^2.0.4",
     "typescript": "3.9.3"
   }
 }

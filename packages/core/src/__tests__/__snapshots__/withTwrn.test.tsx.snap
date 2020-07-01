@@ -1,0 +1,205 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`withTwrn android should not render media queries on android 1`] = `
+<View
+  collapsable={true}
+  pointerEvents="box-none"
+  style={
+    Object {
+      "flex": 1,
+    }
+  }
+>
+  <View
+    style={Object {}}
+  />
+</View>
+`;
+
+exports[`withTwrn ios should not render media queries 1`] = `
+<View
+  collapsable={true}
+  pointerEvents="box-none"
+  style={
+    Object {
+      "flex": 1,
+    }
+  }
+>
+  <View
+    style={Object {}}
+  />
+</View>
+`;
+
+exports[`withTwrn should render correctly with no styles 1`] = `
+<View
+  collapsable={true}
+  pointerEvents="box-none"
+  style={
+    Object {
+      "flex": 1,
+    }
+  }
+>
+  <View
+    style={Object {}}
+  />
+</View>
+`;
+
+exports[`withTwrn should render regular react-native styles 1`] = `
+<View
+  collapsable={true}
+  pointerEvents="box-none"
+  style={
+    Object {
+      "flex": 1,
+    }
+  }
+>
+  <View
+    style={
+      Object {
+        "backgroundColor": "#ff0000",
+      }
+    }
+  />
+</View>
+`;
+
+exports[`withTwrn should render regular react-native styles 2`] = `
+<View
+  collapsable={true}
+  pointerEvents="box-none"
+  style={
+    Object {
+      "flex": 1,
+    }
+  }
+>
+  <View
+    style={
+      Object {
+        "backgroundColor": "#ff0000",
+        "padding": 10,
+      }
+    }
+  />
+</View>
+`;
+
+exports[`withTwrn should render tw-rn base and regular react-native styles correctly 1`] = `
+<View
+  collapsable={true}
+  pointerEvents="box-none"
+  style={
+    Object {
+      "flex": 1,
+    }
+  }
+>
+  <View
+    style={
+      Object {
+        "backgroundColor": "#ffffff",
+        "padding": 10,
+      }
+    }
+  />
+</View>
+`;
+
+exports[`withTwrn should render tw-rn base styles correctly in ios 1`] = `
+<View
+  collapsable={true}
+  pointerEvents="box-none"
+  style={
+    Object {
+      "flex": 1,
+    }
+  }
+>
+  <View
+    style={
+      Object {
+        "backgroundColor": "#ffffff",
+      }
+    }
+  />
+</View>
+`;
+
+exports[`withTwrn web should not render on SSR 1`] = `
+<View
+  collapsable={true}
+  pointerEvents="box-none"
+  style={
+    Object {
+      "flex": 1,
+    }
+  }
+/>
+`;
+
+exports[`withTwrn web should render media queries on web 1`] = `
+<View
+  collapsable={true}
+  pointerEvents="box-none"
+  style={
+    Object {
+      "flex": 1,
+    }
+  }
+>
+  <View
+    style={
+      Object {
+        "backgroundColor": "#ff0000",
+      }
+    }
+  />
+</View>
+`;
+
+exports[`withTwrn web should render non media queries styles along media queries styles 1`] = `
+<View
+  collapsable={true}
+  pointerEvents="box-none"
+  style={
+    Object {
+      "flex": 1,
+    }
+  }
+>
+  <View
+    style={
+      Object {
+        "backgroundColor": "#ff0000",
+        "padding": 4,
+      }
+    }
+  />
+</View>
+`;
+
+exports[`withTwrn web should respect queries order styles 1`] = `
+<View
+  collapsable={true}
+  pointerEvents="box-none"
+  style={
+    Object {
+      "flex": 1,
+    }
+  }
+>
+  <View
+    style={
+      Object {
+        "backgroundColor": "#00ff00",
+        "padding": 4,
+      }
+    }
+  />
+</View>
+`;

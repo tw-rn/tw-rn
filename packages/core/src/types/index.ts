@@ -1,9 +1,9 @@
-import { ViewStyle, TextStyle, ImageStyle, StyleProp, ViewProps } from "react-native";
+import { ViewStyle, TextStyle, ImageStyle, StyleProp } from "react-native";
 
 declare global {
   namespace NodeJS {
     interface Global {
-      __TAILWINDCSS_NATIVE_STYLES__:
+      __TW_RN_STYLES__:
         | {
             [key: string]: { [styleName: string]: { [styleProp: string]: number | string } };
           }
@@ -12,44 +12,60 @@ declare global {
   }
 }
 
-export type NamedStyles = { [P: string]: ViewStyle | TextStyle | ImageStyle };
-
-export interface TailWindViewStyle extends ViewStyle, TailwindStyle {}
-
 export type Style =
-  | StyleProp<ViewStyle & TailwindStyle>
-  | StyleProp<TextStyle & TailwindStyle>
-  | StyleProp<ImageStyle & TailwindStyle>;
+  | StyleProp<ViewStyle & TailwindReactNativeStyle>
+  | StyleProp<TextStyle & TailwindReactNativeStyle>
+  | StyleProp<ImageStyle & TailwindReactNativeStyle>;
 
-// | TextStyle | ImageStyle | TailwindStyles
-
-export const plaformDefaultVariant = "native";
-
-export const platforVariants = <const>[plaformDefaultVariant, "web", "ios", "android"];
-
-// export const focusVariant = "focus";
-
-// export const hoverVariant = "hover";
-
-// export type MediaVariant = "media";
-
-// export const supportedVariants = <const>[...platforVariants, focusVariant, hoverVariant];
-
-// export type VariantType = typeof supportedVariants[number];
-
-export enum Variant {
+export enum Variants {
+  Native = "native",
+  Web = "web",
+  Ios = "ios",
+  Android = "android",
+  Media = "media",
+  Landscape = "landscape",
   Focus = "focus",
+  Active = "active",
   Hover = "hover",
+  Disabled = "disabled",
+  Visited = "visited",
+  Keyboard = "keyboard",
 }
 
-export interface TailwindStyle {
-  media?: { [key: string]: ViewStyle | TextStyle | ImageStyle };
-}
+export const DefaultPlatformVariant = Variants.Native;
 
-// export type TailwindStyles =
-//   // {
-//   //   [key in Variant]?: any[];
-//   // } &
-//   {
-//     media: { [key: string]: any[] };
-//   };
+export type PlatformVariant = Variants.Native | Variants.Web | Variants.Ios | Variants.Android;
+
+export const platformVariants: PlatformVariant[] = [
+  Variants.Native,
+  Variants.Web,
+  Variants.Ios,
+  Variants.Android,
+];
+
+export type StyleVariants =
+  | Variants.Landscape
+  | Variants.Focus
+  | Variants.Active
+  | Variants.Hover
+  | Variants.Disabled
+  | Variants.Visited
+  | Variants.Keyboard;
+
+export type ReactNativeStyle = ViewStyle | TextStyle | ImageStyle;
+
+export type MediaStyles = { [Variants.Media]?: { [key: string]: ReactNativeStyle } };
+
+export type VariantsStyles = { [key in StyleVariants]?: ReactNativeStyle };
+
+export type AnimationConfiguration = {};
+
+export type AnimationsStyle = { animation?: AnimationConfiguration };
+
+export type PlatformVariantStyle = MediaStyles & VariantsStyles & AnimationsStyle;
+
+export type ComputedTailwindReactNativeStyles = {
+  [key in PlatformVariant]?: PlatformVariantStyle;
+};
+
+export type TailwindReactNativeStyle = { __?: ComputedTailwindReactNativeStyles };

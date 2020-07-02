@@ -15,6 +15,7 @@ const platforVariantRegex = new RegExp(`^(${platformVariants.join("|")})?:?([:a-
 
 const styleVariants: StyleVariants[] = [
   Variants.Landscape,
+  Variants.Portrait,
   Variants.Focus,
   Variants.Active,
   Variants.Hover,

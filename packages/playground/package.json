@@ -10,7 +10,7 @@
     "start": "expo start",
     "expo:start": "concurrently \"npm run rsync\" \"expo start\"",
     "android": "expo start --android",
-    "ios": "expo start --ios",
+    "ios": "concurrently \"npm run rsync\" \"expo start --ios\"",
     "web": "next",
     "eject-next": "next-expo customize",
     "eject": "expo eject",
@@ -34,15 +34,15 @@
     "@tw-rn/loader": "^0.0.1",
     "@tw-rn/next-adapter": "^0.0.1",
     "@tw-rn/transformer": "^0.0.1",
-    "@types/node": "14.0.6",
-    "@types/react": "16.9.35",
+    "@types/node": "^14.0.14",
+    "@types/react": "^16.9.41",
     "@types/react-dom": "16.9.8",
-    "@types/react-native": "0.62.12",
+    "@types/react-native": "^0.62.16",
     "babel-preset-expo": "~8.1.0",
     "concurrently": "^5.2.0",
     "expo-yarn-workspaces": "^1.2.1",
     "next-transpile-modules": "^3.3.0",
     "nodemon": "^2.0.4",
-    "typescript": "3.9.3"
+    "typescript": "^3.9.6"
   }
 }

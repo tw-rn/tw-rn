@@ -13,7 +13,7 @@ Add the `web:` prefix to apply a style when the platform is Web
 
 ```jsx
 // bg-gray-200 will be applied to web
-// others platforms will apply bg-gray-100 style
+// other platforms will apply bg-gray-100 style
 <View style={tw`bg-gray-100 web:bg-gray-200`} />
 
 // bg-gray-200 will only be applied to web
@@ -27,7 +27,7 @@ Add the `ios:` prefix to apply a style when the platform is iOS
 
 ```jsx
 // bg-blue-200 will be applied to ios
-// others platforms will apply bg-blue-100 style
+// other platforms will apply bg-blue-100 style
 <View style={tw`bg-blue-100 ios:bg-blue-200`} />
 
 // bg-blue-200 will only be applied to ios
@@ -41,7 +41,7 @@ Add the `android:` prefix to apply a style when the platform is Android
 
 ```jsx
 // bg-green-200 will be applied to android
-// others platforms will apply bg-green-100 style
+// other platforms will apply bg-green-100 style
 <View style={tw`bg-green-100 android:bg-green-200`} />
 
 // bg-green-200 will only be applied to android
@@ -58,11 +58,11 @@ Add the `focus:` prefix to apply a style on focus
 ```jsx
 // bg-teal-200 will be applied when the device is on focus mode
 // once is on portrait mode, bg-teal-100 style will be applied
-<View style={tw`bg-teal-100 focus:bg-teal-200`} />
+<TextInput style={tw`bg-teal-100 focus:bg-teal-200`} />
 
 // bg-teal-200 will only be applied to focus mode
 // no styles will be applied when the device is on portrait mode
-<View style={tw`focus:bg-teal-200`} />
+<TextInput style={tw`focus:bg-teal-200`} />
 ```
 
 ### Hover
@@ -83,9 +83,7 @@ Add the `hover:` prefix to apply a style when an element is hover
 
 ### Landscape
 
-Coming soon.
-
-<!-- Add the `landscape:` prefix to apply a style when the device orientation is in landscape
+Add the `landscape:` prefix to apply a style when the device orientation is in landscape
 
 **Note**: This won't work in web
 
@@ -97,11 +95,27 @@ Coming soon.
 // bg-teal-200 will only be applied to landscape mode
 // no styles will be applied when the device is on portrait mode
 <View style={tw`landscape:bg-teal-200`} />
-``` -->
+```
 
-### Active
+### Portrait
 
-Coming soon.
+Add the `portrait:` prefix to apply a style when the device orientation is in portrait
+
+**Note**: This won't work in web
+
+```jsx
+// bg-teal-200 will be applied when the device is on portrait mode
+// once is on portrait mode, bg-teal-100 style will be applied
+<View style={tw`bg-teal-100 portrait:bg-teal-200`} />
+
+// bg-teal-200 will only be applied to portrait mode
+// no styles will be applied when the device is on portrait mode
+<View style={tw`portrait:bg-teal-200`} />
+```
+
+<!-- ### Active
+
+Coming soon. -->
 
 <!-- Add the `active:` prefix to apply a style when an element is active
 

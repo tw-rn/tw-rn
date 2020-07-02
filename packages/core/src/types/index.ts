@@ -23,6 +23,7 @@ export enum Variants {
   Ios = "ios",
   Android = "android",
   Media = "media",
+  Portrait = "portrait",
   Landscape = "landscape",
   Focus = "focus",
   Active = "active",
@@ -45,6 +46,7 @@ export const platformVariants: PlatformVariant[] = [
 
 export type StyleVariants =
   | Variants.Landscape
+  | Variants.Portrait
   | Variants.Focus
   | Variants.Active
   | Variants.Hover

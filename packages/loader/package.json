@@ -9,8 +9,8 @@
   "types": "dist/index.d.ts",
   "devDependencies": {
     "@tw-rn/processor": "^0.0.1",
-    "@types/node": "^14.0.6",
-    "typescript": "^3.9.3"
+    "@types/node": "^14.0.14",
+    "typescript": "^3.9.6"
   },
   "scripts": {
     "build": "tsc",

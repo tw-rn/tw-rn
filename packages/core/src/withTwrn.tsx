@@ -8,6 +8,7 @@ import {
   useTailwindReactNativeStyle,
   useHoverStyle,
   useFocusStyle,
+  useOrientationStyle,
 } from "./hooks";
 
 export type TailwindNativeHocProps = {
@@ -42,11 +43,13 @@ const withTwrn = <P extends object>(
 
   const { focusStyle, handleOnFocus, handleOnBlur } = useFocusStyle(platformStyle, onFocus, onBlur);
 
-  const combinedStyle = useMemo(() => merge.all([mediaStyle || {}, hoverStyle, focusStyle]), [
-    mediaStyle,
-    hoverStyle,
-    focusStyle,
-  ]);
+  const orientationStyle = useOrientationStyle(platformStyle);
+
+  const combinedStyle = useMemo(() => {
+    if (!mediaStyle) return;
+
+    return merge.all([mediaStyle, orientationStyle, hoverStyle, focusStyle]);
+  }, [mediaStyle, orientationStyle, hoverStyle, focusStyle]);
 
   // If media style is not applied, it means that we're in SSR and should not
   // render because we don't have the destination size. Note: can be improved.

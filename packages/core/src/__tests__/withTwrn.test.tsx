@@ -1,5 +1,5 @@
 import React from "react";
-import { View as RnView, TextInput as RnTextInput, Platform } from "react-native";
+import { View as RnView, TextInput as RnTextInput, Platform, Dimensions } from "react-native";
 import { render, fireEvent, NativeTestEvent, wait, toJSON } from "@testing-library/react-native";
 import withTwrn from "../withTwrn";
 import { tw } from "../tw";
@@ -14,31 +14,40 @@ describe("withTwrn", () => {
 
   it("should render correctly with no styles", () => {
     const { getByTestId } = render(<View testID="view" />);
-    expect(toJSON(getByTestId("view"))).toMatchSnapshot();
+
+    const { getProp } = getByTestId("view");
+
+    expect(getProp("style")).toEqual({});
   });
 
   it("should render regular react-native styles", () => {
     const { getByTestId, rerender } = render(
-      <View testID="view" style={{ backgroundColor: "#ff0000" }} />
+      <View testID="view" style={{ backgroundColor: "#ffffff" }} />
     );
 
-    expect(toJSON(getByTestId("view"))).toMatchSnapshot();
+    const { getProp } = getByTestId("view");
 
-    rerender(<View testID="view" style={[{ backgroundColor: "#ff0000" }, { padding: 10 }]} />);
+    expect(getProp("style")).toEqual({ backgroundColor: "#ffffff" });
 
-    expect(toJSON(getByTestId("view"))).toMatchSnapshot();
+    rerender(<View testID="view" style={[{ backgroundColor: "#ffffff" }, { padding: 10 }]} />);
+
+    expect(getProp("style")).toEqual({ backgroundColor: "#ffffff", padding: 10 });
   });
 
   it("should render tw-rn base styles correctly in ios", () => {
     const { getByTestId } = render(<View testID="view" style={tw`bg-white`} />);
 
-    expect(toJSON(getByTestId("view"))).toMatchSnapshot();
+    const { getProp } = getByTestId("view");
+
+    expect(getProp("style")).toEqual({ backgroundColor: "#ffffff" });
   });
 
   it("should render tw-rn base and regular react-native styles correctly", () => {
     const { getByTestId } = render(<View testID="view" style={[tw`bg-white`, { padding: 10 }]} />);
 
-    expect(toJSON(getByTestId("view"))).toMatchSnapshot();
+    const { getProp } = getByTestId("view");
+
+    expect(getProp("style")).toEqual({ backgroundColor: "#ffffff", padding: 10 });
   });
 
   it("should render correctly the hover: pseudo selector", async () => {
@@ -54,47 +63,31 @@ describe("withTwrn", () => {
       />
     );
 
+    const { getProp } = getByTestId("view");
+
     // Idle
-    expect(toJSON(getByTestId("view"))).toMatchSnapshot("hover: - idle");
+    expect(getProp("style")).toEqual({});
 
     // Hover
     fireEvent(getByTestId("view"), new NativeTestEvent("mouseEnter", { nativeEvent: {} }));
 
     await wait(() => expect(handleOnMouseEnter).toBeCalled());
 
-    rerender(
-      <View
-        testID="view"
-        style={tw`hover:bg-white`}
-        onMouseEnter={handleOnMouseEnter}
-        onMouseLeave={handleOnMouseLeave}
-      />
-    );
-
-    expect(toJSON(getByTestId("view"))).toMatchSnapshot("hover: - hovered");
+    expect(getProp("style")).toEqual({ backgroundColor: "#ffffff" });
 
     // No hover
     fireEvent(getByTestId("view"), new NativeTestEvent("mouseLeave", { nativeEvent: {} }));
 
     await wait(() => expect(handleOnMouseLeave).toBeCalled());
 
-    rerender(
-      <View
-        testID="view"
-        style={tw`hover:bg-white`}
-        onMouseEnter={handleOnMouseEnter}
-        onMouseLeave={handleOnMouseLeave}
-      />
-    );
-
-    expect(toJSON(getByTestId("view"))).toMatchSnapshot("hover: - no-hover");
+    expect(getProp("style")).toEqual({});
   });
 
   it("should render correctly the focus: pseudo selector", async () => {
     const handleOnFocus = jest.fn();
     const handleOnBlur = jest.fn();
 
-    const { getByTestId, asJSON, rerender } = render(
+    const { getByTestId } = render(
       <TextInput
         testID="text-input"
         style={tw`focus:bg-white`}
@@ -103,40 +96,44 @@ describe("withTwrn", () => {
       />
     );
 
+    const { getProp } = getByTestId("text-input");
+
     // Idle
-    expect(toJSON(getByTestId("text-input"))).toMatchSnapshot("focus: - idle");
+    expect(getProp("style")).toEqual({});
 
     // Focus
     fireEvent.focus(getByTestId("text-input"));
 
     await wait(() => expect(handleOnFocus).toBeCalled());
 
-    rerender(
-      <TextInput
-        testID="text-input"
-        style={tw`focus:bg-white`}
-        onFocus={handleOnFocus}
-        onBlur={handleOnBlur}
-      />
-    );
-
-    expect(toJSON(getByTestId("text-input"))).toMatchSnapshot("focus: - focused");
+    expect(getProp("style")).toEqual({ backgroundColor: "#ffffff" });
 
     // Blur
     fireEvent.blur(getByTestId("text-input"));
 
     await wait(() => expect(handleOnBlur).toBeCalled());
 
-    rerender(
-      <TextInput
-        testID="text-input"
-        style={tw`focus:bg-white`}
-        onFocus={handleOnFocus}
-        onBlur={handleOnBlur}
-      />
-    );
+    expect(getProp("style")).toEqual({});
+  });
 
-    expect(toJSON(getByTestId("text-input"))).toMatchSnapshot("focus: - blurred");
+  it("should render correctly the portrait: orientation pseudo selector", () => {
+    (Dimensions.get as jest.Mock).mockImplementation(() => ({ height: 10, width: 5 }));
+
+    const { getByTestId } = render(<View testID="view" style={tw`portrait:bg-white`} />);
+
+    const { getProp } = getByTestId("view");
+
+    expect(getProp("style")).toEqual({ backgroundColor: "#ffffff" });
+  });
+
+  it("should render correctly the landscape: orientation pseudo selector", () => {
+    (Dimensions.get as jest.Mock).mockImplementation(() => ({ height: 5, width: 10 }));
+
+    const { getByTestId } = render(<View testID="view" style={tw`landscape:bg-white`} />);
+
+    const { getProp } = getByTestId("view");
+
+    expect(getProp("style")).toEqual({ backgroundColor: "#ffffff" });
   });
 
   describe("ios", () => {
@@ -147,7 +144,9 @@ describe("withTwrn", () => {
     it("should not render media queries", () => {
       const { getByTestId } = render(<View testID="view" style={tw`sm:bg-red`} />);
 
-      expect(toJSON(getByTestId("view"))).toMatchSnapshot();
+      const { getProp } = getByTestId("view");
+
+      expect(getProp("style")).toEqual({});
     });
   });
 
@@ -157,9 +156,11 @@ describe("withTwrn", () => {
     });
 
     it("should not render media queries on android", () => {
-      const { asJSON } = render(<View testID="view" style={tw`sm:bg-red`} />);
+      const { getByTestId } = render(<View testID="view" style={tw`sm:bg-red`} />);
 
-      expect(asJSON()).toMatchSnapshot();
+      const { getProp } = getByTestId("view");
+
+      expect(getProp("style")).toEqual({});
     });
   });
 
@@ -185,27 +186,33 @@ describe("withTwrn", () => {
     it("should not render on SSR", () => {
       delete global.window;
 
-      const { asJSON } = render(<View testID="view" style={tw`sm:bg-red`} />);
+      const { getByTestId } = render(<View testID="view" style={tw`sm:bg-red`} />);
 
-      expect(asJSON()).toMatchSnapshot();
+      expect(() => getByTestId("view")).toThrow();
     });
 
     it("should render media queries on web", () => {
       const { getByTestId } = render(<View testID="view" style={tw`sm:bg-red`} />);
 
-      expect(toJSON(getByTestId("view"))).toMatchSnapshot();
+      const { getProp } = getByTestId("view");
+
+      expect(getProp("style")).toEqual({ backgroundColor: "#ff0000" });
     });
 
     it("should render non media queries styles along media queries styles", () => {
       const { getByTestId } = render(<View testID="view" style={tw`p-1 sm:bg-red`} />);
 
-      expect(toJSON(getByTestId("view"))).toMatchSnapshot();
+      const { getProp } = getByTestId("view");
+
+      expect(getProp("style")).toEqual({ padding: 4, backgroundColor: "#ff0000" });
     });
 
     it("should respect queries order styles", () => {
       const { getByTestId } = render(<View testID="view" style={tw`p-1 sm:bg-red md:bg-green`} />);
 
-      expect(toJSON(getByTestId("view"))).toMatchSnapshot();
+      const { getProp } = getByTestId("view");
+
+      expect(getProp("style")).toEqual({ padding: 4, backgroundColor: "#00ff00" });
     });
   });
 });

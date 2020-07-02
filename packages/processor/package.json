@@ -7,9 +7,6 @@
   "main": "dist/index.js",
   "module": "dist/index.es.js",
   "types": "dist/index.d.ts",
-  "peerDependencies": {
-    "next": "^9"
-  },
   "devDependencies": {
     "@types/md5": "^2.2.0",
     "@types/node": "^14.0.14",

@@ -9,8 +9,6 @@ import {
   platformVariants,
 } from "./types";
 
-const styles = global.__TW_RN_STYLES__;
-
 const platforVariantRegex = new RegExp(`^(${platformVariants.join("|")})?:?([:a-zA-Z_0-9-]+)$`);
 
 const styleVariants: StyleVariants[] = [
@@ -26,7 +24,7 @@ const styleVariants: StyleVariants[] = [
 
 const styleVariantRegex = new RegExp(`^(${styleVariants.join("|")})?:?([:a-zA-Z_0-9-]+)$`);
 
-const stylesEntries = Object.entries(styles || []);
+const stylesEntries = Object.entries(global.__TW_RN_STYLES__ || []);
 
 const emptyStyles: ComputedTailwindReactNativeStyles = {};
 
@@ -45,7 +43,7 @@ const findStylesWithMedia = (
 const findStylesWithMediaMemoized = memoize(findStylesWithMedia);
 
 export const generate = (styleNames: string[]): TailwindReactNativeStyle => {
-  if (typeof styles === "undefined") return {};
+  if (typeof global.__TW_RN_STYLES__ === "undefined") return {};
 
   const generated = styleNames.reduce<ComputedTailwindReactNativeStyles>(
     (acc, styleName) => {
@@ -91,7 +89,7 @@ export const generateTailwindReactNativeStyle = (
   stylesArray: TemplateStringsArray,
   ...variables: string[]
 ): TailwindReactNativeStyle => {
-  if (typeof styles === "undefined") {
+  if (typeof global.__TW_RN_STYLES__ === "undefined") {
     __DEV__ && console.warn(`Can't find styles. Please include your CSS in your App entry point.`);
     return {};
   }

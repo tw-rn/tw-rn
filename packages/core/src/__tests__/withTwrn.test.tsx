@@ -1,10 +1,11 @@
 import React from "react";
-import { View as RnView, Platform } from "react-native";
-import { render } from "@testing-library/react-native";
+import { View as RnView, TextInput as RnTextInput, Platform } from "react-native";
+import { render, fireEvent, NativeTestEvent, wait, toJSON } from "@testing-library/react-native";
 import withTwrn from "../withTwrn";
 import { tw } from "../tw";
 
 const View = withTwrn(RnView);
+const TextInput = withTwrn(RnTextInput);
 
 describe("withTwrn", () => {
   afterAll(() => {
@@ -12,30 +13,130 @@ describe("withTwrn", () => {
   });
 
   it("should render correctly with no styles", () => {
-    const { asJSON } = render(<View />);
-    expect(asJSON()).toMatchSnapshot();
+    const { getByTestId } = render(<View testID="view" />);
+    expect(toJSON(getByTestId("view"))).toMatchSnapshot();
   });
 
   it("should render regular react-native styles", () => {
-    const { asJSON, rerender } = render(<View style={{ backgroundColor: "#ff0000" }} />);
+    const { getByTestId, rerender } = render(
+      <View testID="view" style={{ backgroundColor: "#ff0000" }} />
+    );
 
-    expect(asJSON()).toMatchSnapshot();
+    expect(toJSON(getByTestId("view"))).toMatchSnapshot();
 
-    rerender(<View style={[{ backgroundColor: "#ff0000" }, { padding: 10 }]} />);
+    rerender(<View testID="view" style={[{ backgroundColor: "#ff0000" }, { padding: 10 }]} />);
 
-    expect(asJSON()).toMatchSnapshot();
+    expect(toJSON(getByTestId("view"))).toMatchSnapshot();
   });
 
   it("should render tw-rn base styles correctly in ios", () => {
-    const { asJSON } = render(<View style={tw`bg-white`} />);
+    const { getByTestId } = render(<View testID="view" style={tw`bg-white`} />);
 
-    expect(asJSON()).toMatchSnapshot();
+    expect(toJSON(getByTestId("view"))).toMatchSnapshot();
   });
 
   it("should render tw-rn base and regular react-native styles correctly", () => {
-    const { asJSON } = render(<View style={[tw`bg-white`, { padding: 10 }]} />);
+    const { getByTestId } = render(<View testID="view" style={[tw`bg-white`, { padding: 10 }]} />);
 
-    expect(asJSON()).toMatchSnapshot();
+    expect(toJSON(getByTestId("view"))).toMatchSnapshot();
+  });
+
+  it("should render correctly the hover: pseudo selector", async () => {
+    const handleOnMouseEnter = jest.fn();
+    const handleOnMouseLeave = jest.fn();
+
+    const { getByTestId, asJSON, rerender } = render(
+      <View
+        testID="view"
+        style={tw`hover:bg-white`}
+        onMouseEnter={handleOnMouseEnter}
+        onMouseLeave={handleOnMouseLeave}
+      />
+    );
+
+    // Idle
+    expect(toJSON(getByTestId("view"))).toMatchSnapshot("hover: - idle");
+
+    // Hover
+    fireEvent(getByTestId("view"), new NativeTestEvent("mouseEnter", { nativeEvent: {} }));
+
+    await wait(() => expect(handleOnMouseEnter).toBeCalled());
+
+    rerender(
+      <View
+        testID="view"
+        style={tw`hover:bg-white`}
+        onMouseEnter={handleOnMouseEnter}
+        onMouseLeave={handleOnMouseLeave}
+      />
+    );
+
+    expect(toJSON(getByTestId("view"))).toMatchSnapshot("hover: - hovered");
+
+    // No hover
+    fireEvent(getByTestId("view"), new NativeTestEvent("mouseLeave", { nativeEvent: {} }));
+
+    await wait(() => expect(handleOnMouseLeave).toBeCalled());
+
+    rerender(
+      <View
+        testID="view"
+        style={tw`hover:bg-white`}
+        onMouseEnter={handleOnMouseEnter}
+        onMouseLeave={handleOnMouseLeave}
+      />
+    );
+
+    expect(toJSON(getByTestId("view"))).toMatchSnapshot("hover: - no-hover");
+  });
+
+  it("should render correctly the focus: pseudo selector", async () => {
+    const handleOnFocus = jest.fn();
+    const handleOnBlur = jest.fn();
+
+    const { getByTestId, asJSON, rerender } = render(
+      <TextInput
+        testID="text-input"
+        style={tw`focus:bg-white`}
+        onFocus={handleOnFocus}
+        onBlur={handleOnBlur}
+      />
+    );
+
+    // Idle
+    expect(toJSON(getByTestId("text-input"))).toMatchSnapshot("focus: - idle");
+
+    // Focus
+    fireEvent.focus(getByTestId("text-input"));
+
+    await wait(() => expect(handleOnFocus).toBeCalled());
+
+    rerender(
+      <TextInput
+        testID="text-input"
+        style={tw`focus:bg-white`}
+        onFocus={handleOnFocus}
+        onBlur={handleOnBlur}
+      />
+    );
+
+    expect(toJSON(getByTestId("text-input"))).toMatchSnapshot("focus: - focused");
+
+    // Blur
+    fireEvent.blur(getByTestId("text-input"));
+
+    await wait(() => expect(handleOnBlur).toBeCalled());
+
+    rerender(
+      <TextInput
+        testID="text-input"
+        style={tw`focus:bg-white`}
+        onFocus={handleOnFocus}
+        onBlur={handleOnBlur}
+      />
+    );
+
+    expect(toJSON(getByTestId("text-input"))).toMatchSnapshot("focus: - blurred");
   });
 
   describe("ios", () => {
@@ -44,9 +145,9 @@ describe("withTwrn", () => {
     });
 
     it("should not render media queries", () => {
-      const { asJSON } = render(<View style={tw`sm:bg-red`} />);
+      const { getByTestId } = render(<View testID="view" style={tw`sm:bg-red`} />);
 
-      expect(asJSON()).toMatchSnapshot();
+      expect(toJSON(getByTestId("view"))).toMatchSnapshot();
     });
   });
 
@@ -56,7 +157,7 @@ describe("withTwrn", () => {
     });
 
     it("should not render media queries on android", () => {
-      const { asJSON } = render(<View style={tw`sm:bg-red`} />);
+      const { asJSON } = render(<View testID="view" style={tw`sm:bg-red`} />);
 
       expect(asJSON()).toMatchSnapshot();
     });
@@ -84,27 +185,27 @@ describe("withTwrn", () => {
     it("should not render on SSR", () => {
       delete global.window;
 
-      const { asJSON } = render(<View style={tw`sm:bg-red`} />);
+      const { asJSON } = render(<View testID="view" style={tw`sm:bg-red`} />);
 
       expect(asJSON()).toMatchSnapshot();
     });
 
     it("should render media queries on web", () => {
-      const { asJSON } = render(<View style={tw`sm:bg-red`} />);
+      const { getByTestId } = render(<View testID="view" style={tw`sm:bg-red`} />);
 
-      expect(asJSON()).toMatchSnapshot();
+      expect(toJSON(getByTestId("view"))).toMatchSnapshot();
     });
 
     it("should render non media queries styles along media queries styles", () => {
-      const { asJSON } = render(<View style={tw`p-1 sm:bg-red`} />);
+      const { getByTestId } = render(<View testID="view" style={tw`p-1 sm:bg-red`} />);
 
-      expect(asJSON()).toMatchSnapshot();
+      expect(toJSON(getByTestId("view"))).toMatchSnapshot();
     });
 
     it("should respect queries order styles", () => {
-      const { asJSON } = render(<View style={tw`p-1 sm:bg-red md:bg-green`} />);
+      const { getByTestId } = render(<View testID="view" style={tw`p-1 sm:bg-red md:bg-green`} />);
 
-      expect(asJSON()).toMatchSnapshot();
+      expect(toJSON(getByTestId("view"))).toMatchSnapshot();
     });
   });
 });

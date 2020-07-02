@@ -39,7 +39,7 @@
   "scripts": {
     "build": "bob build",
     "dev": "nodemon --exec bob build --watch src --ext ts,tsx",
-    "test": "jest",
+    "test": "jest --config jest.config.js",
     "prepare": "install-peers -f"
   },
   "dependencies": {

@@ -1,0 +1,38 @@
+{
+  "name": "@tw-rn/pre-compiled",
+  "author": "Erick Tamayo",
+  "version": "0.0.3",
+  "license": "MIT",
+  "private": false,
+  "main": "dist/index.js",
+  "module": "dist/index.es.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "rollup -c rollup.config.js && node ./scripts/generate-styles.js build",
+    "dev": "rollup -c rollup.config.js --watch",
+    "test": "echo test"
+  },
+  "devDependencies": {
+    "@types/node": "^14.0.14",
+    "@types/react-native": "^0.62.16",
+    "rollup": "^2.18.1",
+    "rollup-plugin-typescript2": "^0.27.1",
+    "typescript": "^3.9.6",
+    "yargs": "^15.4.0"
+  },
+  "peerDependencies": {
+    "react-native": "*"
+  },
+  "dependencies": {
+    "@tw-rn/processor": "^0.0.3"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "homepage": "https://github.com/tw-rn/tw-rn",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tw-rn/tw-rn"
+  },
+  "gitHead": "0e4548d7374e05b3d0fa06c2f25a5b733e588833"
+}

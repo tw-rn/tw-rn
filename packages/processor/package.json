@@ -8,6 +8,7 @@
   "module": "dist/index.es.js",
   "types": "dist/index.d.ts",
   "devDependencies": {
+    "@types/lodash": "^4.14.157",
     "@types/md5": "^2.2.0",
     "@types/node": "^14.0.14",
     "css-loader": "^3.5.3",

@@ -17,6 +17,6 @@
     "declaration": true,
     "declarationMap": true
   },
-  "include": ["./src", "jest.setup.js"],
+  "include": ["./src"],
   "exclude": ["node_modules"]
 }

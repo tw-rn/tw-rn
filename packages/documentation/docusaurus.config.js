@@ -51,4 +51,10 @@ module.exports = {
       },
     ],
   ],
+  scripts: [
+    {
+      src: "https://snack.expo.io/embed.js",
+      // async: true,
+    },
+  ],
 };

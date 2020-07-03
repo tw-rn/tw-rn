@@ -5,14 +5,60 @@ title: Getting Started
 
 import Tabs from "@theme/Tabs";
 import TabItem from "@theme/TabItem";
+import Snack from "../../src/components/Snack";
 
-## Installation
+There are two ways to use **tw-rn**, precompiled or regular.
+
+Precompiled gets you up and running faster, at the expense of customization. If you use the precompiled mode, you won't be able to modify any of the Tailwind styles. This is not recommended for use in web as is not optimized,
+
+Regular installation means that your app is in charge of compiling TailwindCSS. It gives you the flexibility of having the `tailwind.config.js` and CSS files, but is a bit more difficult to set up.
+
+## Precompiled Installation
+
+<Tabs
+  groupId="installer"
+  defaultValue="npm"
+  values={[
+    { label: "npm", value: "npm" },
+    { label: "Yarn", value: "yarn" },
+  ]}
+>
+  <TabItem value="npm">
+
+```bash
+npm install tw-rn @tw-rn/pre-compiled
+```
+
+  </TabItem>
+  <TabItem value="yarn">
+
+```bash
+yarn add tw-rn @tw-rn/pre-compiled
+```
+
+  </TabItem>
+</Tabs>
+
+Import `@tw-rn/pre-compiled` in your app entry point to load the styles. This only needds to be imported just once.
+
+```js title="App.js"
+import "@tw-rn/pre-compiled";
+import * as React from "react";
+// ...
+```
+
+Then you can use the `rn-tw` package anywhere in your application.
+
+<Snack snackId="@ericktamayo/tw-rn-precompiled" />
+
+## Regular Installation
 
 ### Using Expo
 
 Install the required packages in your Expo project:
 
 <Tabs
+  groupId="installer"
   defaultValue="npm"
   values={[
     { label: "npm", value: "npm" },
@@ -97,12 +143,12 @@ import React from "react";
 
 ### Using Expo + React Native Web
 
-TBD
+Coming soon.
 
 ### Using React Native
 
-TBD
+Coming soon.
 
 ### Using React Native + React Native Web
 
-TBD
+Coming soon.

@@ -62,17 +62,28 @@
 
 .titleContainer {
   display: flex;
-  width: 25%;
+  width: 100%;
   align-items: center;
   justify-content: center;
 }
 
 .snack {
+  display: none;
   position: absolute;
   top: 0;
   bottom: 0;
   right: 0;
-  width: 75%;
+  width: 70%;
   padding: 10px;
   overflow: hidden;
+}
+
+@media (min-width: 768px) {
+  .snack {
+    display: block;
+  }
+
+  .titleContainer {
+    width: 30%;
+  }
 }

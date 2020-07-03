@@ -26,6 +26,12 @@ module.exports = {
           position: "right",
         },
       ],
+      // algolia: {
+      //   apiKey: "392b163f8c19c61b8df58a122fbd9b9f",
+      //   indexName: "prod_tw-rn",
+      //   appId: "438IRBTI60", // Optional, if you run the DocSearch crawler on your own
+      //   algoliaOptions: {}, // Optional, if provided by Algolia
+      // },
     },
     footer: {
       style: "dark",

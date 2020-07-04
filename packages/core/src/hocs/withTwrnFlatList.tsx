@@ -3,7 +3,7 @@ import { FlatListProps } from "react-native";
 import { Style, VariantsFunctions } from "../types";
 import { useTwrnStyles } from "../hooks";
 
-type TwrnFlatListProps<ItemT> = {
+export type TwrnFlatListProps<P> = {
   style?: Style;
   contentContainerStyle?: Style;
   ListFooterComponentStyle?: Style;
@@ -11,7 +11,7 @@ type TwrnFlatListProps<ItemT> = {
   columnWrapperStyle?: Style;
 } & VariantsFunctions &
   Omit<
-    FlatListProps<ItemT>,
+    P,
     | "style"
     | "contentContainerStyle"
     | "ListFooterComponentStyle"
@@ -19,9 +19,9 @@ type TwrnFlatListProps<ItemT> = {
     | "columnWrapperStyle"
   >;
 
-export const withTwrnFlatList = <P extends object>(
+export const withTwrnFlatList = <ItemT extends any, P extends FlatListProps<ItemT>>(
   Component: ComponentType<P>
-): FunctionComponent<TwrnFlatListProps<P>> => ({
+): ComponentType<TwrnFlatListProps<P>> => ({
   style,
   contentContainerStyle,
   ListFooterComponentStyle,

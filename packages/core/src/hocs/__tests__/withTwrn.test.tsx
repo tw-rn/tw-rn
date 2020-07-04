@@ -1,13 +1,7 @@
 import React from "react";
-import {
-  View as RnView,
-  TextInput as RnTextInput,
-  Platform,
-  Dimensions,
-  ViewProps,
-} from "react-native";
+import { View as RnView, TextInput as RnTextInput, Platform, Dimensions } from "react-native";
 import { render, fireEvent, NativeTestEvent, wait, toJSON } from "@testing-library/react-native";
-import withTwrn from "../withTwrn";
+import withTwrn from "../withTwrnBasicComponent";
 import { tw } from "../../tw";
 
 const View = withTwrn(RnView);

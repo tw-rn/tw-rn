@@ -1,19 +1,16 @@
 import React, { FunctionComponent, ComponentType } from "react";
-import { ScrollViewProps } from "react-native";
 import { Style, VariantsFunctions } from "../types";
 import { useTwrnStyles } from "../hooks";
 
-export type TwrnScrollViewProps = {
+export type TwrnBasicComponentProps<P> = {
   style?: Style;
-  contentContainerStyle?: Style;
 } & VariantsFunctions &
-  Omit<ScrollViewProps, "style" | "contentContainerStyle">;
+  Omit<P, "style">;
 
-export const withTwrnScrollView = <P extends ScrollViewProps>(
+export const withTwrn = <P extends object>(
   Component: ComponentType<P>
-): FunctionComponent<TwrnScrollViewProps> => ({
+): FunctionComponent<TwrnBasicComponentProps<P>> => ({
   style,
-  contentContainerStyle,
   onMouseEnter,
   onMouseLeave,
   onFocus,
@@ -21,28 +18,27 @@ export const withTwrnScrollView = <P extends ScrollViewProps>(
   ...props
 }) => {
   const {
-    combinedStyles: [combinedStyle, combinedContentContainerStyle],
+    combinedStyles: [combinedStyle],
     handleOnMouseEnter,
     handleOnMouseLeave,
     handleOnFocus,
     handleOnBlur,
-  } = useTwrnStyles([style, contentContainerStyle], onMouseEnter, onMouseLeave, onFocus, onBlur);
+  } = useTwrnStyles([style], onMouseEnter, onMouseLeave, onFocus, onBlur);
 
   // If combined style is null, it means that we're in SSR and should not
   // render because we don't have the destination size. Note: can be improved.
-  if (combinedStyle === null || combinedContentContainerStyle === null) return null;
+  if (combinedStyle === null) return null;
 
   return (
     <Component
-      style={combinedStyle}
-      contentContainerStyle={combinedContentContainerStyle}
+      {...(props as P)}
+      style={style}
       onMouseEnter={handleOnMouseEnter}
       onMouseLeave={handleOnMouseLeave}
       onFocus={handleOnFocus}
       onBlur={handleOnBlur}
-      {...(props as P)}
     />
   );
 };
 
-export default withTwrnScrollView;
+export default withTwrn;

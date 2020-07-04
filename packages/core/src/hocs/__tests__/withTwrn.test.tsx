@@ -1,8 +1,14 @@
 import React from "react";
-import { View as RnView, TextInput as RnTextInput, Platform, Dimensions } from "react-native";
+import {
+  View as RnView,
+  TextInput as RnTextInput,
+  Platform,
+  Dimensions,
+  ViewProps,
+} from "react-native";
 import { render, fireEvent, NativeTestEvent, wait, toJSON } from "@testing-library/react-native";
 import withTwrn from "../withTwrn";
-import { tw } from "../tw";
+import { tw } from "../../tw";
 
 const View = withTwrn(RnView);
 const TextInput = withTwrn(RnTextInput);
@@ -17,10 +23,18 @@ describe("withTwrn", () => {
 
     const { getProp } = getByTestId("view");
 
+    expect(getProp("style")).toEqual(undefined);
+  });
+
+  it("should render correctly with empty styles", () => {
+    const { getByTestId } = render(<View testID="view" style={{}} />);
+
+    const { getProp } = getByTestId("view");
+
     expect(getProp("style")).toEqual({});
   });
 
-  it("should render regular react-native styles", () => {
+  it.only("should render regular react-native styles", () => {
     const { getByTestId, rerender } = render(
       <View testID="view" style={{ backgroundColor: "#ffffff" }} />
     );

@@ -1,20 +1,24 @@
 import { useMemo, useCallback, useState } from "react";
 import { PlatformVariantStyle, ReactNativeStyle } from "../types";
 
-export const useHoverStyle = (
-  style: PlatformVariantStyle,
+export const useHoverStyles = (
+  styles: (PlatformVariantStyle | undefined)[],
   onMouseEnter?: (e: any) => void,
   onMouseLeave?: (e: any) => void
 ): {
-  hoverStyle: ReactNativeStyle;
+  hoverStyles: (ReactNativeStyle | undefined)[];
   handleOnMouseEnter: (e: any) => void;
   handleOnMouseLeave: (e: any) => void;
 } => {
   const [isHovered, setIsHovered] = useState(false);
 
-  const hoverStyle = useMemo(() => {
-    return isHovered ? style.hover || {} : {};
-  }, [style, isHovered]);
+  const hoverStyles = useMemo(() => {
+    return styles.map((style) => {
+      if (style === undefined) return;
+
+      return isHovered ? style.hover || {} : {};
+    });
+  }, [styles, isHovered]);
 
   const handleOnMouseEnter = useCallback(
     (e) => {
@@ -22,7 +26,7 @@ export const useHoverStyle = (
 
       setIsHovered(true);
     },
-    [style, onMouseEnter]
+    [styles, onMouseEnter]
   );
 
   const handleOnMouseLeave = useCallback(
@@ -31,8 +35,8 @@ export const useHoverStyle = (
 
       setIsHovered(false);
     },
-    [style, onMouseLeave]
+    [styles, onMouseLeave]
   );
 
-  return { hoverStyle, handleOnMouseEnter, handleOnMouseLeave };
+  return { hoverStyles, handleOnMouseEnter, handleOnMouseLeave };
 };

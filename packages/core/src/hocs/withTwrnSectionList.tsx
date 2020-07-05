@@ -2,15 +2,15 @@ import React, { ComponentType, FunctionComponent } from "react";
 import { Style, VariantsFunctions } from "../types";
 import { useTwrnStyles } from "../hooks";
 
-export type TwrnScrollViewProps<P> = {
+export type TwrnSectionListProps<P> = {
   style?: Style;
   contentContainerStyle?: Style;
 } & VariantsFunctions &
   Omit<P, "style" | "contentContainerStyle">;
 
-export const withTwrnScrollView = <P extends object>(
+export const withTwrnSectionList = <P extends object>(
   Component: ComponentType<P>
-): FunctionComponent<TwrnScrollViewProps<P>> => ({
+): FunctionComponent<TwrnSectionListProps<P>> => ({
   style,
   contentContainerStyle,
   onMouseEnter,
@@ -44,4 +44,4 @@ export const withTwrnScrollView = <P extends object>(
   );
 };
 
-export default withTwrnScrollView;
+export default withTwrnSectionList;

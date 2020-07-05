@@ -1,5 +1,4 @@
-import React, { FunctionComponent, ComponentType } from "react";
-import { FlatListProps } from "react-native";
+import React, { ComponentType, FunctionComponent } from "react";
 import { Style, VariantsFunctions } from "../types";
 import { useTwrnStyles } from "../hooks";
 
@@ -19,9 +18,9 @@ export type TwrnFlatListProps<P> = {
     | "columnWrapperStyle"
   >;
 
-export const withTwrnFlatList = <ItemT extends any, P extends FlatListProps<ItemT>>(
+export const withTwrnFlatList = <P extends object>(
   Component: ComponentType<P>
-): ComponentType<TwrnFlatListProps<P>> => ({
+): FunctionComponent<TwrnFlatListProps<P>> => ({
   style,
   contentContainerStyle,
   ListFooterComponentStyle,

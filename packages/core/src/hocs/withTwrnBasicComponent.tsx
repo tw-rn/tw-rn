@@ -1,4 +1,4 @@
-import React, { FunctionComponent, ComponentType } from "react";
+import React, { ComponentType, FunctionComponent } from "react";
 import { Style, VariantsFunctions } from "../types";
 import { useTwrnStyles } from "../hooks";
 

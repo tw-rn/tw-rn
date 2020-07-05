@@ -6,7 +6,7 @@ import { tw } from "../../tw";
 
 const ScrollView = withTwrnScrollView(RnScrollView);
 
-describe.only("ScrollView", () => {
+describe.only("withTwrnScrollView", () => {
   afterAll(() => {
     Platform.OS = "ios";
   });

@@ -1,5 +1,10 @@
 import * as RN from "react-native";
-import { withTwrnBasicComponent, withTwrnScrollView, withTwrnFlatList } from "./hocs";
+import {
+  withTwrnBasicComponent,
+  withTwrnScrollView,
+  withTwrnFlatList,
+  withTwrnSectionList,
+} from "./hocs";
 
 export { tw } from "./tw";
 export { withTwrnBasicComponent, withTwrnScrollView, withTwrnFlatList };
@@ -16,6 +21,7 @@ export const Switch = withTwrnBasicComponent(RN.Switch);
 
 // List Views
 export const FlatList = withTwrnFlatList(RN.FlatList);
+export const SectionList = withTwrnSectionList(RN.SectionList);
 
 // Others
 export const ActivityIndicator = withTwrnBasicComponent(RN.ActivityIndicator);

@@ -1,17 +1,8 @@
 import React from "react";
-import { FlatList as RnFlatList, Platform } from "react-native";
 import { render } from "@testing-library/react-native";
-import withTwrnFlatList from "../withTwrnFlatList";
-import { tw } from "../../tw";
-import { View } from "../..";
+import { tw, View, FlatList } from "../";
 
-const FlatList = withTwrnFlatList(RnFlatList);
-
-describe("withTwrnFlatList", () => {
-  afterAll(() => {
-    Platform.OS = "ios";
-  });
-
+describe("FlatList", () => {
   it("should render correctly with no styles", () => {
     const { getByTestId, getAllByTestId } = render(
       <FlatList

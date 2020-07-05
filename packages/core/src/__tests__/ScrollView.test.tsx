@@ -1,16 +1,8 @@
 import React from "react";
-import { ScrollView as RnScrollView, Platform } from "react-native";
 import { render } from "@testing-library/react-native";
-import withTwrnScrollView from "../withTwrnScrollView";
-import { tw } from "../../tw";
+import { tw, ScrollView } from "../";
 
-const ScrollView = withTwrnScrollView(RnScrollView);
-
-describe.only("withTwrnScrollView", () => {
-  afterAll(() => {
-    Platform.OS = "ios";
-  });
-
+describe.only("ScrollView", () => {
   it("should render correctly with no styles", () => {
     const { getByTestId } = render(<ScrollView testID="scroll-view" />);
     const { getProp } = getByTestId("scroll-view");

@@ -1,17 +1,8 @@
 import React from "react";
-import { SectionList as RnSectionList, Platform } from "react-native";
 import { render } from "@testing-library/react-native";
-import withTwrnSectionList from "../withTwrnSectionList";
-import { tw } from "../../tw";
-import { View } from "../..";
+import { tw, SectionList, View } from "../";
 
-const SectionList = withTwrnSectionList(RnSectionList);
-
-describe.only("withTwrnSectionList", () => {
-  afterAll(() => {
-    Platform.OS = "ios";
-  });
-
+describe("SectionList", () => {
   it("should render correctly with no styles", () => {
     const { getByTestId } = render(
       <SectionList

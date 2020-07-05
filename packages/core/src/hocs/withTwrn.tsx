@@ -22,16 +22,7 @@ export const withTwrn = <P extends object, O extends keyof P>(
   ...props
 }) => {
   // Extracting styles from props indicated in the styleKeys
-  const [newProps, styles] = useMemo(() => {
-    const newProps = { ...props };
-    const styles = styleKeys.map((key) => {
-      // TODO: fix typings
-      delete (newProps as any)[key];
-      return (props as any)[key];
-    });
-
-    return [newProps, styles];
-  }, [props]);
+  const styles = useMemo(() => styleKeys.map((key) => (props as any)[key]), [props]);
 
   const {
     combinedStyles,
@@ -42,11 +33,10 @@ export const withTwrn = <P extends object, O extends keyof P>(
   } = useTwrnStyles(styles, onMouseEnter, onMouseLeave, onFocus, onBlur);
 
   // Combining styles position with keys indicated in the styleKeys
-  const combinedStylesProps = useMemo(() => {
-    return styleKeys.reduce((acc, key, index) => {
-      return { ...acc, [key]: combinedStyles[index] };
-    }, {});
-  }, [combinedStyles]);
+  const combinedStylesProps = useMemo(
+    () => styleKeys.reduce((acc, key, index) => ({ ...acc, [key]: combinedStyles[index] }), {}),
+    [combinedStyles]
+  );
 
   // If combined style is null, it means that we're in SSR and should not
   // render because we don't have the destination size. Note: can be improved.
@@ -54,7 +44,7 @@ export const withTwrn = <P extends object, O extends keyof P>(
 
   return (
     <Component
-      {...(newProps as P)}
+      {...(props as P)}
       {...combinedStylesProps}
       onMouseEnter={handleOnMouseEnter}
       onMouseLeave={handleOnMouseLeave}

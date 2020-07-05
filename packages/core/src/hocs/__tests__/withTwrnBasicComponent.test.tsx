@@ -1,13 +1,13 @@
 import React from "react";
 import { View as RnView, TextInput as RnTextInput, Platform, Dimensions } from "react-native";
 import { render, fireEvent, NativeTestEvent, wait, toJSON } from "@testing-library/react-native";
-import withTwrn from "../withTwrnBasicComponent";
+import withTwrnBasicComponent from "../withTwrnBasicComponent";
 import { tw } from "../../tw";
 
-const View = withTwrn(RnView);
-const TextInput = withTwrn(RnTextInput);
+const View = withTwrnBasicComponent(RnView);
+const TextInput = withTwrnBasicComponent(RnTextInput);
 
-describe("withTwrn", () => {
+describe("withTwrnBasicComponent", () => {
   afterAll(() => {
     Platform.OS = "ios";
   });
@@ -28,7 +28,7 @@ describe("withTwrn", () => {
     expect(getProp("style")).toEqual({});
   });
 
-  it.only("should render regular react-native styles", () => {
+  it("should render regular react-native styles", () => {
     const { getByTestId, rerender } = render(
       <View testID="view" style={{ backgroundColor: "#ffffff" }} />
     );
@@ -43,7 +43,7 @@ describe("withTwrn", () => {
   });
 
   it("should render tw-rn base styles correctly in ios", () => {
-    const { getByTestId } = render(<View testID="view" style={tw`bg-white`} />);
+    const { getByTestId } = render(<View testID="view" style={tw`bg-white p-4`} />);
 
     const { getProp } = getByTestId("view");
 

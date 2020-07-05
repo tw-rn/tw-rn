@@ -7,7 +7,7 @@ export type TwrnBasicComponentProps<P> = {
 } & VariantsFunctions &
   Omit<P, "style">;
 
-export const withTwrn = <P extends object>(
+export const withTwrnBasicComponent = <P extends object>(
   Component: ComponentType<P>
 ): FunctionComponent<TwrnBasicComponentProps<P>> => ({
   style,
@@ -32,7 +32,7 @@ export const withTwrn = <P extends object>(
   return (
     <Component
       {...(props as P)}
-      style={style}
+      style={combinedStyle}
       onMouseEnter={handleOnMouseEnter}
       onMouseLeave={handleOnMouseLeave}
       onFocus={handleOnFocus}
@@ -41,4 +41,4 @@ export const withTwrn = <P extends object>(
   );
 };
 
-export default withTwrn;
+export default withTwrnBasicComponent;

@@ -2,7 +2,7 @@ import React from "react";
 import { render } from "@testing-library/react-native";
 import { tw, ScrollView } from "../";
 
-describe.only("ScrollView", () => {
+describe("ScrollView", () => {
   it("should render correctly with no styles", () => {
     const { getByTestId } = render(<ScrollView testID="scroll-view" />);
     const { getProp } = getByTestId("scroll-view");

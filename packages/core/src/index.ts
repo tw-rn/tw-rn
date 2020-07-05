@@ -1,5 +1,5 @@
 import * as RN from "react-native";
-import { withTwrnImageBackground, withTwrn } from "./hocs";
+import { withTwrn } from "./hocs";
 
 export { tw } from "./tw";
 export { withTwrn };
@@ -31,7 +31,6 @@ export const DrawerLayoutAndroid = withTwrn(RN.DrawerLayoutAndroid, ["style"]);
 // Others
 export const ActivityIndicator = withTwrn(RN.ActivityIndicator, ["style"]);
 export const KeyboardAvoidingView = withTwrn(RN.KeyboardAvoidingView, ["style"]);
-export const RefreshControl = withTwrn(RN.RefreshControl, ["style"]);
 
 // Rest
 export const ImageBackground = withTwrn(RN.ImageBackground, ["style", "imageStyle"]);

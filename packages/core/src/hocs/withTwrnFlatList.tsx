@@ -1,5 +1,5 @@
 import React, { ComponentType, FunctionComponent } from "react";
-import { Style, VariantsFunctions } from "../types";
+import { Style, VariantsProps } from "../types";
 import { useTwrnStyles } from "../hooks";
 
 export type TwrnFlatListProps<P> = {
@@ -8,7 +8,7 @@ export type TwrnFlatListProps<P> = {
   ListFooterComponentStyle?: Style;
   ListHeaderComponentStyle?: Style;
   columnWrapperStyle?: Style;
-} & VariantsFunctions &
+} & VariantsProps &
   Omit<
     P,
     | "style"

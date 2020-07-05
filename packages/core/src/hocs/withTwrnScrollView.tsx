@@ -1,11 +1,11 @@
 import React, { ComponentType, FunctionComponent } from "react";
-import { Style, VariantsFunctions } from "../types";
+import { Style, VariantsProps } from "../types";
 import { useTwrnStyles } from "../hooks";
 
 export type TwrnScrollViewProps<P> = {
   style?: Style;
   contentContainerStyle?: Style;
-} & VariantsFunctions &
+} & VariantsProps &
   Omit<P, "style" | "contentContainerStyle">;
 
 export const withTwrnScrollView = <P extends object>(

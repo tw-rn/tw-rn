@@ -5,6 +5,7 @@ import {
   withTwrnFlatList,
   withTwrnSectionList,
   withTwrnImageBackground,
+  withTwrn,
 } from "./hocs";
 
 export { tw } from "./tw";
@@ -17,7 +18,9 @@ export {
 };
 
 // Basic Components
-export const View = withTwrnBasicComponent(RN.View);
+const View = withTwrn(RN.View, ["style"]);
+
+// export const View = withTwrnBasicComponent(RN.View);
 export const Text = withTwrnBasicComponent(RN.Text);
 export const Image = withTwrnBasicComponent(RN.Image);
 export const TextInput = withTwrnBasicComponent(RN.TextInput);

@@ -79,7 +79,7 @@ export type ComputedTailwindReactNativeStyles = {
 
 export type TailwindReactNativeStyle = { __?: ComputedTailwindReactNativeStyles };
 
-export type VariantsFunctions = {
+export type VariantsProps = {
   onMouseEnter?: (e: any) => void;
   onMouseLeave?: (e: any) => void;
   onFocus?: (e: NativeSyntheticEvent<TargetedEvent>) => void;

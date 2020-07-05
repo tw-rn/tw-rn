@@ -1,10 +1,10 @@
 import React, { ComponentType, FunctionComponent } from "react";
-import { Style, VariantsFunctions } from "../types";
+import { Style, VariantsProps } from "../types";
 import { useTwrnStyles } from "../hooks";
 
 export type TwrnBasicComponentProps<P> = {
   style?: Style;
-} & VariantsFunctions &
+} & VariantsProps &
   Omit<P, "style">;
 
 export const withTwrnBasicComponent = <P extends object>(

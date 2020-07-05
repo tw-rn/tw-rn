@@ -1,11 +1,11 @@
 import React, { ComponentType, FunctionComponent } from "react";
-import { Style, VariantsFunctions } from "../types";
+import { Style, VariantsProps } from "../types";
 import { useTwrnStyles } from "../hooks";
 
 export type TwrnImageBackgroundProps<P> = {
   style?: Style;
   imageStyle?: Style;
-} & VariantsFunctions &
+} & VariantsProps &
   Omit<P, "style" | "imageStyle">;
 
 export const withTwrnImageBackground = <P extends object>(

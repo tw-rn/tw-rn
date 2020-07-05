@@ -3,8 +3,10 @@ import { View as RnView, TextInput as RnTextInput, Platform, Dimensions } from "
 import { render, fireEvent, NativeTestEvent, wait, toJSON } from "@testing-library/react-native";
 import withTwrnBasicComponent from "../withTwrnBasicComponent";
 import { tw } from "../../tw";
+import withTwrn from "../withTwrn";
 
-const View = withTwrnBasicComponent(RnView);
+const View = withTwrn(RnView, ["style"]);
+
 const TextInput = withTwrnBasicComponent(RnTextInput);
 
 describe("withTwrnBasicComponent", () => {

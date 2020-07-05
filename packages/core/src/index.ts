@@ -4,10 +4,17 @@ import {
   withTwrnScrollView,
   withTwrnFlatList,
   withTwrnSectionList,
+  withTwrnImageBackground,
 } from "./hocs";
 
 export { tw } from "./tw";
-export { withTwrnBasicComponent, withTwrnScrollView, withTwrnFlatList };
+export {
+  withTwrnBasicComponent,
+  withTwrnScrollView,
+  withTwrnFlatList,
+  withTwrnSectionList,
+  withTwrnImageBackground,
+};
 
 // Basic Components
 export const View = withTwrnBasicComponent(RN.View);
@@ -23,9 +30,15 @@ export const Switch = withTwrnBasicComponent(RN.Switch);
 export const FlatList = withTwrnFlatList(RN.FlatList);
 export const SectionList = withTwrnSectionList(RN.SectionList);
 
+// Android Components and APIs
+export const DrawerLayoutAndroid = withTwrnBasicComponent(RN.DrawerLayoutAndroid);
+
 // Others
 export const ActivityIndicator = withTwrnBasicComponent(RN.ActivityIndicator);
 export const KeyboardAvoidingView = withTwrnBasicComponent(RN.KeyboardAvoidingView);
 export const RefreshControl = withTwrnBasicComponent(RN.RefreshControl);
+
+// Rest
+export const ImageBackground = withTwrnImageBackground(RN.ImageBackground);
 
 // TouchableOpacity

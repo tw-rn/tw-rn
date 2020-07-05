@@ -1,47 +1,39 @@
 import * as RN from "react-native";
-import {
-  withTwrnBasicComponent,
-  withTwrnScrollView,
-  withTwrnFlatList,
-  withTwrnSectionList,
-  withTwrnImageBackground,
-  withTwrn,
-} from "./hocs";
+import { withTwrnImageBackground, withTwrn } from "./hocs";
 
 export { tw } from "./tw";
-export {
-  withTwrnBasicComponent,
-  withTwrnScrollView,
-  withTwrnFlatList,
-  withTwrnSectionList,
-  withTwrnImageBackground,
-};
+export { withTwrn };
 
 // Basic Components
-const View = withTwrn(RN.View, ["style"]);
-
-// export const View = withTwrnBasicComponent(RN.View);
-export const Text = withTwrnBasicComponent(RN.Text);
-export const Image = withTwrnBasicComponent(RN.Image);
-export const TextInput = withTwrnBasicComponent(RN.TextInput);
-export const ScrollView = withTwrnScrollView(RN.ScrollView);
+export const View = withTwrn(RN.View, ["style"]);
+export const Text = withTwrn(RN.Text, ["style"]);
+export const Image = withTwrn(RN.Image, ["style"]);
+export const TextInput = withTwrn(RN.TextInput, ["style"]);
+export const ScrollView = withTwrn(RN.ScrollView, ["style", "contentContainerStyle"]);
 
 // User interface
-export const Switch = withTwrnBasicComponent(RN.Switch);
+export const Switch = withTwrn(RN.Switch, ["style"]);
 
 // List Views
-export const FlatList = withTwrnFlatList(RN.FlatList);
-export const SectionList = withTwrnSectionList(RN.SectionList);
+export const FlatList = withTwrn(RN.FlatList, [
+  "style",
+  "contentContainerStyle",
+  "ListFooterComponentStyle",
+  "ListHeaderComponentStyle",
+  "columnWrapperStyle",
+]);
+
+export const SectionList = withTwrn(RN.SectionList, ["style", "contentContainerStyle"]);
 
 // Android Components and APIs
-export const DrawerLayoutAndroid = withTwrnBasicComponent(RN.DrawerLayoutAndroid);
+export const DrawerLayoutAndroid = withTwrn(RN.DrawerLayoutAndroid, ["style"]);
 
 // Others
-export const ActivityIndicator = withTwrnBasicComponent(RN.ActivityIndicator);
-export const KeyboardAvoidingView = withTwrnBasicComponent(RN.KeyboardAvoidingView);
-export const RefreshControl = withTwrnBasicComponent(RN.RefreshControl);
+export const ActivityIndicator = withTwrn(RN.ActivityIndicator, ["style"]);
+export const KeyboardAvoidingView = withTwrn(RN.KeyboardAvoidingView, ["style"]);
+export const RefreshControl = withTwrn(RN.RefreshControl, ["style"]);
 
 // Rest
-export const ImageBackground = withTwrnImageBackground(RN.ImageBackground);
+export const ImageBackground = withTwrn(RN.ImageBackground, ["style", "imageStyle"]);
 
 // TouchableOpacity

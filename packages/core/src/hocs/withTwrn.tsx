@@ -19,21 +19,19 @@ export const withTwrn = <P extends object, O extends keyof P>(
   onMouseLeave,
   onFocus,
   onBlur,
-  ...rest
+  ...props
 }) => {
   // Extracting styles from props indicated in the styleKeys
-  const { props, styles } = useMemo(() => {
-    return Object.entries(rest).reduce<{ props: any; styles: Style[] }>(
-      (acc, entry) => {
-        const [key, PropOrStyle]: [O, any] = entry as any;
+  const [newProps, styles] = useMemo(() => {
+    const newProps = { ...props };
+    const styles = styleKeys.map((key) => {
+      // TODO: fix typings
+      delete (newProps as any)[key];
+      return (props as any)[key];
+    });
 
-        return styleKeys.includes(key)
-          ? { ...acc, styles: [...acc.styles, PropOrStyle] }
-          : { ...acc, props: [...acc.props, PropOrStyle] };
-      },
-      { props: {}, styles: [] }
-    );
-  }, [rest]);
+    return [newProps, styles];
+  }, [props]);
 
   const {
     combinedStyles,
@@ -46,7 +44,7 @@ export const withTwrn = <P extends object, O extends keyof P>(
   // Combining styles position with keys indicated in the styleKeys
   const combinedStylesProps = useMemo(() => {
     return styleKeys.reduce((acc, key, index) => {
-      return { ...acc, [key]: styleKeys[index] };
+      return { ...acc, [key]: combinedStyles[index] };
     }, {});
   }, [combinedStyles]);
 
@@ -56,7 +54,7 @@ export const withTwrn = <P extends object, O extends keyof P>(
 
   return (
     <Component
-      {...(props as P)}
+      {...(newProps as P)}
       {...combinedStylesProps}
       onMouseEnter={handleOnMouseEnter}
       onMouseLeave={handleOnMouseLeave}

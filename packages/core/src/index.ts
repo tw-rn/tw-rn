@@ -1,5 +1,6 @@
 import * as RN from "react-native";
 import { withTwrn } from "./hocs";
+import { ComponentType } from "react";
 
 export { tw } from "./tw";
 export { withTwrn };
@@ -34,5 +35,23 @@ export const KeyboardAvoidingView = withTwrn(RN.KeyboardAvoidingView, ["style"])
 
 // Rest
 export const ImageBackground = withTwrn(RN.ImageBackground, ["style", "imageStyle"]);
+export const SafeAreaView = withTwrn(RN.SafeAreaView, ["style"]);
+export const TouchableHighlight = withTwrn(RN.TouchableHighlight, ["style"]);
+export const TouchableOpacity = withTwrn(RN.TouchableOpacity, ["style"]);
 
-// TouchableOpacity
+// For some reason   "ListFooterComponentStyle" and "ListHeaderComponentStyle" are not in FlatList type
+// definitions but they are in the docs https://reactnative.dev/docs/virtualizedlist
+type VirtualizedListPropsWithMissingStyles<ItemT> = {
+  ListFooterComponentStyle?: any;
+  ListHeaderComponentStyle?: any;
+} & RN.VirtualizedListProps<ItemT>;
+
+export const VirtualizedList = withTwrn<
+  VirtualizedListPropsWithMissingStyles<unknown>,
+  "style" | "contentContainerStyle" | "ListFooterComponentStyle" | "ListHeaderComponentStyle"
+>(RN.VirtualizedList, [
+  "style",
+  "contentContainerStyle",
+  "ListFooterComponentStyle",
+  "ListHeaderComponentStyle",
+]);

@@ -1,7 +1,7 @@
-import React, { ComponentType, FunctionComponent, Component, useMemo } from "react";
-import { Style, ReactNativeStyle } from "../types";
+import React, { ComponentType, useMemo } from "react";
+import { Style } from "../types";
 import { useTwrnStyles } from "../hooks";
-import { NativeSyntheticEvent, TargetedEvent, View, ViewProps } from "react-native";
+import { NativeSyntheticEvent, TargetedEvent } from "react-native";
 
 export type VariantProps<P, O extends keyof P> = {
   onMouseEnter?: (e: any) => void;
@@ -14,7 +14,7 @@ export type VariantProps<P, O extends keyof P> = {
 export const withTwrn = <P extends object, O extends keyof P>(
   Component: ComponentType<P>,
   styleKeys: O[]
-): FunctionComponent<VariantProps<P, O>> => ({
+): ComponentType<VariantProps<P, O>> => ({
   onMouseEnter,
   onMouseLeave,
   onFocus,

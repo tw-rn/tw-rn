@@ -3,7 +3,7 @@ id: usage
 title: Usage
 ---
 
-**tw-rn** wraps basic React Native components with the Higher order Component `withTwrnBasicComponent`. For convenience, you can import the components already wrapped from the **tw-rn** module.
+**tw-rn** wraps basic React Native components with the Higher order Component `withTwrn`. For convenience, you can import the components already wrapped from the **tw-rn** module.
 
 <!-- prettier-ignore-start -->
 ```jsx
@@ -15,26 +15,6 @@ export default function Component() {
     <View style={tw`flex justify-center items-center`}>
       {/* ... */}
     </View>
-  );
-}
-```
-<!-- prettier-ignore-end -->
-
-If you want more control of your components, you can import the HoC directly and wrap the React Native components yourself.
-
-<!-- prettier-ignore-start -->
-```jsx
-import React from "react";
-import { View } from "react-native";
-import { tw, withTwrnBasicComponent } from "tw-rn";
-
-const TwrnView = withTwrnBasicComponent(View);
-
-export default function Component() {
-  return (
-    <TwrnView style={tw`flex justify-center items-center`}>
-      {/* ... */}
-    </TwrnView>
   );
 }
 ```

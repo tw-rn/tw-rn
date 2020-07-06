@@ -1,0 +1,43 @@
+---
+id: withtwrn
+title: withTwrn
+---
+
+The Higher order Component `withTwrn` determines what is the correct style to apply that comes from the `tw` function and passes down to the underlying component.
+
+This is the Typescript signature of the HoC:
+
+```typescript
+const withTwrn: <P extends object, O extends keyof P>(
+  Component: React.ComponentType<P>,
+  styleKeys: O[]
+) => React.ComponentType<VariantProps<P, O>>;
+```
+
+This is how the `View` component is wraped inside this library:
+
+```js
+import * as RN from "react-native";
+
+export const View = withTwrn(RN.View, ["style"]);
+```
+
+The first parameter is the Component to be wrapped and the second is the style prop to be used by tw-rn.
+
+### Using tw-rn for styling an external Component that uses regular React Native styles.
+
+You can easily use this component to use the `tw` function whenever you need.
+
+<!-- tw.raw`bg-gray-500` -->
+<!-- tw.value`bg-gray-500`; -->
+
+```jsx
+import { withTwrn, View, Text } from "tw-rn";
+import ExternalComponent as OriginalExternalComponent from 'external-library';
+
+// Wrap component with withTwrn and specify which prop contains the style
+const ExternalComponent = withTwrn(OriginalExternalComponent, ['styleProp']);
+
+// Usage
+<ExternalComponent styleProp={tw`bg-white p-4`} />
+```

@@ -1,0 +1,11 @@
+---
+id: tw
+title: tw
+---
+
+The `tw` function parses the TailwindCSS classes string to its corresponding React Native styles. These styles are classified depending on the selector that are in the string. This function is used by the `withTwrn` HoC to be able to apply the correct styles to wrapped components.
+
+```js
+// const styles = { __: { "": { backgrounColor: "#ffffff" } } }
+const styles = tw`bg-white`;
+```

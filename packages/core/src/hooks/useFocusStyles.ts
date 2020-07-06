@@ -2,20 +2,24 @@ import { NativeSyntheticEvent, TargetedEvent } from "react-native";
 import { useMemo, useCallback, useState } from "react";
 import { PlatformVariantStyle, ReactNativeStyle } from "../types";
 
-export const useFocusStyle = (
-  style: PlatformVariantStyle,
+export const useFocusStyles = (
+  styles: (PlatformVariantStyle | undefined)[],
   onFocus?: (e: NativeSyntheticEvent<TargetedEvent>) => void,
   onBlur?: (e: NativeSyntheticEvent<TargetedEvent>) => void
 ): {
-  focusStyle: ReactNativeStyle;
+  focusStyles: (ReactNativeStyle | undefined)[];
   handleOnFocus: (e: NativeSyntheticEvent<TargetedEvent>) => void;
   handleOnBlur: (e: NativeSyntheticEvent<TargetedEvent>) => void;
 } => {
   const [isFocused, setIsFocused] = useState(false);
 
-  const focusStyle = useMemo(() => {
-    return isFocused ? style.focus || {} : {};
-  }, [style, isFocused]);
+  const focusStyles = useMemo(() => {
+    return styles.map((style) => {
+      if (style === undefined) return;
+
+      return isFocused ? style.focus || {} : {};
+    });
+  }, [styles, isFocused]);
 
   const handleOnFocus = useCallback(
     (e: NativeSyntheticEvent<TargetedEvent>) => {
@@ -23,7 +27,7 @@ export const useFocusStyle = (
 
       setIsFocused(true);
     },
-    [style, onFocus]
+    [styles, onFocus]
   );
 
   const handleOnBlur = useCallback(
@@ -32,8 +36,8 @@ export const useFocusStyle = (
 
       setIsFocused(false);
     },
-    [style, onBlur]
+    [styles, onBlur]
   );
 
-  return { focusStyle, handleOnFocus, handleOnBlur };
+  return { focusStyles, handleOnFocus, handleOnBlur };
 };

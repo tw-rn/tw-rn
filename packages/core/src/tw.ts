@@ -52,10 +52,10 @@ export const generate = (styleNames: string[]): TailwindReactNativeStyle => {
 
       if (!platformRegExpExecArray) return acc;
 
-      const [, platform = "native", platformStyleName] = platformRegExpExecArray;
+      const [, platform = "native", platformStylesName] = platformRegExpExecArray;
 
       // Check for style variants
-      const styleRegExpExecArray = styleVariantRegex.exec(platformStyleName);
+      const styleRegExpExecArray = styleVariantRegex.exec(platformStylesName);
 
       if (!styleRegExpExecArray) return acc;
 

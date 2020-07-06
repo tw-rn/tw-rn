@@ -1,6 +1,7 @@
 export { useTailwindReactNativeStyle } from "./useTailwindReactNativeStyle";
-export { useMediaStyle } from "./useMediaStyle";
-export { usePlatformStyle } from "./usePlatformStyle";
-export { useHoverStyle } from "./useHoverStyle";
-export { useFocusStyle } from "./useFocusStyle";
-export { useOrientationStyle } from "./useOrientationStyle";
+export { useMediaStyles } from "./useMediaStyles";
+export { usePlatformStyles } from "./usePlatformStyles";
+export { useHoverStyles } from "./useHoverStyles";
+export { useFocusStyles } from "./useFocusStyles";
+export { useOrientationStyles } from "./useOrientationStyles";
+export { useTwrnStyles } from "./useTwrnStyles";

@@ -19,23 +19,3 @@ export default function Component() {
 }
 ```
 <!-- prettier-ignore-end -->
-
-If you want more control of your components, you can import the HoC directly and wrap the React Native components yourself.
-
-<!-- prettier-ignore-start -->
-```jsx
-import React from "react";
-import { View } from "react-native";
-import { tw, withTwrn } from "tw-rn";
-
-const TwrnView = withTwrn(View);
-
-export default function Component() {
-  return (
-    <TwrnView style={tw`flex justify-center items-center`}>
-      {/* ... */}
-    </TwrnView>
-  );
-}
-```
-<!-- prettier-ignore-end -->

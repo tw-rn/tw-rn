@@ -2,9 +2,14 @@ import { useMemo, useCallback, useState, useEffect } from "react";
 import { Dimensions, Platform } from "react-native";
 import { PlatformVariantStyle, ReactNativeStyle } from "../types";
 
-export const useOrientationStyle = (style: PlatformVariantStyle): ReactNativeStyle => {
+export const useOrientationStyles = (
+  styles: (PlatformVariantStyle | undefined)[]
+): (ReactNativeStyle | undefined)[] => {
   const isMobile = useMemo(() => ["ios", "android"].includes(Platform.OS), []);
-  const hasOrientationStyles = !!(style.landscape || style.portrait);
+
+  const hasOrientationStyles = useMemo(() => {
+    return styles.some((style) => !!(style?.landscape || style?.portrait));
+  }, [styles]);
 
   const getOrientation = useCallback((): "landscape" | "portrait" | undefined => {
     if (!isMobile) return;
@@ -12,7 +17,7 @@ export const useOrientationStyle = (style: PlatformVariantStyle): ReactNativeSty
     const { height, width } = Dimensions.get("screen");
 
     return height > width ? "portrait" : "landscape";
-  }, [style]);
+  }, [styles]);
 
   const [orientation, setOrientation] = useState<"landscape" | "portrait" | undefined>(
     getOrientation
@@ -27,15 +32,19 @@ export const useOrientationStyle = (style: PlatformVariantStyle): ReactNativeSty
         Dimensions.removeEventListener("change", handleOnChange);
       };
     }
-  }, [style, getOrientation, setOrientation, hasOrientationStyles, isMobile]);
+  }, [styles, getOrientation, setOrientation, hasOrientationStyles, isMobile]);
 
-  const orientationStyle = useMemo(() => {
-    if (!hasOrientationStyles || !orientation) return {};
+  const orientationStyles = useMemo(() => {
+    return styles.map((style) => {
+      if (style === undefined) return;
 
-    const { landscape = {}, portrait = {} } = style;
+      if (!hasOrientationStyles || !orientation) return {};
 
-    return orientation === "landscape" ? landscape : portrait;
-  }, [style, orientation, hasOrientationStyles]);
+      const { landscape = {}, portrait = {} } = style;
 
-  return orientationStyle;
+      return orientation === "landscape" ? landscape : portrait;
+    });
+  }, [styles, orientation, hasOrientationStyles]);
+
+  return orientationStyles;
 };

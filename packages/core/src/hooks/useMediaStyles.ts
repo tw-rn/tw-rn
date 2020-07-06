@@ -3,7 +3,9 @@ import { Platform } from "react-native";
 import merge from "deepmerge";
 import { PlatformVariantStyle, ReactNativeStyle } from "../types";
 
-export const useMediaStyle = (style: PlatformVariantStyle): ReactNativeStyle | undefined => {
+export const useMediaStyles = (
+  styles: (PlatformVariantStyle | undefined)[]
+): (ReactNativeStyle | null | undefined)[] => {
   // Get the media query list matches from window
   const isWeb = Platform.OS === "web";
   const isNotBrowser = typeof window === "undefined" || typeof window.matchMedia === "undefined";
@@ -11,13 +13,19 @@ export const useMediaStyle = (style: PlatformVariantStyle): ReactNativeStyle | u
   const mediaQueryList = useMemo((): { [key: string]: MediaQueryList } => {
     if (!isWeb || isNotBrowser) return {};
 
-    const { media = {} } = style;
-    const queries = Object.keys(media);
+    return styles.reduce<{ [key: string]: MediaQueryList }>((acc, style) => {
+      if (style === undefined) return acc;
 
-    return queries.reduce((acc, media) => {
-      return { ...acc, [media]: window.matchMedia(media) };
+      const { media = {} } = style;
+      const queries = Object.keys(media);
+
+      const matchMedia = queries.reduce((acc, media) => {
+        return { ...acc, [media]: window.matchMedia(media) };
+      }, {});
+
+      return merge(acc, matchMedia);
     }, {});
-  }, [style]);
+  }, [styles]);
 
   // Get the media query that current matches
   const getCurrentMediaQueryValue = useCallback(() => {
@@ -52,26 +60,30 @@ export const useMediaStyle = (style: PlatformVariantStyle): ReactNativeStyle | u
         queries.forEach((query) => mediaQueryList[query].removeListener(handler));
       };
     }
-  }, [style, currentMediaQueryValue, mediaQueryList]);
+  }, [styles, currentMediaQueryValue, mediaQueryList]);
 
-  const mediaStyle = useMemo(() => {
-    const { media = {} } = style;
+  const mediaStyles = useMemo(() => {
+    return styles.map((style) => {
+      if (style === undefined) return;
 
-    // if is SSR, return undefined
-    if (isWeb && isNotBrowser) return;
+      const { media = {} } = style;
 
-    const defaultStyles = media?.[""] || {};
+      // if is SSR, return undefined
+      if (isWeb && isNotBrowser) return null;
 
-    // If is web, combine the non related media query values ('')
-    // with the current media query
-    if (isWeb) {
-      const mediaQueryStyles = media?.[currentMediaQueryValue] || {};
-      return merge(defaultStyles, mediaQueryStyles);
-    }
+      const defaultStyles = media?.[""] || {};
 
-    // Else, return the non related media query values
-    return defaultStyles;
-  }, [style, currentMediaQueryValue, mediaQueryList]);
+      // If is web, combine the non related media query values ('')
+      // with the current media query
+      if (isWeb) {
+        const mediaQueryStyles = media?.[currentMediaQueryValue] || {};
+        return merge(defaultStyles, mediaQueryStyles);
+      }
 
-  return mediaStyle;
+      // Else, return the non related media query values
+      return defaultStyles;
+    });
+  }, [styles, currentMediaQueryValue, mediaQueryList]);
+
+  return mediaStyles;
 };

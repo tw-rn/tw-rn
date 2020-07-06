@@ -1,4 +1,11 @@
-import { ViewStyle, TextStyle, ImageStyle, StyleProp } from "react-native";
+import {
+  ViewStyle,
+  TextStyle,
+  ImageStyle,
+  StyleProp,
+  TargetedEvent,
+  NativeSyntheticEvent,
+} from "react-native";
 
 declare global {
   namespace NodeJS {
@@ -71,3 +78,10 @@ export type ComputedTailwindReactNativeStyles = {
 };
 
 export type TailwindReactNativeStyle = { __?: ComputedTailwindReactNativeStyles };
+
+export type VariantsProps = {
+  onMouseEnter?: (e: any) => void;
+  onMouseLeave?: (e: any) => void;
+  onFocus?: (e: NativeSyntheticEvent<TargetedEvent>) => void;
+  onBlur?: (e: NativeSyntheticEvent<TargetedEvent>) => void;
+};

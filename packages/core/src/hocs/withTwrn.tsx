@@ -1,4 +1,4 @@
-import React, { ComponentType, useMemo } from "react";
+import React, { ComponentType, useMemo, useCallback, useRef, useEffect, useState } from "react";
 import { Style } from "../types";
 import { useTwrnStyles } from "../hooks";
 import { NativeSyntheticEvent, TargetedEvent } from "react-native";
@@ -22,7 +22,18 @@ export const withTwrn = <P extends object, O extends keyof P>(
   ...props
 }) => {
   // Extracting styles from props indicated in the styleKeys
-  const styles = useMemo(() => styleKeys.map((key) => (props as any)[key]), [props]);
+  const getStyleFromProps = useCallback((props) => {
+    return styleKeys.map((key) => (props as any)[key]);
+  }, []);
+
+  const [styles, setStyles] = useState(getStyleFromProps(props));
+
+  useEffect(() => {
+    const newStyles = getStyleFromProps(props);
+    if (JSON.stringify(styles) !== JSON.stringify(newStyles)) {
+      setStyles(newStyles);
+    }
+  }, [props]);
 
   const {
     combinedStyles,

@@ -92,7 +92,7 @@ const getTransformedDecls = (rule: Rule, vars: Variables, platform: Platform) =>
 
       // console.log(` ${green(decl.prop)} => ${green(value)} \n------`);
 
-      decls = [...decls, [decl.prop, decl.value.replace(regex, value)]];
+      decls = [...decls, [decl.prop, value]];
     } else {
       const value = convertUnit(decl.value);
 

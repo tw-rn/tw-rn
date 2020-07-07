@@ -1,0 +1,6 @@
+73 error Error: Command failed: git tag v0.0.7 -m v0.0.7
+73 error fatal: tag 'v0.0.7' already exists
+73 error
+73 error     at makeError (/usr/local/lib/node_modules/lerna/node_modules/execa/index.js:174:9)
+73 error     at /usr/local/lib/node_modules/lerna/node_modules/execa/index.js:278:16
+73 error     at processTicksAndRejections (internal/process/task_queues.js:97:5)

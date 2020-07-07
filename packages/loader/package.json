@@ -1,14 +1,14 @@
 {
   "name": "@tw-rn/loader",
   "author": "Erick Tamayo",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "license": "MIT",
   "private": false,
   "main": "dist/index.js",
   "module": "dist/index.es.js",
   "types": "dist/index.d.ts",
   "devDependencies": {
-    "@tw-rn/processor": "^0.0.5",
+    "@tw-rn/processor": "^0.0.6",
     "@types/node": "^14.0.14",
     "typescript": "^3.9.6"
   },

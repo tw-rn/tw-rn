@@ -5,6 +5,7 @@ module.exports = {
     "h-100": { height: 100 },
     "w-100": { width: 100 },
     "p-1": { padding: 4 },
+    "p-4": { paddingTop: 10, paddingRight: 10, paddingBottom: 10, paddingLeft: 10 },
   },
   "(min-width: 640px)": { "sm:bg-red": { backgroundColor: "#ff0000" } },
   "(min-width: 768px)": { "md:bg-green": { backgroundColor: "#00ff00" } },

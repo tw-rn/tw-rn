@@ -7,6 +7,7 @@ import {
   StyleVariants,
   ComputedTailwindReactNativeStyles,
   platformVariants,
+  Tw,
 } from "./types";
 
 const platforVariantRegex = new RegExp(`^(${platformVariants.join("|")})?:?([:a-zA-Z_0-9-]+)$`);
@@ -42,68 +43,107 @@ const findStylesWithMedia = (
 
 const findStylesWithMediaMemoized = memoize(findStylesWithMedia);
 
-export const generate = (styleNames: string[]): TailwindReactNativeStyle => {
-  if (typeof global.__TW_RN_STYLES__ === "undefined") return {};
+export const generate = memoize(
+  (styleNames: string[]): TailwindReactNativeStyle => {
+    if (typeof global.__TW_RN_STYLES__ === "undefined") return {};
 
-  const generated = styleNames.reduce<ComputedTailwindReactNativeStyles>(
-    (acc, styleName) => {
-      // Check for platform variants
-      const platformRegExpExecArray = platforVariantRegex.exec(styleName);
+    const generated = styleNames.reduce<ComputedTailwindReactNativeStyles>(
+      (acc, styleName) => {
+        // Check for platform variants
+        const platformRegExpExecArray = platforVariantRegex.exec(styleName);
 
-      if (!platformRegExpExecArray) return acc;
+        if (!platformRegExpExecArray) return acc;
 
-      const [, platform = "native", platformStylesName] = platformRegExpExecArray;
+        const [, platform = "native", platformStylesName] = platformRegExpExecArray;
 
-      // Check for style variants
-      const styleRegExpExecArray = styleVariantRegex.exec(platformStylesName);
+        // Check for style variants
+        const styleRegExpExecArray = styleVariantRegex.exec(platformStylesName);
 
-      if (!styleRegExpExecArray) return acc;
+        if (!styleRegExpExecArray) return acc;
 
-      const [, variant = "media", styleStyleName] = styleRegExpExecArray;
+        const [, variant = "media", styleStyleName] = styleRegExpExecArray;
 
-      const foundStyles = findStylesWithMediaMemoized(styleStyleName);
+        const foundStyles = findStylesWithMediaMemoized(styleStyleName);
 
-      if (!foundStyles) return acc;
+        if (!foundStyles) return acc;
 
-      const computedStyles = foundStyles.reduce<ComputedTailwindReactNativeStyles>(
-        (acc, { media, style }) => {
-          const computed = {
-            [platform]:
-              variant === "media" ? { [variant]: { [media]: style } } : { [variant]: style },
-          };
+        const computedStyles = foundStyles.reduce<ComputedTailwindReactNativeStyles>(
+          (acc, { media, style }) => {
+            const computed = {
+              [platform]:
+                variant === "media" ? { [variant]: { [media]: style } } : { [variant]: style },
+            };
 
-          return merge(acc, computed);
-        },
-        {}
+            return merge(acc, computed);
+          },
+          {}
+        );
+
+        return merge(acc, computedStyles);
+      },
+      { ...emptyStyles }
+    );
+
+    return { __: generated };
+  }
+);
+
+const mergeStyles = memoize(
+  (stylesArray: TemplateStringsArray, ...variables: string[]) => {
+    return stylesArray
+      .map((chunk, index) => `${chunk}${variables[index] || ""}`)
+      .join("")
+      .replace(/\s{2,}/g, " ")
+      .split(" ")
+      .filter(Boolean);
+  },
+  {
+    strategy: memoize.strategies.variadic,
+  }
+);
+
+const checkForTailwindStylePresence = () => {
+  if (typeof global.__TW_RN_STYLES__ === "undefined") {
+    __DEV__ &&
+      console.warn(
+        `Tailwind styles not found. You might be missing installations steps: http://localhost:3000/tw-rn/docs/fundamentals/getting-started`
       );
-
-      return merge(acc, computedStyles);
-    },
-    { ...emptyStyles }
-  );
-
-  return { __: generated };
+    return false;
+  }
+  return true;
 };
 
-export const generateTailwindReactNativeStyle = (
+const twFunction = (
   stylesArray: TemplateStringsArray,
   ...variables: string[]
 ): TailwindReactNativeStyle => {
-  if (typeof global.__TW_RN_STYLES__ === "undefined") {
-    __DEV__ && console.warn(`Can't find styles. Please include your CSS in your App entry point.`);
-    return {};
-  }
-
-  const mergedStyles = stylesArray
-    .map((chunk, index) => `${chunk}${variables[index] || ""}`)
-    .join("")
-    .replace(/\s{2,}/g, " ")
-    .split(" ")
-    .filter(Boolean);
-
-  return generate(mergedStyles);
+  if (!checkForTailwindStylePresence()) return {};
+  return generate(mergeStyles(stylesArray, ...variables));
 };
 
-export const tw = memoize(generateTailwindReactNativeStyle, {
-  strategy: memoize.strategies.variadic,
-});
+twFunction.raw = memoize(
+  (stylesArray: TemplateStringsArray, ...variables: string[]) => {
+    if (!checkForTailwindStylePresence()) return;
+    return generate(mergeStyles(stylesArray, ...variables)).__?.native?.media?.[""];
+  },
+  {
+    strategy: memoize.strategies.variadic,
+  }
+);
+
+twFunction.value = memoize(
+  (stylesArray: TemplateStringsArray, ...variables: string[]) => {
+    if (!checkForTailwindStylePresence()) return;
+
+    const generated = Object.values(
+      generate(mergeStyles(stylesArray, ...variables)).__?.native?.media?.[""] || {}
+    );
+
+    return generated.length === 0 ? undefined : generated.length === 1 ? generated[0] : generated;
+  },
+  {
+    strategy: memoize.strategies.variadic,
+  }
+);
+
+export const tw: Tw = twFunction;

@@ -85,3 +85,26 @@ export type VariantsProps = {
   onFocus?: (e: NativeSyntheticEvent<TargetedEvent>) => void;
   onBlur?: (e: NativeSyntheticEvent<TargetedEvent>) => void;
 };
+
+export interface Tw {
+  (stylesArray: TemplateStringsArray, ...variables: string[]): TailwindReactNativeStyle;
+  /**
+   * Gets the raw styles from Tailwind
+   *
+   * ```js
+   * tw.raw`bg-white` // yields { backgroundColor: '#ffffff' }
+   * ```
+   */
+  raw: (stylesArray: TemplateStringsArray, ...variables: string[]) => ReactNativeStyle | undefined;
+  /**
+   * Gets the value or values of a Tailwind style
+   *
+   * ```js
+   * tw.value`bg-white` // yields "#ffffff"
+   * ```
+   */
+  value: (
+    stylesArray: TemplateStringsArray,
+    ...variables: string[]
+  ) => undefined | number | number[] | string | string[];
+}

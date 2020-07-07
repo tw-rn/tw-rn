@@ -38,6 +38,10 @@ module.exports = {
       links: [],
       copyright: `Copyright © ${new Date().getFullYear()} tw-rn`,
     },
+    prism: {
+      theme: require("prism-react-renderer/themes/github"),
+      darkTheme: require("prism-react-renderer/themes/dracula"),
+    },
   },
   presets: [
     [

@@ -21,22 +21,27 @@ export const useFocusStyles = (
     });
   }, [styles, isFocused]);
 
+  const hasfocusStyles = useMemo(() => {
+    return (
+      styles.length > 0 &&
+      styles.some((style) => style && style.focus && Object.keys(style.focus).length > 0)
+    );
+  }, [styles]);
+
   const handleOnFocus = useCallback(
     (e: NativeSyntheticEvent<TargetedEvent>) => {
       onFocus?.(e);
-
-      setIsFocused(true);
+      if (hasfocusStyles) setIsFocused(true);
     },
-    [styles, onFocus]
+    [hasfocusStyles, focusStyles, onFocus]
   );
 
   const handleOnBlur = useCallback(
     (e: NativeSyntheticEvent<TargetedEvent>) => {
       onBlur?.(e);
-
-      setIsFocused(false);
+      if (hasfocusStyles) setIsFocused(false);
     },
-    [styles, onBlur]
+    [hasfocusStyles, focusStyles, onBlur]
   );
 
   return { focusStyles, handleOnFocus, handleOnBlur };

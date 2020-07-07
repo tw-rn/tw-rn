@@ -13,7 +13,7 @@ export const useMediaStyles = (
   const mediaQueryList = useMemo((): { [key: string]: MediaQueryList } => {
     if (!isWeb || isNotBrowser) return {};
 
-    return styles.reduce<{ [key: string]: MediaQueryList }>((acc, style) => {
+    const mediaQueryList = styles.reduce<{ [key: string]: MediaQueryList }>((acc, style) => {
       if (style === undefined) return acc;
 
       const { media = {} } = style;
@@ -23,8 +23,10 @@ export const useMediaStyles = (
         return { ...acc, [media]: window.matchMedia(media) };
       }, {});
 
-      return merge(acc, matchMedia);
+      return { ...acc, ...matchMedia };
     }, {});
+
+    return mediaQueryList;
   }, [styles]);
 
   // Get the media query that current matches

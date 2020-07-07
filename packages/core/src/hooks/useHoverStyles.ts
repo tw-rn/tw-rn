@@ -20,22 +20,27 @@ export const useHoverStyles = (
     });
   }, [styles, isHovered]);
 
+  const hasHoverStyles = useMemo(() => {
+    return (
+      styles.length > 0 &&
+      styles.some((style) => style && style.hover && Object.keys(style.hover).length > 0)
+    );
+  }, [styles]);
+
   const handleOnMouseEnter = useCallback(
     (e) => {
       onMouseEnter?.(e);
-
-      setIsHovered(true);
+      if (hasHoverStyles) setIsHovered(true);
     },
-    [styles, onMouseEnter]
+    [hasHoverStyles, hoverStyles, onMouseEnter]
   );
 
   const handleOnMouseLeave = useCallback(
     (e) => {
       onMouseLeave?.(e);
-
-      setIsHovered(false);
+      if (hasHoverStyles) setIsHovered(false);
     },
-    [styles, onMouseLeave]
+    [hasHoverStyles, hoverStyles, onMouseLeave]
   );
 
   return { hoverStyles, handleOnMouseEnter, handleOnMouseLeave };

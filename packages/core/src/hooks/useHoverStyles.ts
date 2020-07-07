@@ -22,9 +22,10 @@ export const useHoverStyles = (
 
   const hasHoverStyles = useMemo(() => {
     return (
-      hoverStyles.length > 0 && hoverStyles.some((style) => style && Object.keys(style).length > 0)
+      styles.length > 0 &&
+      styles.some((style) => style && style.hover && Object.keys(style.hover).length > 0)
     );
-  }, [hoverStyles]);
+  }, [styles]);
 
   const handleOnMouseEnter = useCallback(
     (e) => {

@@ -23,9 +23,10 @@ export const useFocusStyles = (
 
   const hasfocusStyles = useMemo(() => {
     return (
-      focusStyles.length > 0 && focusStyles.some((style) => style && Object.keys(style).length > 0)
+      styles.length > 0 &&
+      styles.some((style) => style && style.focus && Object.keys(style.focus).length > 0)
     );
-  }, [focusStyles]);
+  }, [styles]);
 
   const handleOnFocus = useCallback(
     (e: NativeSyntheticEvent<TargetedEvent>) => {

@@ -72,7 +72,7 @@ describe("ImageBackground", () => {
     ]);
   });
 
-  it.only("should render tw-rn base styles correctly in ios", () => {
+  it("should render tw-rn base styles correctly in ios", () => {
     const { getByTestId } = render(
       <ImageBackground
         testID="ImageBackground"

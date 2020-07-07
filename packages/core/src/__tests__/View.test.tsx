@@ -39,7 +39,7 @@ describe("View", () => {
   });
 
   it("should render tw-rn base styles correctly in ios", () => {
-    const { getByTestId } = render(<View testID="view" style={tw`bg-white p-4`} />);
+    const { getByTestId } = render(<View testID="view" style={tw`bg-white`} />);
 
     const { getProp } = getByTestId("view");
 

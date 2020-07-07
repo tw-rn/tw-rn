@@ -6,6 +6,77 @@ title: tw
 The `tw` function parses the TailwindCSS classes string to its corresponding React Native styles. These styles are classified depending on the selector that are in the string. This function is used by the `withTwrn` HoC to be able to apply the correct styles to wrapped components.
 
 ```js
-// const styles = { __: { "": { backgrounColor: "#ffffff" } } }
+// This is an object that is used by withTwrn HoC to generate
+// the final styles to be applied to a component
+
+// const styles = { __: { "": { backgroundColor: "#ffffff" } } }
 const styles = tw`bg-white`;
+```
+
+## tw.raw and tw.value
+
+Sometimes we need the to apply styles to regular components that we cannot or don't want to wrap them in the `withTwrn` HoC. For these particular cases `tw.raw` and `tw.value` can be used instead.
+
+`tw.raw` returns the classes as regular React Native styles:
+
+```js
+// const raw = { backgroundColor: "#ffffff" }
+const raw = tw.raw`bg-white`;
+```
+
+`tw.value` returns the value (or values) of a react native style
+
+```js
+// const value = "#ffffff"
+const value = tw.value`bg-white`;
+```
+
+### Example
+
+Imagine we are using React Navigation library and we need to stylize a `Stack.Screen` component, this would be the regular way to do it:
+
+```jsx
+function StackScreen() {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen
+        name="Home"
+        component={HomeScreen}
+        options={{
+          title: "My home",
+          headerStyle: {
+            backgroundColor: "#ed8936",
+          },
+          headerTintColor: "#ffffff",
+          headerTitleStyle: {
+            fontWeight: "bold",
+          },
+        }}
+      />
+    </Stack.Navigator>
+  );
+}
+```
+
+Using tw-rn, we can re-write the previous code like this:
+
+```jsx
+import { tw } from "tw-rn";
+
+function StackScreen() {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen
+        name="Home"
+        component={HomeScreen}
+        options={{
+          title: "My home",
+          headerStyle: tw.raw`bg-orange-500`,
+          headerTintColor: tw.value`text-white`,
+          headerTitleStyle: tw.raw`font-bold`,
+        }}
+      />
+    </Stack.Navigator>
+  );
+}
 ```

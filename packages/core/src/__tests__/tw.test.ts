@@ -1,5 +1,5 @@
 import { TailwindReactNativeStyle } from "../types";
-import { generate } from "../tw";
+import { generate, tw } from "../tw";
 
 describe("tw", () => {
   it.each<[string[], TailwindReactNativeStyle]>([
@@ -192,5 +192,29 @@ describe("tw", () => {
     ],
   ])("%p generates the correct output", (input, expected) => {
     expect(generate(input)).toStrictEqual(expected);
+  });
+
+  describe("tw.raw", () => {
+    it("should get the raw object of a tailwind style", () => {
+      expect(tw.raw`bg-white`).toEqual({ backgroundColor: "#ffffff" });
+    });
+
+    it("should return undefined if the style is not found", () => {
+      expect(tw.raw`not-a-valid-style`).toEqual(undefined);
+    });
+  });
+
+  describe("tw.value", () => {
+    it("should get the value of a tailwind style", () => {
+      expect(tw.value`bg-white`).toEqual("#ffffff");
+    });
+
+    it("should return undefined if the style is not found", () => {
+      expect(tw.value`not-a-valid-style`).toEqual(undefined);
+    });
+
+    it("should return an array if the style have more than 1 property", () => {
+      expect(tw.value`p-4`).toEqual([10, 10, 10, 10]);
+    });
   });
 });

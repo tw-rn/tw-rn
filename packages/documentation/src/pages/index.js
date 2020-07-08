@@ -2,9 +2,9 @@ import React, { useEffect } from "react";
 import classnames from "classnames";
 import Layout from "@theme/Layout";
 import Link from "@docusaurus/Link";
-import Head from "@docusaurus/Head";
 import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
 import useBaseUrl from "@docusaurus/useBaseUrl";
+import GitHubButton from "react-github-btn";
 import styles from "./styles.module.css";
 
 const embeded = `
@@ -25,6 +25,17 @@ function Home() {
         <div className={styles.titleContainer}>
           <div>
             <img className={styles.logo} src="img/tw-rn-white.svg" alt="tw-rn logo" />
+            <div className={styles.ghButton}>
+              <GitHubButton
+                href="https://github.com/tw-rn/tw-rn"
+                data-size="large"
+                data-show-count="true"
+                aria-label="Star tw-rn/tw-rn on GitHub"
+              >
+                Star
+              </GitHubButton>
+            </div>
+
             <div className={styles.buttons}>
               <Link
                 className={classnames(

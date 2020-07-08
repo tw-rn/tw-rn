@@ -5,10 +5,8 @@
   "private": true,
   "scripts": {
     "dev": "lerna run dev --stream --parallel --ignore @tw-rn/playground",
-    "build": "echo build",
-    "test": "echo test",
-    "core": "yarn workspace tw-rn",
-    "playground": "yarn workspace @tw-rn/playground",
+    "build": "lerna run build --stream --parallel --ignore @tw-rn/playground --ignore documentation",
+    "test": "lerna run test",
     "reset": "find . -type dir -name node_modules | xargs rm -rf && lerna bootstrap"
   },
   "devDependencies": {

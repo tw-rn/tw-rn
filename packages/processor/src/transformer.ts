@@ -8,11 +8,10 @@ const boxShadowTransformer = (decl: [string, string]) => {
   const transformed = transformCss([[prop, parsed]]);
 
   // Estimate the Android elevation
-  // This can be WAY improved
+  // This can be improved
   const { offsetX, offsetY, blurRadius, spreadRadius } = meta;
 
-  const sum = (acc: number, prop: string | number) =>
-    acc + parseInt(`0${prop}`);
+  const sum = (acc: number, prop: string | number) => acc + parseInt(`0${prop}`);
 
   const rank = [offsetX, offsetY, blurRadius, spreadRadius].reduce(sum, 0);
 
@@ -21,8 +20,11 @@ const boxShadowTransformer = (decl: [string, string]) => {
   });
 
   const elevation =
-    (penumbraPosition === -1 ? ANDROID_PENUMBRA_MAP.length : penumbraPosition) -
-    1;
+    penumbraPosition === -1
+      ? ANDROID_PENUMBRA_MAP.length - 1
+      : penumbraPosition > 0
+      ? penumbraPosition - 1
+      : 0;
 
   return { ...transformed, elevation };
 };
@@ -32,9 +34,7 @@ const transformersMap = {
 };
 
 export const transform = (decls: [string, string][]): ParsedDeclarations => {
-  const [defaultDecls, specificDecls] = decls.reduce<
-    [[string, string][], [string, string][]]
-  >(
+  const [defaultDecls, specificDecls] = decls.reduce<[[string, string][], [string, string][]]>(
     ([defaultDecls, specificDecls], decl) => {
       const prop = decl[0];
       if ((transformersMap as any)[prop] !== undefined) {

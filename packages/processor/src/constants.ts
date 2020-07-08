@@ -147,7 +147,7 @@ export const TW_CLASSES_REACT_ALLOWLIST = [
   // User select
   `${START}${MEDIA}select-.*${END}`,
 ];
-
+// https://github.com/material-components/material-components-web/blob/master/packages/mdc-elevation/_variables.scss
 export const ANDROID_PENUMBRA_MAP = [
   [0, 0, 0, 0],
   [0, 1, 1, 0],

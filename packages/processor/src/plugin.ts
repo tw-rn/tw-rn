@@ -1,34 +1,23 @@
-import postcss, { atRule, AtRule, Rule } from "postcss";
+import postcss, { AtRule, Rule } from "postcss";
 import { yellow, green, redBright } from "chalk";
-import deepmerge from "deepmerge";
-import transform from "css-to-react-native";
-import escapeRegExp from "lodash/escapeRegExp";
+import merge from "deepmerge";
+import { dashToCamelCase } from "./helpers";
+import * as parsers from "./parsers";
+import { transform } from "./transformer";
 import { reactNativeValidStyles, reactValidStyles } from "./valid-styles";
-import { TW_CLASSES_REACT_ALLOWLIST, TW_CLASSES_REACT_NATIVE_ALLOWLIST } from "./constants";
-
-type Platform = "web" | "mobile";
-
-type PluginOptions = {
-  onProcessed?: (processed: { [key: string]: any }) => void;
-  userRules?: string[];
-  platform?: Platform;
-};
-
-type Variables = { [key: string]: string };
-
-type ParsedDeclarations = { [key: string]: string };
-
-type Styles = { [key: string]: ParsedDeclarations };
-
-type MediaStyles = { [key: string]: Styles };
+import {
+  TW_CLASSES_REACT_ALLOWLIST,
+  TW_CLASSES_REACT_NATIVE_ALLOWLIST,
+} from "./constants";
 
 const generateRuleRegex = (userRules: string[], platform: Platform) => {
   const supportedRules = [
-    ...(platform === "mobile" ? TW_CLASSES_REACT_NATIVE_ALLOWLIST : TW_CLASSES_REACT_ALLOWLIST),
+    ...(platform === "mobile"
+      ? TW_CLASSES_REACT_NATIVE_ALLOWLIST
+      : TW_CLASSES_REACT_ALLOWLIST),
     ...userRules.map((r) => `^\\.${r}$`),
   ];
   const regex = `(${supportedRules.join("|")})`;
-  // console.log({ regex });
   return new RegExp(regex);
 };
 
@@ -46,7 +35,10 @@ const convertUnit = (value: string): string => {
   }
 };
 
-const validateTransformedDecls = (decls: ParsedDeclarations, platform: Platform) => {
+const validateTransformedDecls = (
+  decls: ParsedDeclarations,
+  platform: Platform
+) => {
   Object.entries(decls).forEach(([key, value]) => {
     if (platform === "mobile") {
       const validStyleKey = key as keyof typeof reactNativeValidStyles;
@@ -54,14 +46,16 @@ const validateTransformedDecls = (decls: ParsedDeclarations, platform: Platform)
 
       if (!validStyle) throw new Error(`${key} is not a valid prop`);
 
-      if (!validStyle(value)) throw new Error(`${value} is not a valid value for ${key}`);
+      if (!validStyle(value))
+        throw new Error(`${value} is not a valid value for ${key}`);
     } else {
       const validStyleKey = key as keyof typeof reactValidStyles;
       const validStyle = reactValidStyles[validStyleKey];
 
       if (!validStyle) throw new Error(`${key} is not a valid prop`);
 
-      if (!validStyle(value)) throw new Error(`${value} is not a valid value for ${key}`);
+      if (!validStyle(value))
+        throw new Error(`${value} is not a valid value for ${key}`);
     }
   });
 };
@@ -77,7 +71,11 @@ const getVars = (rule: Rule) => {
   return vars;
 };
 
-const getTransformedDecls = (rule: Rule, vars: Variables, platform: Platform) => {
+const getTransformedDecls = (
+  rule: Rule,
+  vars: Variables,
+  platform: Platform
+) => {
   let decls: [string, string][] = [];
 
   rule.walkDecls((decl) => {
@@ -90,9 +88,9 @@ const getTransformedDecls = (rule: Rule, vars: Variables, platform: Platform) =>
     if (variableName) {
       const value = decl.value.replace(regex, vars[variableName]);
 
-      // console.log(` ${green(decl.prop)} => ${green(value)} \n------`);
-
       decls = [...decls, [decl.prop, value]];
+
+      // console.log(` ${green(decl.prop)} => ${green(value)} \n------`);
     } else {
       const value = convertUnit(decl.value);
 
@@ -103,13 +101,12 @@ const getTransformedDecls = (rule: Rule, vars: Variables, platform: Platform) =>
   });
 
   try {
-    const transformed = transform(decls) as ParsedDeclarations;
+    const transformed = transform(decls);
 
     validateTransformedDecls(transformed, platform);
 
     return transformed;
   } catch (error) {
-    console.log(`Invalid rule rule ${green(rule.selector)} ${yellow(JSON.stringify(decls))}`);
     console.log(`${redBright(error)}`);
     return {} as ParsedDeclarations;
   }
@@ -133,7 +130,11 @@ const getTransformedRule = (rule: Rule, platform: Platform) => {
   return styles;
 };
 
-const getNativeStyleFromAtRules = (atRule: AtRule, userRules: string[], platform: Platform) => {
+const getNativeStyleFromAtRules = (
+  atRule: AtRule,
+  userRules: string[],
+  platform: Platform
+) => {
   const rulesRegex = generateRuleRegex(userRules, platform);
 
   let styles: Styles = {};
@@ -147,28 +148,39 @@ const getNativeStyleFromAtRules = (atRule: AtRule, userRules: string[], platform
   return styles;
 };
 
-const plugin = postcss.plugin("react-native-transform", (opts: PluginOptions = {}) => {
-  const { onProcessed = () => {}, platform = "mobile", userRules = [] } = opts;
+const plugin = postcss.plugin(
+  "react-native-transform",
+  (opts: PluginOptions = {}) => {
+    const {
+      onProcessed = () => {},
+      platform = "mobile",
+      userRules = [],
+    } = opts;
 
-  let styles: MediaStyles = {};
+    let styles: MediaStyles = {};
 
-  return (root, result) => {
-    // Walk breakpoints
-    root.walkAtRules("media", (atRule) => {
-      styles = deepmerge(styles, {
-        [atRule.params]: getNativeStyleFromAtRules(atRule, userRules, platform),
+    return (root, result) => {
+      // Walk breakpoints
+      root.walkAtRules("media", (atRule) => {
+        styles = merge(styles, {
+          [atRule.params]: getNativeStyleFromAtRules(
+            atRule,
+            userRules,
+            platform
+          ),
+        });
       });
-    });
 
-    const rulesRegex = generateRuleRegex(userRules, platform);
+      const rulesRegex = generateRuleRegex(userRules, platform);
 
-    root.walkRules(rulesRegex, (rule) => {
-      styles = deepmerge(styles, { "": getTransformedRule(rule, platform) });
-      rule.remove();
-    });
+      root.walkRules(rulesRegex, (rule) => {
+        styles = merge(styles, { "": getTransformedRule(rule, platform) });
+        rule.remove();
+      });
 
-    onProcessed(styles);
-  };
-});
+      onProcessed(styles);
+    };
+  }
+);
 
 export = plugin;

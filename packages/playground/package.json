@@ -5,7 +5,7 @@
   "main": "__generated__/AppEntry.js",
   "scripts": {
     "dev": "concurrently \"npm run rsync\" \"next\"",
-    "rsync": "nodemon --watch ../core --exec \"rsync -rv ../core/* ./node_modules/tw-rn/ --exclude node_modules/ --exclude .jest/\"",
+    "rsync": "nodemon --watch ../core --exec \"rsync -rv ../core/* ./node_modules/tw-rn/ --exclude node_modules/ --exclude .jest/ --whole-file\"",
     "build": "next build",
     "start": "expo start",
     "expo:start": "concurrently \"npm run rsync\" \"expo start\"",

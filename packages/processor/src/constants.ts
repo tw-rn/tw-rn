@@ -67,6 +67,8 @@ export const TW_CLASSES_REACT_NATIVE_ALLOWLIST = [
   `${START}${MEDIA}border(-(?!collapse|separate|current|double|none).*)?${END}`,
   // Opacity
   `${START}${MEDIA}opacity-.*${END}`,
+  // Shadow
+  `${START}${MEDIA}shadow(-(?!inner).*)?${END}`,
 ];
 
 export const TW_CLASSES_REACT_ALLOWLIST = [
@@ -138,8 +140,38 @@ export const TW_CLASSES_REACT_ALLOWLIST = [
   `${START}${MEDIA}border(-(?!collapse|separate|current|double|none).*)?${END}`,
   // Opacity
   `${START}${MEDIA}opacity-.*${END}`,
+  // Shadow
+  `${START}${MEDIA}shadow(-(?!inner).*)?${END}`,
   // Cursor
   `${START}${MEDIA}cursor-.*${END}`,
   // User select
   `${START}${MEDIA}select-.*${END}`,
+];
+// https://github.com/material-components/material-components-web/blob/master/packages/mdc-elevation/_variables.scss
+export const ANDROID_PENUMBRA_MAP = [
+  [0, 0, 0, 0],
+  [0, 1, 1, 0],
+  [0, 2, 2, 0],
+  [0, 3, 4, 0],
+  [0, 4, 5, 0],
+  [0, 5, 8, 0],
+  [0, 6, 10, 0],
+  [0, 7, 10, 1],
+  [0, 8, 10, 1],
+  [0, 9, 12, 1],
+  [0, 10, 14, 1],
+  [0, 11, 15, 1],
+  [0, 12, 17, 2],
+  [0, 13, 19, 2],
+  [0, 14, 21, 2],
+  [0, 15, 22, 2],
+  [0, 16, 24, 2],
+  [0, 17, 26, 2],
+  [0, 18, 28, 2],
+  [0, 19, 29, 2],
+  [0, 20, 31, 3],
+  [0, 21, 33, 3],
+  [0, 22, 35, 3],
+  [0, 23, 36, 3],
+  [0, 24, 38, 3],
 ];

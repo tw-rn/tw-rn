@@ -3,10 +3,52 @@ id: box-shadow
 title: Box Shadow
 ---
 
-### React Native
+As React Native only support a single shadow styling, tw-rn only supports the first shadow of each TailwindCSS box-shadow classes.
 
-Not supported.
+## React Native
 
-### React Native Web
+| Style       | Properties                                                                                                                                                 |
+| :---------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| shadow-sm   | `shadowOffset: { width: 0, height: 1 }` <br/> `shadowRadius: 2` <br/> `shadowColor: "rgba(0, 0, 0, 0.05)"` <br/> `shadowOpacity: 1` <br/> `elevation: 1`   |
+| shadow      | `shadowOffset: { width: 0, height: 1 }` <br/> `shadowRadius: 3` <br/> `shadowColor: "rgba(0, 0, 0, 0.1)"` <br/> `shadowOpacity: 1` <br/> `elevation: 1`    |
+| shadow-md   | `shadowOffset: { width: 0, height: 4 }` <br/> `shadowRadius: 6` <br/> `shadowColor: "rgba(0, 0, 0, 0.1)"` <br/> `shadowOpacity: 1` <br/> `elevation: 4`    |
+| shadow-lg   | `shadowOffset: { width: 0, height: 10 }` <br/> `shadowRadius: 15` <br/> `shadowColor: "rgba(0, 0, 0, 0.1)"` <br/> `shadowOpacity: 1` <br/> `elevation: 4`  |
+| shadow-xl   | `shadowOffset: { width: 0, height: 20 }` <br/> `shadowRadius: 25` <br/> `shadowColor: "rgba(0, 0, 0, 0.1)"` <br/> `shadowOpacity: 1` <br/> `elevation: 16` |
+| shadow-2xl  | `shadowOffset: { width: 0, height: 25 }` <br/> `shadowRadius: 50` <br/> `shadowColor: "rgba(0, 0, 0, 0.1)"` <br/> `shadowOpacity: 1` <br/> `elevation: 24` |
+| shadow-none | `shadowOffset: { width: 0, height: 0 }` <br/> `shadowRadius: 2` <br/> `shadowColor: "black"` <br/> `shadowOpacity: 1` <br/> `elevation: 0`                 |
 
-Not supported.
+### Usage
+
+<!-- prettier-ignore-start -->
+```jsx
+<View style={tw`shadow`}>
+  {/* ... */}
+</View>
+```
+<!-- prettier-ignore-end -->
+
+## React Native Web
+
+| Style       | Properties                                                                                                                                                 |
+| :---------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| shadow-sm   | `shadowOffset: { width: 0, height: 1 }` <br/> `shadowRadius: 2` <br/> `shadowColor: "rgba(0, 0, 0, 0.05)"` <br/> `shadowOpacity: 1` <br/> `elevation: 1`   |
+| shadow      | `shadowOffset: { width: 0, height: 1 }` <br/> `shadowRadius: 3` <br/> `shadowColor: "rgba(0, 0, 0, 0.1)"` <br/> `shadowOpacity: 1` <br/> `elevation: 1`    |
+| shadow-md   | `shadowOffset: { width: 0, height: 4 }` <br/> `shadowRadius: 6` <br/> `shadowColor: "rgba(0, 0, 0, 0.1)"` <br/> `shadowOpacity: 1` <br/> `elevation: 4`    |
+| shadow-lg   | `shadowOffset: { width: 0, height: 10 }` <br/> `shadowRadius: 15` <br/> `shadowColor: "rgba(0, 0, 0, 0.1)"` <br/> `shadowOpacity: 1` <br/> `elevation: 4`  |
+| shadow-xl   | `shadowOffset: { width: 0, height: 20 }` <br/> `shadowRadius: 25` <br/> `shadowColor: "rgba(0, 0, 0, 0.1)"` <br/> `shadowOpacity: 1` <br/> `elevation: 16` |
+| shadow-2xl  | `shadowOffset: { width: 0, height: 25 }` <br/> `shadowRadius: 50` <br/> `shadowColor: "rgba(0, 0, 0, 0.1)"` <br/> `shadowOpacity: 1` <br/> `elevation: 24` |
+| shadow-none | `shadowOffset: { width: 0, height: 0 }` <br/> `shadowRadius: 2` <br/> `shadowColor: "black"` <br/> `shadowOpacity: 1` <br/> `elevation: 0`                 |
+
+### Usage
+
+For web-only styles, you can use them with the `web:` platform pseudo selector.
+
+<!-- prettier-ignore-start -->
+```jsx
+<View style={tw`web:shadow-md`}>
+  {/* ... */}
+</View>
+```
+<!-- prettier-ignore-end -->
+
+See in Tailwind website for more information [here](https://tailwindcss.com/docs/box-shadow)

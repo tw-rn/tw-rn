@@ -1,5 +1,5 @@
 import { Platform } from "react-native";
-const webStyles = require("./web-styles.js");
-const nativeStyles = require("./native-styles.js");
+const reactStyles = require("./react-styles.js");
+const reactNativeStyles = require("./react-native-styles.js");
 
-(global as any).__TW_RN_STYLES__ = Platform.OS === "web" ? webStyles : nativeStyles;
+(global as any).__TW_RN_STYLES__ = Platform.OS === "web" ? reactStyles : reactNativeStyles;

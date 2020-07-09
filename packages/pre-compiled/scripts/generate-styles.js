@@ -7,25 +7,24 @@ const writeFile = util.promisify(require("fs").writeFile);
 const { resolve } = require("path");
 
 yargs.command(
-  "build",
+  "build [platform]",
   "builds the web project",
   () => {},
   async (argv) => {
+    const { platform } = argv;
+
     try {
-      console.log("📦 Building styles...");
+      console.log(`📦 Building styles for ${platform}...`);
+
+      const filename = platform === "mobile" ? "react-native-styles.js" : "react-styles.js";
 
       const css = await readFile(resolve(__dirname, "../src/style.css"), "utf8");
 
-      const generatedWeb = await process(css, "web");
-      const generatedNative = await process(css, "mobile");
+      const generated = await process(css, platform);
 
       await writeFile(
-        resolve(__dirname, "../dist/web-styles.js"),
-        `module.exports = ${JSON.stringify(generatedWeb)}`
-      );
-      await writeFile(
-        resolve(__dirname, "../dist/native-styles.js"),
-        `module.exports = ${JSON.stringify(generatedNative)}`
+        resolve(__dirname, `../dist/${filename}`),
+        `module.exports = ${JSON.stringify(generated, null, "  ")}`
       );
 
       console.log("Done.");

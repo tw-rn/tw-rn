@@ -69,6 +69,11 @@ export const TW_CLASSES_REACT_NATIVE_ALLOWLIST = [
   `${START}${MEDIA}opacity-.*${END}`,
   // Shadow
   `${START}${MEDIA}shadow(-(?!inner).*)?${END}`,
+  //
+  // @tw-rn/plugin
+  //
+  // Flex
+  `${START}${MEDIA}flex.*${END}`,
 ];
 
 export const TW_CLASSES_REACT_ALLOWLIST = [

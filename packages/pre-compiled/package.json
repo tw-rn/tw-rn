@@ -8,7 +8,7 @@
   "module": "dist/index.es.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "build": "rollup -c rollup.config.js && node ./scripts/generate-styles.js build",
+    "build": "rollup -c rollup.config.js && node ./scripts/generate-styles.js build mobile && node ./scripts/generate-styles.js build web",
     "dev": "rollup -c rollup.config.js --watch",
     "test": "echo test"
   },
@@ -24,7 +24,8 @@
     "react-native": "*"
   },
   "dependencies": {
-    "@tw-rn/processor": "^0.0.9"
+    "@tw-rn/processor": "^0.0.9",
+    "@tw-rn/plugin": "^0.0.9"
   },
   "publishConfig": {
     "access": "public"

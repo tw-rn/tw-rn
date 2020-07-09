@@ -9,7 +9,6 @@
   "types": "dist/index.d.ts",
   "scripts": {
     "build": "rollup -c rollup.config.js && node ./scripts/generate-styles.js build mobile && node ./scripts/generate-styles.js build web",
-    "dev": "rollup -c rollup.config.js --watch",
     "test": "echo test"
   },
   "devDependencies": {

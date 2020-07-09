@@ -4,6 +4,7 @@ import displayPlugin from "./display";
 import overflowPlugin from "./overflow";
 import positionPlugin from "./position";
 import textAlignPlugin from "./textAlign";
+import borderStylePlugin from "./borderStyle";
 
 const flex = {
   default: "1",
@@ -103,6 +104,8 @@ const lineHeight = {
 
 const { current: colorCurrent, ...colors } = defaultTheme.colors;
 
+const { inner: boxShadowInner, ...boxShadow } = defaultTheme.boxShadow;
+
 const reactNativeConfig = (options: any = {}) => {
   return {
     theme: {
@@ -118,8 +121,14 @@ const reactNativeConfig = (options: any = {}) => {
       letterSpacing,
       lineHeight,
       colors,
+      boxShadow,
     },
-    corePlugins: { ...corePlugins, boxSizing: false },
+    corePlugins: {
+      ...corePlugins,
+      boxSizing: false,
+      cursor: false,
+      userSelect: false,
+    },
   };
 };
 
@@ -138,6 +147,7 @@ const reactNativeWebConfig = (options: any = {}) => {
       letterSpacing,
       lineHeight,
       colors,
+      boxShadow,
     },
     corePlugins,
   };
@@ -150,20 +160,20 @@ const corePlugins = {
   // alignSelf: false,
   appearance: false,
   backgroundAttachment: false,
-  backgroundColor: false,
+  // backgroundColor: false,
   backgroundOpacity: false,
   backgroundPosition: false,
   backgroundRepeat: false,
   backgroundSize: false,
   borderCollapse: false,
-  borderColor: false,
+  // borderColor: false,
   borderOpacity: false,
-  borderRadius: false,
+  // borderRadius: false,
   borderStyle: false,
-  borderWidth: false,
-  boxShadow: false,
+  // borderWidth: false,
+  // boxShadow: false,
   // boxSizing: false,
-  cursor: false,
+  // cursor: false,
   display: false,
   divideColor: false,
   divideOpacity: false,
@@ -195,7 +205,7 @@ const corePlugins = {
   // minWidth: false,
   objectFit: false,
   objectPosition: false,
-  opacity: false,
+  // opacity: false,
   order: false,
   outline: false,
   overflow: false,
@@ -214,7 +224,7 @@ const corePlugins = {
   textOpacity: false,
   textDecoration: false,
   // textTransform: false,
-  userSelect: false,
+  // userSelect: false,
   verticalAlign: false,
   visibility: false,
   whitespace: false,
@@ -250,6 +260,7 @@ export = plugin.withOptions(
       overflowPlugin(options);
       positionPlugin(options);
       textAlignPlugin(options);
+      borderStylePlugin(options);
     };
   },
   (options: any = {}) => {

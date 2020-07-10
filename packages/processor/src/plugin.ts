@@ -18,10 +18,7 @@ const convertUnit = (value: string): string => {
   }
 };
 
-const validateTransformedDecls = (
-  decls: ParsedDeclarations,
-  platform: Platform
-) => {
+const validateTransformedDecls = (decls: ParsedDeclarations, platform: Platform) => {
   Object.entries(decls).forEach(([key, value]) => {
     if (platform === "mobile") {
       const validStyleKey = key as keyof typeof reactNativeValidStyles;
@@ -29,16 +26,14 @@ const validateTransformedDecls = (
 
       if (!validStyle) throw new Error(`${key} is not a valid prop [${value}]`);
 
-      if (!validStyle(value))
-        throw new Error(`${value} is not a valid value for ${key}`);
+      if (!validStyle(value)) throw new Error(`${value} is not a valid value for ${key}`);
     } else {
       const validStyleKey = key as keyof typeof reactValidStyles;
       const validStyle = reactValidStyles[validStyleKey];
 
       if (!validStyle) throw new Error(`${key} is not a valid prop [${value}]`);
 
-      if (!validStyle(value))
-        throw new Error(`${value} is not a valid value for ${key}`);
+      if (!validStyle(value)) throw new Error(`${value} is not a valid value for ${key}`);
     }
   });
 };
@@ -54,11 +49,7 @@ const getVars = (rule: Rule) => {
   return vars;
 };
 
-const getTransformedDecls = (
-  rule: Rule,
-  vars: Variables,
-  platform: Platform
-) => {
+const getTransformedDecls = (rule: Rule, vars: Variables, platform: Platform) => {
   let decls: [string, string][] = [];
 
   rule.walkDecls((decl) => {
@@ -113,13 +104,7 @@ const getTransformedRule = (rule: Rule, platform: Platform) => {
   return styles;
 };
 
-const getNativeStyleFromAtRules = (
-  atRule: AtRule,
-  userRules: string[],
-  platform: Platform
-) => {
-  // const rulesRegex = generateRuleRegex(userRules, platform);
-
+const getNativeStyleFromAtRules = (atRule: AtRule, userRules: string[], platform: Platform) => {
   let styles: Styles = {};
 
   atRule.walkRules((rule) => {
@@ -131,39 +116,26 @@ const getNativeStyleFromAtRules = (
   return styles;
 };
 
-const plugin = postcss.plugin(
-  "react-native-transform",
-  (opts: PluginOptions = {}) => {
-    const {
-      onProcessed = () => {},
-      platform = "mobile",
-      userRules = [],
-    } = opts;
+const plugin = postcss.plugin("react-native-transform", (opts: PluginOptions = {}) => {
+  const { onProcessed = () => {}, platform = "mobile", userRules = [] } = opts;
 
-    let styles: MediaStyles = {};
+  let styles: MediaStyles = {};
 
-    return (root, result) => {
-      // Walk breakpoints
-      root.walkAtRules("media", (atRule) => {
-        styles = merge(styles, {
-          [atRule.params]: getNativeStyleFromAtRules(
-            atRule,
-            userRules,
-            platform
-          ),
-        });
+  return (root, result) => {
+    // Walk breakpoints
+    root.walkAtRules("media", (atRule) => {
+      styles = merge(styles, {
+        [atRule.params]: getNativeStyleFromAtRules(atRule, userRules, platform),
       });
+    });
 
-      // const rulesRegex = generateRuleRegex(userRules, platform);
+    root.walkRules((rule) => {
+      styles = merge(styles, { "": getTransformedRule(rule, platform) });
+      rule.remove();
+    });
 
-      root.walkRules((rule) => {
-        styles = merge(styles, { "": getTransformedRule(rule, platform) });
-        rule.remove();
-      });
-
-      onProcessed(styles);
-    };
-  }
-);
+    onProcessed(styles);
+  };
+});
 
 export = plugin;

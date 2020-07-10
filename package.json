@@ -4,7 +4,7 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "dev": "lerna run dev --stream --parallel --ignore @tw-rn/playground",
+    "dev": "lerna run dev --stream --parallel --ignore @tw-rn/playground --ignore documentation",
     "build": "lerna run build --stream --parallel --ignore @tw-rn/playground --ignore documentation",
     "test": "lerna run test",
     "reset": "find . -type dir -name node_modules | xargs rm -rf && lerna bootstrap"

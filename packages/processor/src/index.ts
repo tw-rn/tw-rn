@@ -20,6 +20,8 @@ const getUserRules = async (content: string) => {
 };
 
 const execute = async (content: string, platform: "web" | "mobile") => {
+  process.env.RN_TW_ENV = platform;
+
   console.time("Finishing processing");
 
   log(`${logName} building`);
@@ -33,8 +35,6 @@ const execute = async (content: string, platform: "web" | "mobile") => {
 
   const options = { from: undefined };
   await postcss([require("tailwindcss"), plugin]).process(content, options);
-
-  // console.log({ processed });
 
   console.timeEnd("Finishing processing");
 

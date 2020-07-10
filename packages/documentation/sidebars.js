@@ -32,6 +32,8 @@ module.exports = {
             "styles/layout/position",
             "styles/layout/top-right-bottom-left",
             "styles/layout/z-index",
+            "styles/layout/aspect-ratio",
+            "styles/layout/direction",
           ],
           Flexbox: [
             "styles/flexbox/flex-direction",
@@ -43,6 +45,7 @@ module.exports = {
             "styles/flexbox/flex",
             "styles/flexbox/flex-grow",
             "styles/flexbox/flex-shrink",
+            "styles/flexbox/flex-basis",
             "styles/flexbox/order",
           ],
           Grid: [
@@ -79,12 +82,13 @@ module.exports = {
             "styles/typography/placeholder-opacity",
             "styles/typography/text-align",
             "styles/typography/text-color",
-            "styles/typography/text-decoration",
             "styles/typography/text-opacity",
+            "styles/typography/text-decoration",
             "styles/typography/text-transform",
             "styles/typography/vertical-alignment",
             "styles/typography/whitespace",
             "styles/typography/word-break",
+            "styles/typography/text-shadow-offset",
           ],
           Backgrounds: [
             "styles/backgrounds/background-attachment",

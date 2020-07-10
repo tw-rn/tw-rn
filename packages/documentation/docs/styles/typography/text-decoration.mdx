@@ -5,8 +5,40 @@ title: Text Decoration
 
 ### React Native
 
-Not supported.
+| Style        | Properties                                                                                                     |
+| :----------- | :------------------------------------------------------------------------------------------------------------- |
+| underline    | `textDecorationLine: "underline"` <br/> `textDecorationColor: "black"` <br/> `textDecorationStyle: "solid"`    |
+| line-through | `textDecorationLine: "line-through"` <br/> `textDecorationColor: "black"` <br/> `textDecorationStyle: "solid"` |
+| none         | `textDecorationLine: "none"` <br/> `textDecorationColor: "black"` <br/> `textDecorationStyle: "solid"`         |
+
+### Usage
+
+<!-- prettier-ignore-start -->
+```jsx
+<Text style={tw`underline`}>
+  {/* ... */}
+</Text>
+```
+<!-- prettier-ignore-end -->
 
 ### React Native Web
 
-Not supported.
+| Style        | Properties                                                                                                     |
+| :----------- | :------------------------------------------------------------------------------------------------------------- |
+| underline    | `textDecorationLine: "underline"` <br/> `textDecorationColor: "black"` <br/> `textDecorationStyle: "solid"`    |
+| line-through | `textDecorationLine: "line-through"` <br/> `textDecorationColor: "black"` <br/> `textDecorationStyle: "solid"` |
+| none         | `textDecorationLine: "none"` <br/> `textDecorationColor: "black"` <br/> `textDecorationStyle: "solid"`         |
+
+### Usage
+
+For web-only styles, you can use them with the `web:` platform pseudo selector.
+
+<!-- prettier-ignore-start -->
+```jsx
+<Text style={tw`web:line-through`}>
+  {/* ... */}
+</Text>
+```
+<!-- prettier-ignore-end -->
+
+See in Tailwind website for more information [here](https://tailwindcss.com/docs/text-decoration)

@@ -29,8 +29,23 @@ const boxShadowTransformer = (decl: [string, string]) => {
   return { ...transformed, elevation };
 };
 
+// const textShadowOffsetTransformer = (decl: [string, string]) => {
+//   const [prop, value] = decl;
+
+//   const [width, height] = value.split(" ");
+
+//   const transformed = transformCss([
+//     [[prop], { width: parseFloat(width), height: parseFloat(height) }],
+//   ]);
+
+//   console.log({ transformed });
+
+//   return transformed;
+// };
+
 const transformersMap = {
   "box-shadow": boxShadowTransformer,
+  // "text-shadow-offset": textShadowOffsetTransformer,
 };
 
 export const transform = (decls: [string, string][]): ParsedDeclarations => {

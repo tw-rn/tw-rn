@@ -88,6 +88,7 @@ module.exports = {
             "styles/typography/vertical-alignment",
             "styles/typography/whitespace",
             "styles/typography/word-break",
+            "styles/typography/text-shadow-offset",
           ],
           Backgrounds: [
             "styles/backgrounds/background-attachment",

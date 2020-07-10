@@ -15,6 +15,7 @@ import flexPlugin from "./flex";
 import flexBasisPlugin from "./flexBasis";
 import marginPlugin from "./margin";
 import paddingPlugin from "./padding";
+import textShadowOffsetPlugin from "./textShadowOffset";
 
 const flex = {
   "0": "0",
@@ -122,6 +123,18 @@ const flexBasis = (theme: any) => ({
   ...theme("spacing"),
 });
 
+const textShadowOffset = {
+  sm: "0px 1px",
+  default: "0px 2px",
+  md: "0px 4px",
+  lg: "0px 10px",
+  xl: "0px 20px",
+  "2xl": "0px 25px",
+  none: "0px 0px",
+};
+
+const fontFamily = {};
+
 const reactNativeConfig = (options: any = {}) => {
   return {
     theme: {
@@ -141,6 +154,8 @@ const reactNativeConfig = (options: any = {}) => {
       aspectRatio,
       flex,
       flexBasis,
+      textShadowOffset,
+      fontFamily,
     },
     corePlugins: {
       ...corePlugins,
@@ -168,6 +183,7 @@ const reactNativeWebConfig = (options: any = {}) => {
       colors,
       boxShadow,
       flex,
+      fontFamily,
     },
     corePlugins,
   };
@@ -206,7 +222,7 @@ const corePlugins = {
   // flexWrap: false,
   float: false,
   clear: false,
-  fontFamily: false,
+  // fontFamily: false,
   // fontSize: false,
   fontSmoothing: false,
   // fontStyle: false,
@@ -242,7 +258,7 @@ const corePlugins = {
   textAlign: false,
   // textColor: false,
   textOpacity: false,
-  textDecoration: false,
+  // textDecoration: false,
   // textTransform: false,
   // userSelect: false,
   verticalAlign: false,
@@ -291,6 +307,10 @@ export = plugin.withOptions(
       flexBasisPlugin(options);
       marginPlugin(options);
       paddingPlugin(options);
+
+      if ((process.env.RN_TW_ENV || "mobile") === "mobile") {
+        textShadowOffsetPlugin(options);
+      }
     };
   },
   (options: any = {}) => {

@@ -5,9 +5,19 @@ import overflowPlugin from "./overflow";
 import positionPlugin from "./position";
 import textAlignPlugin from "./textAlign";
 import borderStylePlugin from "./borderStyle";
+import alignContentPlugin from "./alignContent";
+import alignSelfPlugin from "./alignSelf";
+import aspectRatioPlugin from "./aspectRatio";
+import borderWidthPlugin from "./borderWidth";
+import directionPlugin from "./direction";
+import insetPlugin from "./inset";
+import flexPlugin from "./flex";
+import flexBasisPlugin from "./flexBasis";
+import marginPlugin from "./margin";
+import paddingPlugin from "./padding";
 
 const flex = {
-  default: "1",
+  "0": "0",
   "1": "1",
   "2": "2",
   "3": "3",
@@ -106,6 +116,12 @@ const { current: colorCurrent, ...colors } = defaultTheme.colors;
 
 const { inner: boxShadowInner, ...boxShadow } = defaultTheme.boxShadow;
 
+const aspectRatio = { "1": "1" };
+
+const flexBasis = (theme: any) => ({
+  ...theme("spacing"),
+});
+
 const reactNativeConfig = (options: any = {}) => {
   return {
     theme: {
@@ -122,6 +138,9 @@ const reactNativeConfig = (options: any = {}) => {
       lineHeight,
       colors,
       boxShadow,
+      aspectRatio,
+      flex,
+      flexBasis,
     },
     corePlugins: {
       ...corePlugins,
@@ -148,6 +167,7 @@ const reactNativeWebConfig = (options: any = {}) => {
       lineHeight,
       colors,
       boxShadow,
+      flex,
     },
     corePlugins,
   };
@@ -155,9 +175,9 @@ const reactNativeWebConfig = (options: any = {}) => {
 
 const corePlugins = {
   accessibility: false,
-  // alignContent: false,
+  alignContent: false,
   // alignItems: false,
-  // alignSelf: false,
+  alignSelf: false,
   appearance: false,
   backgroundAttachment: false,
   // backgroundColor: false,
@@ -170,7 +190,7 @@ const corePlugins = {
   borderOpacity: false,
   // borderRadius: false,
   borderStyle: false,
-  // borderWidth: false,
+  borderWidth: false,
   // boxShadow: false,
   // boxSizing: false,
   // cursor: false,
@@ -192,13 +212,13 @@ const corePlugins = {
   // fontStyle: false,
   // fontWeight: false,
   // height: false,
-  // inset: false,
+  inset: false,
   // justifyContent: false,
   // letterSpacing: false,
   // lineHeight: false,
   listStylePosition: false,
   listStyleType: false,
-  // margin: false,
+  margin: false,
   // maxHeight: false,
   // maxWidth: false,
   // minHeight: false,
@@ -209,7 +229,7 @@ const corePlugins = {
   order: false,
   outline: false,
   overflow: false,
-  // padding: false,
+  padding: false,
   placeholderColor: false,
   placeholderOpacity: false,
   pointerEvents: false,
@@ -256,11 +276,21 @@ const corePlugins = {
 export = plugin.withOptions(
   () => {
     return (options: any) => {
+      alignContentPlugin(options);
+      alignSelfPlugin(options);
+      aspectRatioPlugin(options);
+      borderWidthPlugin(options);
       displayPlugin(options);
       overflowPlugin(options);
       positionPlugin(options);
       textAlignPlugin(options);
       borderStylePlugin(options);
+      directionPlugin(options);
+      insetPlugin(options);
+      flexPlugin(options);
+      flexBasisPlugin(options);
+      marginPlugin(options);
+      paddingPlugin(options);
     };
   },
   (options: any = {}) => {

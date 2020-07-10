@@ -3,22 +3,58 @@ id: flex
 title: Flex
 ---
 
-### React Native
+## React Native
 
-Not supported.
+| Style   | Properties                                                |
+| :------ | :-------------------------------------------------------- |
+| flex-0  | `flexGrow: 0` <br/> `flexShrink: 1` <br/> `flexBasis: 0`  |
+| flex-1  | `flexGrow: 1` <br/> `flexShrink: 1` <br/> `flexBasis: 0`  |
+| flex-2  | `flexGrow: 2` <br/> `flexShrink: 1` <br/> `flexBasis: 0`  |
+| flex-3  | `flexGrow: 3` <br/> `flexShrink: 1` <br/> `flexBasis: 0`  |
+| flex-4  | `flexGrow: 4` <br/> `flexShrink: 1` <br/> `flexBasis: 0`  |
+| flex-5  | `flexGrow: 5` <br/> `flexShrink: 1` <br/> `flexBasis: 0`  |
+| flex-6  | `flexGrow: 6` <br/> `flexShrink: 1` <br/> `flexBasis: 0`  |
+| flex-7  | `flexGrow: 7` <br/> `flexShrink: 1` <br/> `flexBasis: 0`  |
+| flex-8  | `flexGrow: 8` <br/> `flexShrink: 1` <br/> `flexBasis: 0`  |
+| flex-9  | `flexGrow: 9` <br/> `flexShrink: 1` <br/> `flexBasis: 0`  |
+| flex-10 | `flexGrow: 10` <br/> `flexShrink: 1` <br/> `flexBasis: 0` |
 
-### React Native Web
-
-Not supported.
-
-### Notes
-
-For now you can use
+### Usage
 
 <!-- prettier-ignore-start -->
 ```jsx
-<View style={[tw`...`, { flex: 1 }]}>
+<View style={tw`flex-1`}>
   {/* ... */}
 </View>
 ```
 <!-- prettier-ignore-end -->
+
+## React Native Web
+
+| Style   | Properties                                                |
+| :------ | :-------------------------------------------------------- |
+| flex-0  | `flexGrow: 0` <br/> `flexShrink: 1` <br/> `flexBasis: 0`  |
+| flex-1  | `flexGrow: 1` <br/> `flexShrink: 1` <br/> `flexBasis: 0`  |
+| flex-2  | `flexGrow: 2` <br/> `flexShrink: 1` <br/> `flexBasis: 0`  |
+| flex-3  | `flexGrow: 3` <br/> `flexShrink: 1` <br/> `flexBasis: 0`  |
+| flex-4  | `flexGrow: 4` <br/> `flexShrink: 1` <br/> `flexBasis: 0`  |
+| flex-5  | `flexGrow: 5` <br/> `flexShrink: 1` <br/> `flexBasis: 0`  |
+| flex-6  | `flexGrow: 6` <br/> `flexShrink: 1` <br/> `flexBasis: 0`  |
+| flex-7  | `flexGrow: 7` <br/> `flexShrink: 1` <br/> `flexBasis: 0`  |
+| flex-8  | `flexGrow: 8` <br/> `flexShrink: 1` <br/> `flexBasis: 0`  |
+| flex-9  | `flexGrow: 9` <br/> `flexShrink: 1` <br/> `flexBasis: 0`  |
+| flex-10 | `flexGrow: 10` <br/> `flexShrink: 1` <br/> `flexBasis: 0` |
+
+### Usage
+
+For web-only styles, you can use them with the `web:` platform pseudo selector.
+
+<!-- prettier-ignore-start -->
+```jsx
+<View style={tw`web:flex-2`}>
+  {/* ... */}
+</View>
+```
+<!-- prettier-ignore-end -->
+
+See in Tailwind website for more information [here](https://tailwindcss.com/docs/align-self)

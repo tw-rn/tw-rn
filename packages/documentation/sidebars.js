@@ -32,6 +32,8 @@ module.exports = {
             "styles/layout/position",
             "styles/layout/top-right-bottom-left",
             "styles/layout/z-index",
+            "styles/layout/aspect-ratio",
+            "styles/layout/direction",
           ],
           Flexbox: [
             "styles/flexbox/flex-direction",
@@ -43,6 +45,7 @@ module.exports = {
             "styles/flexbox/flex",
             "styles/flexbox/flex-grow",
             "styles/flexbox/flex-shrink",
+            "styles/flexbox/flex-basis",
             "styles/flexbox/order",
           ],
           Grid: [
@@ -104,10 +107,7 @@ module.exports = {
             "styles/borders/divide-color",
             "styles/borders/divide-opacity",
           ],
-          Tables: [
-            "styles/tables/border-collapse",
-            "styles/tables/table-layout",
-          ],
+          Tables: ["styles/tables/border-collapse", "styles/tables/table-layout"],
           Effects: ["styles/effects/box-shadow", "styles/effects/opacity"],
           Transitions: [
             "styles/transitions/transition-property",
@@ -130,11 +130,7 @@ module.exports = {
             "styles/interactivity/resize",
             "styles/interactivity/user-select",
           ],
-          SVG: [
-            "styles/svg/fill",
-            "styles/svg/stroke",
-            "styles/svg/stroke-width",
-          ],
+          SVG: ["styles/svg/fill", "styles/svg/stroke", "styles/svg/stroke-width"],
           Accessibility: ["styles/accessibility/screen-readers"],
         },
       ],

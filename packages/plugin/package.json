@@ -22,7 +22,8 @@
     "test": "jest"
   },
   "dependencies": {
-    "@tailwindcss/ui": "^0.3.0"
+    "@tailwindcss/ui": "^0.3.0",
+    "fast-memoize": "^2.5.2"
   },
   "publishConfig": {
     "access": "public"

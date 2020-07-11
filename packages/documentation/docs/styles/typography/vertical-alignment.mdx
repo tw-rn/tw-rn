@@ -5,8 +5,40 @@ title: Vertical Alignment
 
 ### React Native
 
-Not supported.
+| Style       | Properties                    |
+| :---------- | :---------------------------- |
+| text-auto   | `textAlignVertical: "auto"`   |
+| text-top    | `textAlignVertical: "top"`    |
+| text-bottom | `textAlignVertical: "bottom"` |
+| text-middle | `textAlignVertical: "center"` |
+
+### Usage
+
+<!-- prettier-ignore-start -->
+```jsx
+<Text style={tw`text-middle`}>
+  {/* ... */}
+</Text>
+```
+<!-- prettier-ignore-end -->
 
 ### React Native Web
 
-Not supported.
+| Style       | Properties                    |
+| :---------- | :---------------------------- |
+| text-auto   | `textAlignVertical: "auto"`   |
+| text-top    | `textAlignVertical: "top"`    |
+| text-bottom | `textAlignVertical: "bottom"` |
+| text-middle | `textAlignVertical: "center"` |
+
+For web-only styles, you can use them with the `web:` platform pseudo selector.
+
+<!-- prettier-ignore-start -->
+```jsx
+<Text style={tw`web:text-top`}>
+  {/* ... */}
+</Text>
+```
+<!-- prettier-ignore-end -->
+
+See in React Native website for more information [here](https://reactnative.dev/docs/text-style-props#textshadowradius)

@@ -1,5 +1,3 @@
-import prefixNegativeModifiers from "tailwindcss/lib/util/prefixNegativeModifiers";
-
 export default ({ addUtilities, e, theme, variants }: any) => {
   const padding = theme("padding") || {};
   const platform = theme("platform") || "react-native";

@@ -26,8 +26,6 @@ const validateTransformedDecls = (decls: ParsedDeclarations, platform: Platform)
 
       if (!validStyle) throw new Error(`${key} is not a valid prop [${value}]`);
 
-      // console.log(`${key}, ${value}`, validStyle(value));
-
       if (!validStyle(value)) throw new Error(`${value} is not a valid value for ${key}`);
     } else {
       const validStyleKey = key as keyof typeof reactValidStyles;

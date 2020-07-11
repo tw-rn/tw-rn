@@ -1,7 +1,7 @@
 {
   "name": "@tw-rn/next-adapter",
   "author": "Erick Tamayo",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "license": "MIT",
   "private": false,
   "main": "dist/index.js",
@@ -22,7 +22,7 @@
     "test": "echo test"
   },
   "dependencies": {
-    "@tw-rn/loader": "^0.0.9",
+    "@tw-rn/loader": "^0.0.10",
     "deepmerge": "^4.2.2",
     "fast-memoize": "^2.5.2"
   },

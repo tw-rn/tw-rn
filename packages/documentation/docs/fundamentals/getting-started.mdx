@@ -47,7 +47,7 @@ import * as React from "react";
 // ...
 ```
 
-Then you can use the `rn-tw` package anywhere in your application.
+Then you can use the `tw-rn` package anywhere in your application.
 
 <Snack snackId="@ericktamayo/tw-rn-precompiled" />
 
@@ -72,7 +72,7 @@ npm install tw-rn
 ```
 
 ```bash
-npm install --save-dev @tw-rn/transformer
+npm install --save-dev @tw-rn/transformer @tw-rn/plugin
 ```
 
   </TabItem>
@@ -83,7 +83,7 @@ yarn add tw-rn
 ```
 
 ```bash
-yarn add -D @tw-rn/transformer
+yarn add -D @tw-rn/transformer @tw-rn/plugin
 ```
 
   </TabItem>
@@ -92,15 +92,25 @@ yarn add -D @tw-rn/transformer
 Create file `app.css` and copy and paste the following code
 
 ```css title="app.css"
-/* We don't need @tailwind base*/
 @tailwind components;
 @tailwind utilities;
+```
 
-/* Temporary flex polyfill */
-.flex {
-  flex: 1;
+Create the `tailwind.config.js` config file if is not created already and add the pluging:
+
+<!-- prettier-ignore-start -->
+```js title="tailwind.config.js"
+module.exports = {
+  plugins: [
+    require('@tw-rn/plugin'),
+  ]
 }
 ```
+<!-- prettier-ignore-end -->
+
+:::note
+You need to make sure to **not** generate the config file with the --full flag because the configuration will override the values of the plugin. Your customization needs to be under `theme.extend` to make sure everything works correctly.
+:::
 
 Create or modify `metro.config.js` and copy and paste this code:
 

@@ -54,7 +54,7 @@
     "type": "git",
     "url": "https://github.com/tw-rn/tw-rn"
   },
-  "gitHead": "f8a536a46f0cd1ec5dc1c9fc8315cc9139f98309",
+  "gitHead": "4e8ffc9d6a80c44893e1ef83846e9989354d1bb9",
   "react-native": "src/index.ts",
   "files": [
     "src",

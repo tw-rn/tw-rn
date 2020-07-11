@@ -1,5 +1,6 @@
 import plugin from "tailwindcss/plugin";
 import defaultTheme from "tailwindcss/defaultTheme";
+import defaultConfig from "tailwindcss/defaultConfig";
 import displayPlugin from "./display";
 import overflowPlugin from "./overflow";
 import positionPlugin from "./position";
@@ -16,6 +17,94 @@ import flexBasisPlugin from "./flexBasis";
 import marginPlugin from "./margin";
 import paddingPlugin from "./padding";
 import textShadowOffsetPlugin from "./textShadowOffset";
+import backfaceVisibilityPlugin from "./backfaceVisibility";
+import resizeModePlugin from "./resizeMode";
+import tintColorPlugin from "./tintColor";
+import overlayColorPlugin from "./overlayColor";
+import textShadowColorPlugin from "./textShadowColor";
+import textShadowRadiusPlugin from "./textShadowRadius";
+import includeFontPaddingPlugin from "./includeFontPadding";
+import textAlignVerticalPlugin from "./textAlignVertical";
+import fontVariantPlugin from "./fontVariant";
+import textDecorationColorPlugin from "./textDecorationColor";
+import textDecorationPlugin from "./textDecoration";
+import writingDirectionPlugin from "./writingDirection";
+
+const variants = Object.keys(defaultConfig.variants).reduce(
+  (acc, v) => ({ ...acc, [v]: ["responsive"] }),
+  {}
+);
+
+const corePlugins = {
+  accessibility: false,
+  alignContent: false,
+  alignSelf: false,
+  appearance: false,
+  backgroundAttachment: false,
+  backgroundOpacity: false,
+  backgroundPosition: false,
+  backgroundRepeat: false,
+  backgroundSize: false,
+  borderCollapse: false,
+  borderOpacity: false,
+  borderStyle: false,
+  borderWidth: false,
+  display: false,
+  divideColor: false,
+  divideOpacity: false,
+  divideWidth: false,
+  fill: false,
+  flex: false,
+  float: false,
+  clear: false,
+  fontSmoothing: false,
+  inset: false,
+  listStylePosition: false,
+  listStyleType: false,
+  margin: false,
+  objectFit: false,
+  objectPosition: false,
+  order: false,
+  outline: false,
+  overflow: false,
+  padding: false,
+  placeholderColor: false,
+  placeholderOpacity: false,
+  pointerEvents: false,
+  position: false,
+  resize: false,
+  space: false,
+  stroke: false,
+  strokeWidth: false,
+  tableLayout: false,
+  textAlign: false,
+  textOpacity: false,
+  verticalAlign: false,
+  visibility: false,
+  whitespace: false,
+  wordBreak: false,
+  gap: false,
+  gridAutoFlow: false,
+  gridTemplateColumns: false,
+  gridColumn: false,
+  gridColumnStart: false,
+  gridColumnEnd: false,
+  gridTemplateRows: false,
+  gridRow: false,
+  gridRowStart: false,
+  gridRowEnd: false,
+  transform: false,
+  transformOrigin: false,
+  scale: false,
+  rotate: false,
+  translate: false,
+  skew: false,
+  transitionProperty: false,
+  transitionTimingFunction: false,
+  transitionDuration: false,
+  transitionDelay: false,
+  textDecoration: false,
+};
 
 const flex = {
   "0": "0",
@@ -135,6 +224,32 @@ const textShadowOffset = {
 
 const fontFamily = {};
 
+const tintColor = (theme: any) => ({
+  ...theme("colors"),
+});
+
+const overlayColor = (theme: any) => ({
+  ...theme("colors"),
+});
+
+const textShadowColor = (theme: any) => ({
+  ...theme("colors"),
+});
+
+const textShadowRadius = {
+  sm: "1px",
+  default: "2px",
+  md: "4px",
+  lg: "10px",
+  xl: "20px",
+  "2xl": "25px",
+  none: "0px",
+};
+
+const textDecorationColor = (theme: any) => ({
+  ...theme("colors"),
+});
+
 const reactNativeConfig = (options: any = {}) => {
   return {
     theme: {
@@ -156,6 +271,11 @@ const reactNativeConfig = (options: any = {}) => {
       flexBasis,
       textShadowOffset,
       fontFamily,
+      tintColor,
+      overlayColor,
+      textShadowColor,
+      textShadowRadius,
+      textDecorationColor,
     },
     corePlugins: {
       ...corePlugins,
@@ -163,6 +283,7 @@ const reactNativeConfig = (options: any = {}) => {
       cursor: false,
       userSelect: false,
     },
+    variants,
   };
 };
 
@@ -186,77 +307,8 @@ const reactNativeWebConfig = (options: any = {}) => {
       fontFamily,
     },
     corePlugins,
+    variants,
   };
-};
-
-const corePlugins = {
-  accessibility: false,
-  alignContent: false,
-  alignSelf: false,
-  appearance: false,
-  backgroundAttachment: false,
-  backgroundOpacity: false,
-  backgroundPosition: false,
-  backgroundRepeat: false,
-  backgroundSize: false,
-  borderCollapse: false,
-  borderOpacity: false,
-  borderStyle: false,
-  borderWidth: false,
-  display: false,
-  divideColor: false,
-  divideOpacity: false,
-  divideWidth: false,
-  fill: false,
-  flex: false,
-  float: false,
-  clear: false,
-  fontSmoothing: false,
-  inset: false,
-  listStylePosition: false,
-  listStyleType: false,
-  margin: false,
-  objectFit: false,
-  objectPosition: false,
-  order: false,
-  outline: false,
-  overflow: false,
-  padding: false,
-  placeholderColor: false,
-  placeholderOpacity: false,
-  pointerEvents: false,
-  position: false,
-  resize: false,
-  space: false,
-  stroke: false,
-  strokeWidth: false,
-  tableLayout: false,
-  textAlign: false,
-  textOpacity: false,
-  verticalAlign: false,
-  visibility: false,
-  whitespace: false,
-  wordBreak: false,
-  gap: false,
-  gridAutoFlow: false,
-  gridTemplateColumns: false,
-  gridColumn: false,
-  gridColumnStart: false,
-  gridColumnEnd: false,
-  gridTemplateRows: false,
-  gridRow: false,
-  gridRowStart: false,
-  gridRowEnd: false,
-  transform: false,
-  transformOrigin: false,
-  scale: false,
-  rotate: false,
-  translate: false,
-  skew: false,
-  transitionProperty: false,
-  transitionTimingFunction: false,
-  transitionDuration: false,
-  transitionDelay: false,
 };
 
 export = plugin.withOptions(
@@ -277,9 +329,21 @@ export = plugin.withOptions(
       flexBasisPlugin(options);
       marginPlugin(options);
       paddingPlugin(options);
+      textAlignVerticalPlugin(options);
+      textDecorationPlugin(options);
 
       if ((process.env.RN_TW_ENV || "mobile") === "mobile") {
         textShadowOffsetPlugin(options);
+        backfaceVisibilityPlugin(options);
+        resizeModePlugin(options);
+        tintColorPlugin(options);
+        overlayColorPlugin(options);
+        textShadowColorPlugin(options);
+        textShadowRadiusPlugin(options);
+        includeFontPaddingPlugin(options);
+        fontVariantPlugin(options);
+        textDecorationColorPlugin(options);
+        writingDirectionPlugin(options);
       }
     };
   },

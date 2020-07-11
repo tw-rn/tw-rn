@@ -24,7 +24,7 @@ yargs.command(
 
       await writeFile(
         resolve(__dirname, `../dist/${filename}`),
-        `module.exports = ${JSON.stringify(generated, null, "  ")}`
+        `module.exports = ${JSON.stringify(generated)}`
       );
 
       console.log("Done.");

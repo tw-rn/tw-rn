@@ -56,13 +56,7 @@ export const reactNativeValidStyles = {
   fontFamily: any,
   fontSize: any,
   fontStyle: oneOf(["normal", "italic"]),
-  fontVariant: oneOf([
-    "small-caps",
-    "oldstyle-nums",
-    "lining-nums",
-    "tabular-nums",
-    "proportional-nums",
-  ]),
+  fontVariant: any,
   fontWeight: oneOf([
     "normal",
     "bold",

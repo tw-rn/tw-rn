@@ -1,6 +1,5 @@
 import * as RN from "react-native";
 import { withTwrn } from "./hocs";
-import { ComponentType } from "react";
 
 export { tw } from "./tw";
 export { withTwrn };
@@ -55,3 +54,19 @@ export const VirtualizedList = withTwrn<
   "ListFooterComponentStyle",
   "ListHeaderComponentStyle",
 ]);
+
+export const Animated = {
+  ...RN.Animated,
+  Image: withTwrn(RN.Animated.Image, ["style"]),
+  ScrollView: withTwrn(RN.Animated.ScrollView, ["style", "contentContainerStyle"]),
+  Text: withTwrn(RN.Animated.Text, ["style"]),
+  View: withTwrn(RN.Animated.View, ["style"]),
+  FlatList: withTwrn(RN.Animated.FlatList, [
+    "style",
+    "contentContainerStyle",
+    "ListFooterComponentStyle",
+    "ListHeaderComponentStyle",
+    "columnWrapperStyle",
+  ]),
+  SectionList: withTwrn(RN.Animated.SectionList, ["style", "contentContainerStyle"]),
+};

@@ -1,13 +1,13 @@
 import { NativeSyntheticEvent, TargetedEvent } from "react-native";
 import { useMemo, useCallback, useState } from "react";
-import { PlatformVariantStyle, ReactNativeStyle } from "../types";
+import { PlatformVariantStyle, Style } from "../types";
 
 export const useFocusStyles = (
   styles: (PlatformVariantStyle | undefined)[],
   onFocus?: (e: NativeSyntheticEvent<TargetedEvent>) => void,
   onBlur?: (e: NativeSyntheticEvent<TargetedEvent>) => void
 ): {
-  focusStyles: (ReactNativeStyle | undefined)[];
+  focusStyles: (Style | undefined)[];
   handleOnFocus: (e: NativeSyntheticEvent<TargetedEvent>) => void;
   handleOnBlur: (e: NativeSyntheticEvent<TargetedEvent>) => void;
 } => {

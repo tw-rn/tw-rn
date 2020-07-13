@@ -1,7 +1,9 @@
-import { ViewStyle, TextStyle, ImageStyle, Platform } from "react-native";
+import { ViewStyle, TextStyle, ImageStyle, Platform, StyleProp } from "react-native";
 import merge from "deepmerge";
+import isPlainObject from "is-plain-object";
+
 import {
-  Style,
+  // Style,
   TailwindReactNativeStyle,
   ComputedTailwindReactNativeStyles,
   PlatformVariantStyle,
@@ -10,7 +12,7 @@ import {
 } from "./types";
 
 export const convertToTailwindReactNativeStyle = (
-  style: Style
+  style: StyleProp<TailwindReactNativeStyle>
 ): Required<TailwindReactNativeStyle> | undefined => {
   if (style === undefined) return;
 
@@ -19,7 +21,9 @@ export const convertToTailwindReactNativeStyle = (
     // TODO: deal with this typing
     return (style as any[]).reduce(
       (acc, style) => {
-        return merge(acc, convertToTailwindReactNativeStyle(style) || {});
+        return merge(acc, convertToTailwindReactNativeStyle(style) || {}, {
+          isMergeableObject: isPlainObject,
+        });
       },
       { __: {} }
     );
@@ -30,7 +34,7 @@ export const convertToTailwindReactNativeStyle = (
   if (isTailwindStyle) return style as Required<TailwindReactNativeStyle>;
 
   // If not, convert it to tw style as a default screen style
-  return { __: { native: { media: { "": (style || {}) as ViewStyle | TextStyle | ImageStyle } } } };
+  return { __: { native: { media: { "": (style as any) ?? {} } } } };
 };
 
 export const getStylesFromPlatform = (
@@ -44,5 +48,5 @@ export const getStylesFromPlatform = (
 
   if (!platformVariants.includes(os)) return native;
 
-  return merge(native, styles[os] ?? {});
+  return merge(native, styles[os] ?? {}, { isMergeableObject: isPlainObject });
 };

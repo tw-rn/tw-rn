@@ -1,7 +1,7 @@
-import { TailwindReactNativeStyle } from "../types";
+import { TailwindReactNativeStyle, TransitionType } from "../types";
 import { generate, tw } from "../tw";
 
-describe("tw", () => {
+describe.only("tw", () => {
   it.each<[string[], TailwindReactNativeStyle]>([
     // Native platform pseudo selector
     [["bg-white"], { __: { native: { media: { "": { backgroundColor: "#ffffff" } } } } }],
@@ -189,6 +189,26 @@ describe("tw", () => {
     [
       ["android:visited:bg-white"],
       { __: { android: { visited: { backgroundColor: "#ffffff" } } } },
+    ],
+    // Transition
+    [["transition-none"], { __: { native: { animation: { transitionType: "transition-none" } } } }],
+    [["transition-all"], { __: { native: { animation: { transitionType: "transition-all" } } } }],
+    [["transition"], { __: { native: { animation: { transitionType: "transition" } } } }],
+    [
+      ["transition-colors"],
+      { __: { native: { animation: { transitionType: "transition-colors" } } } },
+    ],
+    [
+      ["transition-opacity"],
+      { __: { native: { animation: { transitionType: "transition-opacity" } } } },
+    ],
+    [
+      ["transition-shadow"],
+      { __: { native: { animation: { transitionType: "transition-shadow" } } } },
+    ],
+    [
+      ["transition-transform"],
+      { __: { native: { animation: { transitionType: "transition-transform" } } } },
     ],
   ])("%p generates the correct output", (input, expected) => {
     expect(generate(input)).toStrictEqual(expected);

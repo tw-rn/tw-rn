@@ -3,11 +3,13 @@ import memoize from "fast-memoize";
 import {
   Variants,
   TailwindReactNativeStyle,
-  ReactNativeStyle,
   StyleVariants,
   ComputedTailwindReactNativeStyles,
   platformVariants,
   Tw,
+  Style,
+  transitions,
+  TransitionType,
 } from "./types";
 
 const platforVariantRegex = new RegExp(`^(${platformVariants.join("|")})?:?([:a-zA-Z_0-9-]+)$`);
@@ -29,9 +31,7 @@ const stylesEntries = Object.entries(global.__TW_RN_STYLES__ || []);
 
 const emptyStyles: ComputedTailwindReactNativeStyles = {};
 
-const findStylesWithMedia = (
-  styleName: string
-): { media: string; style: ReactNativeStyle }[] | undefined => {
+const findStylesWithMedia = (styleName: string): { media: string; style: Style }[] | undefined => {
   const matchingStyles = stylesEntries.filter(
     ([, styles]) => typeof styles[styleName] !== "undefined"
   );
@@ -55,6 +55,14 @@ export const generate = memoize(
         if (!platformRegExpExecArray) return acc;
 
         const [, platform = "native", platformStylesName] = platformRegExpExecArray;
+
+        // Check for animation config
+        if (
+          styleName.startsWith("transition") &&
+          transitions.includes(styleName as TransitionType)
+        ) {
+          return merge(acc, { [platform]: { animation: { transitionType: styleName } } });
+        }
 
         // Check for style variants
         const styleRegExpExecArray = styleVariantRegex.exec(platformStylesName);
@@ -113,10 +121,7 @@ const checkForTailwindStylePresence = () => {
   return true;
 };
 
-const twFunction = (
-  stylesArray: TemplateStringsArray,
-  ...variables: string[]
-): TailwindReactNativeStyle => {
+const twFunction = (stylesArray: TemplateStringsArray, ...variables: string[]) => {
   if (!checkForTailwindStylePresence()) return {};
   return generate(mergeStyles(stylesArray, ...variables));
 };
@@ -135,11 +140,17 @@ twFunction.value = memoize(
   (stylesArray: TemplateStringsArray, ...variables: string[]) => {
     if (!checkForTailwindStylePresence()) return;
 
-    const generated = Object.values(
-      generate(mergeStyles(stylesArray, ...variables)).__?.native?.media?.[""] || {}
-    );
+    const generated = generate(mergeStyles(stylesArray, ...variables)).__?.native?.media?.[""];
+    const generatedValues = Object.values(generated ?? {});
 
-    return generated.length === 0 ? undefined : generated.length === 1 ? generated[0] : generated;
+    const value =
+      generatedValues.length === 0
+        ? undefined
+        : generatedValues.length === 1
+        ? generatedValues[0]
+        : generatedValues;
+
+    return value;
   },
   {
     strategy: memoize.strategies.variadic,

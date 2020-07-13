@@ -1,11 +1,4 @@
-import {
-  ViewStyle,
-  TextStyle,
-  ImageStyle,
-  StyleProp,
-  TargetedEvent,
-  NativeSyntheticEvent,
-} from "react-native";
+import { TargetedEvent, NativeSyntheticEvent } from "react-native";
 
 declare global {
   namespace NodeJS {
@@ -18,11 +11,6 @@ declare global {
     }
   }
 }
-
-export type Style =
-  | StyleProp<ViewStyle & TailwindReactNativeStyle>
-  | StyleProp<TextStyle & TailwindReactNativeStyle>
-  | StyleProp<ImageStyle & TailwindReactNativeStyle>;
 
 export enum Variants {
   Native = "native",
@@ -61,13 +49,34 @@ export type StyleVariants =
   | Variants.Visited
   | Variants.Keyboard;
 
-export type ReactNativeStyle = ViewStyle | TextStyle | ImageStyle;
+export const transitions = <const>[
+  "transition-none",
+  "transition-all",
+  "transition",
+  "transition-colors",
+  "transition-opacity",
+  "transition-shadow",
+  "transition-transform",
+];
 
-export type MediaStyles = { [Variants.Media]?: { [key: string]: ReactNativeStyle } };
+export type TransitionType = typeof transitions[number];
 
-export type VariantsStyles = { [key in StyleVariants]?: ReactNativeStyle };
+export type StyleValue = string | number | boolean | undefined;
 
-export type AnimationConfiguration = {};
+export type Style = { [style: string]: StyleValue };
+
+export type MediaStyles = {
+  [Variants.Media]?: { [media: string]: Style };
+};
+
+export type VariantsStyles = { [key in StyleVariants]?: any };
+
+export type AnimationConfiguration = {
+  transitionType?: TransitionType;
+  duration?: number;
+  easing?: any;
+  delay?: number;
+};
 
 export type AnimationsStyle = { animation?: AnimationConfiguration };
 
@@ -95,7 +104,7 @@ export interface Tw {
    * tw.raw`bg-white` // yields { backgroundColor: '#ffffff' }
    * ```
    */
-  raw: (stylesArray: TemplateStringsArray, ...variables: string[]) => ReactNativeStyle | undefined;
+  raw: (stylesArray: TemplateStringsArray, ...variables: string[]) => Style | undefined;
   /**
    * Gets the value or values of a Tailwind style
    *
@@ -103,8 +112,5 @@ export interface Tw {
    * tw.value`bg-white` // yields "#ffffff"
    * ```
    */
-  value: (
-    stylesArray: TemplateStringsArray,
-    ...variables: string[]
-  ) => undefined | number | number[] | string | string[];
+  value: (stylesArray: TemplateStringsArray, ...variables: string[]) => StyleValue | StyleValue[];
 }

@@ -1,4 +1,5 @@
 import React, { ComponentType, useMemo, useCallback, useRef, useEffect, useState } from "react";
+import { NativeSyntheticEvent, TargetedEvent, StyleProp, Animated } from "react-native";
 import { TailwindReactNativeStyle } from "../types";
 import {
   useTailwindReactNativeStyle,
@@ -8,9 +9,8 @@ import {
   useFocusStyles,
   useOrientationStyles,
   useAnimationStyles,
+  useCombineStyles,
 } from "../hooks";
-import { NativeSyntheticEvent, TargetedEvent, StyleProp, Animated } from "react-native";
-import { useCombineStyles } from "../hooks/useCombineStyles";
 
 export type VariantProps<P, O extends keyof P> = {
   onMouseEnter?: (e: any) => void;
@@ -75,6 +75,10 @@ export const withTwrn = <P extends object, O extends keyof P>(
   // If combined style is null, it means that we're in SSR and should not
   // render because we don't have the destination size. Note: can be improved.
   if (combinedStyles.some((style) => style === null)) return null;
+
+  const ComponentToRender = useMemo(() => {
+    needsAnimatedComponent ? () => null : Component;
+  }, [needsAnimatedComponent])
 
   return needsAnimatedComponent ? (
     <Component

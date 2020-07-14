@@ -1,9 +1,13 @@
-import { renderHook } from "@testing-library/react-hooks";
+import { renderHook, act } from "@testing-library/react-hooks";
+import { wait } from "@testing-library/react-native";
 import { useAnimationStyles } from "../useAnimationStyles";
 import { PlatformVariantStyle, Style } from "../../types";
 import { Animated } from "../..";
+import { timeTravel, setupTimeTravel } from "../../helpers/tests";
 
 describe("useAnimationStyles", () => {
+  beforeEach(setupTimeTravel);
+
   it("should render correctly", () => {
     const styles: PlatformVariantStyle[] = [];
     const combinedStyles: Style[] = [];
@@ -48,6 +52,33 @@ describe("useAnimationStyles", () => {
       expect(backgroundColor).toBe("#ffffff");
       expect((opacity as any) instanceof Animated.Value).toBe(true);
       expect((opacity as any)._value).toBe(0.75);
+    });
+
+    it("should change the opacity of Animated.Value when style changes", async () => {
+      const styles: PlatformVariantStyle[] = [
+        { animation: { transitionType: "transition-opacity" } },
+      ];
+      let combinedStyles: Style[] = [{ opacity: 1, backgroundColor: "#ffffff" }];
+
+      const { result, rerender } = renderHook(
+        ({ styles, combinedStyles }) => useAnimationStyles(styles, combinedStyles),
+        { initialProps: { styles, combinedStyles } }
+      );
+      let { regularOrAnimatedStyles } = result.current;
+
+      expect(regularOrAnimatedStyles[0]?.backgroundColor).toBe("#ffffff");
+      expect((regularOrAnimatedStyles[0]?.opacity as any) instanceof Animated.Value).toBe(true);
+      expect((regularOrAnimatedStyles[0]?.opacity as any)._value).toBe(1);
+
+      combinedStyles = [{ opacity: 0, backgroundColor: "#ffffff" }];
+
+      rerender({ styles, combinedStyles });
+
+      timeTravel(1000);
+
+      ({ regularOrAnimatedStyles } = result.current);
+
+      expect((regularOrAnimatedStyles[0]?.opacity as any)._value).toBe(0);
     });
   });
 });

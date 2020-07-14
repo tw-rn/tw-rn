@@ -25,9 +25,10 @@ export const useAnimationStyles = (
 
   const getValuesFromStyle = useCallback(
     (mapIndex: number, props: string[], defaults: any[]) => {
+      const combinedStyle = combinedStyles[mapIndex];
+
       return props.map((prop, index) => {
-        const combinedStyle = combinedStyles[mapIndex];
-        return combinedStyle?.[prop] || defaults[index];
+        return combinedStyle?.[prop] ?? defaults[index];
       });
     },
     [combinedStyles, animatedValuesMaps]
@@ -42,9 +43,10 @@ export const useAnimationStyles = (
           // Animate here
           Animated.timing(animatedValuesMaps.current[mapIndex]![prop], {
             toValue: values[index],
-            duration: 1000,
+            duration: 500,
             useNativeDriver: true,
-          });
+          }).start();
+
           return;
         }
 

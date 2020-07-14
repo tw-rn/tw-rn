@@ -1,6 +1,6 @@
 // @generated: @expo/next-adapter@2.1.9
 import "./_app.css";
-import React, { useRef } from "react";
+import React, { useState, useRef } from "react";
 // import { Animated } from "react-native";
 import { tw, Text, View, Animated } from "tw-rn";
 import { Button } from "react-native";
@@ -28,19 +28,21 @@ export default function App() {
 
   // console.log({ fadeAnim });
 
+  const [opacityStyle, setOpacityStyle] = useState("opacity-100");
+
   return (
     <View style={tw`flex items-center justify-center container h-full`}>
-      <Animated.View
-        style={[
-          tw`p-4 bg-green-500 landscape:bg-blue-500 rounded-lg shadow transition-opacity opacity-25 hover:opacity-100`,
-          // { opacity: fadeAnim },
-        ]}
+      <Text style={tw`text-gray-600 mb-10 p-2 border border-gray-300 rounded-lg`}>
+        transition-opacity duration-500 opacity-25 hover:opacity-100
+      </Text>
+      <View
+        style={tw`p-4 bg-green-500 rounded-lg transition-opacity duration-500 opacity-25 hover:opacity-100 cursor-pointer`}
       >
-        <Text style={tw`text-lg text-white`}>tw-rn Animated.View</Text>
-      </Animated.View>
+        <Text style={tw`text-lg text-white`}>tw-rn View</Text>
+      </View>
       {/* <View style={tw`flex flex-row mt-4`}>
-        <Button title="Fade In" onPress={fadeIn} />
-        <Button title="Fade Out" onPress={fadeOut} />
+        <Button title="Fade In" onPress={() => setOpacityStyle("opacity-100")} />
+        <Button title="Fade Out" onPress={() => setOpacityStyle("opacity-0")} />
       </View> */}
     </View>
   );

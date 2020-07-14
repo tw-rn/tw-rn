@@ -1,5 +1,5 @@
 import React from "react";
-import { render } from "@testing-library/react-native";
+import { render, ReactTestInstanceExtended } from "@testing-library/react-native";
 import { tw, DrawerLayoutAndroid, View } from "..";
 
 const viewInitialStyle = { alignSelf: "flex-start", borderColor: "red", borderWidth: 1 };
@@ -9,7 +9,10 @@ describe("DrawerLayoutAndroid", () => {
     const { container } = render(
       <DrawerLayoutAndroid testID="DrawerLayoutAndroid" renderNavigationView={() => <View />} />
     );
-    expect(container.children[0].getProp("style")).toEqual([viewInitialStyle, undefined]);
+    expect((container.children[0] as ReactTestInstanceExtended).getProp("style")).toEqual([
+      viewInitialStyle,
+      undefined,
+    ]);
   });
 
   it("should render correctly with empty styles", () => {
@@ -21,7 +24,10 @@ describe("DrawerLayoutAndroid", () => {
       />
     );
 
-    expect(container.children[0].getProp("style")).toEqual([viewInitialStyle, {}]);
+    expect((container.children[0] as ReactTestInstanceExtended).getProp("style")).toEqual([
+      viewInitialStyle,
+      {},
+    ]);
   });
 
   it("should render regular react-native styles", () => {
@@ -33,7 +39,7 @@ describe("DrawerLayoutAndroid", () => {
       />
     );
 
-    expect(container.children[0].getProp("style")).toEqual([
+    expect((container.children[0] as ReactTestInstanceExtended).getProp("style")).toEqual([
       viewInitialStyle,
       { backgroundColor: "#ffffff" },
     ]);
@@ -46,7 +52,7 @@ describe("DrawerLayoutAndroid", () => {
       />
     );
 
-    expect(container.children[0].getProp("style")).toEqual([
+    expect((container.children[0] as ReactTestInstanceExtended).getProp("style")).toEqual([
       viewInitialStyle,
       { backgroundColor: "#ffffff", padding: 10 },
     ]);
@@ -61,7 +67,7 @@ describe("DrawerLayoutAndroid", () => {
       />
     );
 
-    expect(container.children[0].getProp("style")).toEqual([
+    expect((container.children[0] as ReactTestInstanceExtended).getProp("style")).toEqual([
       viewInitialStyle,
       { backgroundColor: "#ffffff" },
     ]);
@@ -76,7 +82,7 @@ describe("DrawerLayoutAndroid", () => {
       />
     );
 
-    expect(container.children[0].getProp("style")).toEqual([
+    expect((container.children[0] as ReactTestInstanceExtended).getProp("style")).toEqual([
       viewInitialStyle,
       { backgroundColor: "#ffffff", padding: 10 },
     ]);

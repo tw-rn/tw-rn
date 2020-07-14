@@ -77,20 +77,13 @@ export const withTwrn = <P extends object, O extends keyof P>(
   if (combinedStyles.some((style) => style === null)) return null;
 
   const ComponentToRender = useMemo(() => {
-    needsAnimatedComponent ? () => null : Component;
-  }, [needsAnimatedComponent])
+    return needsAnimatedComponent
+      ? ((Animated.createAnimatedComponent(Component) as unknown) as typeof Component)
+      : Component;
+  }, [needsAnimatedComponent]);
 
-  return needsAnimatedComponent ? (
-    <Component
-      {...(props as P)}
-      {...regularOrAnimatedStylesProps}
-      onMouseEnter={handleOnMouseEnter}
-      onMouseLeave={handleOnMouseLeave}
-      onFocus={handleOnFocus}
-      onBlur={handleOnBlur}
-    />
-  ) : (
-    <Component
+  return (
+    <ComponentToRender
       {...(props as P)}
       {...regularOrAnimatedStylesProps}
       onMouseEnter={handleOnMouseEnter}

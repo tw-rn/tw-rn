@@ -83,30 +83,34 @@ export const useAnimationStyles = (
 
       if (!config) return combinedStyle;
 
-      // Get the transition type
-      const { transitionType } = config;
+      return combinedStyle;
 
-      switch (transitionType) {
-        // transition-opacity:
-        // This will only handle the opacity style of the styles
-        case "transition-opacity": {
-          // Get the current config opacity or the dafault value
-          const [opacity] = getValuesFromStyle(index, ["opacity"], [1]);
-          const animatedValueStyles = setAnimatedValues(
-            index,
-            ["opacity"],
-            [opacity]
-          );
+      // REMOVE ALL THE ANIMATION STYLES HERE!
 
-          return merge(combinedStyle, animatedValueStyles, {
-            isMergeableObject: isPlainObject,
-          });
-        }
+      // // Get the transition type
+      // const { transitionType } = config;
 
-        default:
-          // Here probably we clean up the animated values that are instantiated
-          return combinedStyle;
-      }
+      // switch (transitionType) {
+      //   // transition-opacity:
+      //   // This will only handle the opacity style of the styles
+      //   case "transition-opacity": {
+      //     // Get the current config opacity or the dafault value
+      //     const [opacity] = getValuesFromStyle(index, ["opacity"], [1]);
+      //     const animatedValueStyles = setAnimatedValues(
+      //       index,
+      //       ["opacity"],
+      //       [opacity]
+      //     );
+
+      //     return merge(combinedStyle, animatedValueStyles, {
+      //       isMergeableObject: isPlainObject,
+      //     });
+      //   }
+
+      //   default:
+      //     // Here probably we clean up the animated values that are instantiated
+      //     return combinedStyle;
+      // }
     });
   }, [
     animatedValuesMaps,

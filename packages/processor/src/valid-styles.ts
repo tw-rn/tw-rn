@@ -12,8 +12,21 @@ export const reactNativeValidStyles = {
     "space-between",
     "space-around",
   ]),
-  alignItems: oneOf(["flex-start", "flex-end", "center", "stretch", "baseline"]),
-  alignSelf: oneOf(["auto", "flex-start", "flex-end", "center", "stretch", "baseline"]),
+  alignItems: oneOf([
+    "flex-start",
+    "flex-end",
+    "center",
+    "stretch",
+    "baseline",
+  ]),
+  alignSelf: oneOf([
+    "auto",
+    "flex-start",
+    "flex-end",
+    "center",
+    "stretch",
+    "baseline",
+  ]),
   aspectRatio: any, // number
   backfaceVisibility: oneOf(["visible", "hidden"]),
   backgroundColor: any,
@@ -122,7 +135,12 @@ export const reactNativeValidStyles = {
   textAlign: oneOf(["auto", "left", "right", "center", "justify"]),
   textAlignVertical: oneOf(["auto", "top", "bottom", "center"]),
   textDecorationColor: any,
-  textDecorationLine: oneOf(["none", "underline", "line-through", "underline line-through"]),
+  textDecorationLine: oneOf([
+    "none",
+    "underline",
+    "line-through",
+    "underline line-through",
+  ]),
   textDecorationStyle: oneOf(["solid", "double", "dotted", "dashed"]),
   textShadowColor: any,
   textShadowOffset: any,
@@ -136,6 +154,10 @@ export const reactNativeValidStyles = {
   width: any,
   writingDirection: oneOf(["auto", "ltr", "rtl"]),
   zIndex: number,
+  transitionProperty: any,
+  transitionDelay: any,
+  transitionDuration: any,
+  transitionTimingFunction: any,
 };
 
 export const reactValidStyles = {

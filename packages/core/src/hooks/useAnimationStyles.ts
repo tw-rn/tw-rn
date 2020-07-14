@@ -10,11 +10,13 @@ export const useAnimationStyles = (
 ): {
   needsAnimatedComponent: boolean;
   regularOrAnimatedStyles: typeof combinedStyles;
-  animatedValuesMaps: { [styleIndex: number]: { [key: string]: Animated.Value } };
+  animatedValuesMaps: {
+    [styleIndex: number]: { [key: string]: Animated.Value };
+  };
 } => {
-  const animatedValuesMaps = useRef<{ [styleIndex: number]: { [key: string]: Animated.Value } }>(
-    {}
-  );
+  const animatedValuesMaps = useRef<{
+    [styleIndex: number]: { [key: string]: Animated.Value };
+  }>({});
 
   const animationConfigs = useMemo(() => {
     return styles.map((style) => {
@@ -37,7 +39,9 @@ export const useAnimationStyles = (
   const setAnimatedValues = useCallback(
     (mapIndex: number, propsToSet: string[], values: any[]) => {
       propsToSet.forEach((prop, index) => {
-        const animatedValueIsSet = Boolean(animatedValuesMaps.current[mapIndex]?.[prop]);
+        const animatedValueIsSet = Boolean(
+          animatedValuesMaps.current[mapIndex]?.[prop]
+        );
 
         if (animatedValueIsSet) {
           // Animate here
@@ -53,9 +57,13 @@ export const useAnimationStyles = (
         // Add animated value
         // Check if the map is set
         if (animatedValuesMaps.current[mapIndex]) {
-          animatedValuesMaps.current[mapIndex][prop] = new Animated.Value(values[index]);
+          animatedValuesMaps.current[mapIndex][prop] = new Animated.Value(
+            values[index]
+          );
         } else {
-          animatedValuesMaps.current[mapIndex] = { [prop]: new Animated.Value(values[index]) };
+          animatedValuesMaps.current[mapIndex] = {
+            [prop]: new Animated.Value(values[index]),
+          };
         }
       });
       return animatedValuesMaps.current[mapIndex]!;
@@ -84,7 +92,11 @@ export const useAnimationStyles = (
         case "transition-opacity": {
           // Get the current config opacity or the dafault value
           const [opacity] = getValuesFromStyle(index, ["opacity"], [1]);
-          const animatedValueStyles = setAnimatedValues(index, ["opacity"], [opacity]);
+          const animatedValueStyles = setAnimatedValues(
+            index,
+            ["opacity"],
+            [opacity]
+          );
 
           return merge(combinedStyle, animatedValueStyles, {
             isMergeableObject: isPlainObject,
@@ -96,7 +108,12 @@ export const useAnimationStyles = (
           return combinedStyle;
       }
     });
-  }, [animatedValuesMaps, animationConfigs, combinedStyles, needsAnimatedComponent]);
+  }, [
+    animatedValuesMaps,
+    animationConfigs,
+    combinedStyles,
+    needsAnimatedComponent,
+  ]);
 
   return {
     needsAnimatedComponent,

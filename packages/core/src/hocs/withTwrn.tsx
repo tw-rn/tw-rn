@@ -1,5 +1,17 @@
-import React, { ComponentType, useMemo, useCallback, useRef, useEffect, useState } from "react";
-import { NativeSyntheticEvent, TargetedEvent, StyleProp, Animated } from "react-native";
+import React, {
+  ComponentType,
+  useMemo,
+  useCallback,
+  useRef,
+  useEffect,
+  useState,
+} from "react";
+import {
+  NativeSyntheticEvent,
+  TargetedEvent,
+  StyleProp,
+  Animated,
+} from "react-native";
 import { TailwindReactNativeStyle } from "../types";
 import {
   useTailwindReactNativeStyle,
@@ -30,17 +42,20 @@ export const withTwrn = <P extends object, O extends keyof P>(
   onBlur,
   ...props
 }) => {
-  const tailwindReactNativeStyle = useTailwindReactNativeStyle(props, styleKeys);
+  const tailwindReactNativeStyle = useTailwindReactNativeStyle(
+    props,
+    styleKeys
+  );
 
   const platformStyles = usePlatformStyles(tailwindReactNativeStyle);
 
   const mediaStyles = useMediaStyles(platformStyles);
 
-  const { hoverStyles, handleOnMouseEnter, handleOnMouseLeave } = useHoverStyles(
-    platformStyles,
-    onMouseEnter,
-    onMouseLeave
-  );
+  const {
+    hoverStyles,
+    handleOnMouseEnter,
+    handleOnMouseLeave,
+  } = useHoverStyles(platformStyles, onMouseEnter, onMouseLeave);
 
   const { focusStyles, handleOnFocus, handleOnBlur } = useFocusStyles(
     platformStyles,
@@ -57,30 +72,36 @@ export const withTwrn = <P extends object, O extends keyof P>(
     focusStyles,
   ]);
 
-  const { needsAnimatedComponent, regularOrAnimatedStyles } = useAnimationStyles(
-    platformStyles,
-    combinedStyles
-  );
+  // Convert animated styles if needed
+  const {
+    needsAnimatedComponent,
+    regularOrAnimatedStyles,
+  } = useAnimationStyles(platformStyles, combinedStyles);
 
   // Combining styles position with keys indicated in the styleKeys
   const regularOrAnimatedStylesProps = useMemo(
     () =>
       styleKeys.reduce(
-        (acc, key, index) => ({ ...acc, [key]: regularOrAnimatedStyles[index] }),
+        (acc, key, index) => ({
+          ...acc,
+          [key]: regularOrAnimatedStyles[index],
+        }),
         {}
       ),
     [regularOrAnimatedStyles]
   );
 
-  // If combined style is null, it means that we're in SSR and should not
-  // render because we don't have the destination size. Note: can be improved.
-  if (combinedStyles.some((style) => style === null)) return null;
-
   const ComponentToRender = useMemo(() => {
     return needsAnimatedComponent
-      ? ((Animated.createAnimatedComponent(Component) as unknown) as typeof Component)
+      ? ((Animated.createAnimatedComponent(
+          Component
+        ) as unknown) as typeof Component)
       : Component;
   }, [needsAnimatedComponent]);
+
+  // If combinedStyles are null, it means that we're in SSR and should not
+  // render because we don't have the destination size. Note: can be improved.
+  if (combinedStyles.some((style) => style === null)) return null;
 
   return (
     <ComponentToRender

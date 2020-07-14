@@ -19,5 +19,5 @@
     "declarationMap": true
   },
   "include": ["./src", "./types"],
-  "exclude": ["node_modules", "**/*.test.*"]
+  "exclude": ["node_modules"]
 }

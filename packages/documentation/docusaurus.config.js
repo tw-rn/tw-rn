@@ -26,12 +26,6 @@ module.exports = {
           position: "right",
         },
       ],
-      // algolia: {
-      //   apiKey: "392b163f8c19c61b8df58a122fbd9b9f",
-      //   indexName: "prod_tw-rn",
-      //   appId: "438IRBTI60", // Optional, if you run the DocSearch crawler on your own
-      //   algoliaOptions: {}, // Optional, if provided by Algolia
-      // },
     },
     footer: {
       style: "dark",
@@ -41,6 +35,10 @@ module.exports = {
     prism: {
       theme: require("prism-react-renderer/themes/github"),
       darkTheme: require("prism-react-renderer/themes/dracula"),
+    },
+    algolia: {
+      apiKey: "d9f50f88ae43d8dc7176f5438648d669",
+      indexName: "tw-rn",
     },
   },
   presets: [
@@ -52,7 +50,8 @@ module.exports = {
           homePageId: "docs/fundamentals/getting-started",
           sidebarPath: require.resolve("./sidebars.js"),
           // Please change this to your repo.
-          editUrl: "https://github.com/tw-rn/tw-rn/edit/master/packages/documentation/",
+          editUrl:
+            "https://github.com/tw-rn/tw-rn/edit/master/packages/documentation/",
           remarkPlugins: [],
         },
         theme: {

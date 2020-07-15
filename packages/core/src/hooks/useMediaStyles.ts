@@ -1,11 +1,12 @@
 import { useMemo, useCallback, useState, useEffect } from "react";
 import { Platform } from "react-native";
 import merge from "deepmerge";
-import { PlatformVariantStyle, ReactNativeStyle } from "../types";
+import isPlainObject from "is-plain-object";
+import { PlatformVariantStyle, Style } from "../types";
 
 export const useMediaStyles = (
   styles: (PlatformVariantStyle | undefined)[]
-): (ReactNativeStyle | null | undefined)[] => {
+): (Style | null | undefined)[] => {
   // Get the media query list matches from window
   const isWeb = Platform.OS === "web";
   const isNotBrowser = typeof window === "undefined" || typeof window.matchMedia === "undefined";
@@ -79,7 +80,7 @@ export const useMediaStyles = (
       // with the current media query
       if (isWeb) {
         const mediaQueryStyles = media?.[currentMediaQueryValue] || {};
-        return merge(defaultStyles, mediaQueryStyles);
+        return merge(defaultStyles, mediaQueryStyles, { isMergeableObject: isPlainObject });
       }
 
       // Else, return the non related media query values

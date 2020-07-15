@@ -1,10 +1,10 @@
 import { useMemo, useCallback, useState, useEffect } from "react";
 import { Dimensions, Platform } from "react-native";
-import { PlatformVariantStyle, ReactNativeStyle } from "../types";
+import { PlatformVariantStyle, Style } from "../types";
 
 export const useOrientationStyles = (
   styles: (PlatformVariantStyle | undefined)[]
-): (ReactNativeStyle | undefined)[] => {
+): (Style | undefined)[] => {
   const isMobile = useMemo(() => ["ios", "android"].includes(Platform.OS), []);
 
   const hasOrientationStyles = useMemo(() => {

@@ -99,10 +99,6 @@ const corePlugins = {
   rotate: false,
   translate: false,
   skew: false,
-  transitionProperty: false,
-  transitionTimingFunction: false,
-  transitionDuration: false,
-  transitionDelay: false,
   textDecoration: false,
 };
 

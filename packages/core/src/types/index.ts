@@ -1,28 +1,18 @@
-import {
-  ViewStyle,
-  TextStyle,
-  ImageStyle,
-  StyleProp,
-  TargetedEvent,
-  NativeSyntheticEvent,
-} from "react-native";
+import { TargetedEvent, NativeSyntheticEvent } from "react-native";
 
 declare global {
   namespace NodeJS {
     interface Global {
       __TW_RN_STYLES__:
         | {
-            [key: string]: { [styleName: string]: { [styleProp: string]: number | string } };
+            [key: string]: {
+              [styleName: string]: { [styleProp: string]: number | string };
+            };
           }
         | undefined;
     }
   }
 }
-
-export type Style =
-  | StyleProp<ViewStyle & TailwindReactNativeStyle>
-  | StyleProp<TextStyle & TailwindReactNativeStyle>
-  | StyleProp<ImageStyle & TailwindReactNativeStyle>;
 
 export enum Variants {
   Native = "native",
@@ -42,7 +32,11 @@ export enum Variants {
 
 export const DefaultPlatformVariant = Variants.Native;
 
-export type PlatformVariant = Variants.Native | Variants.Web | Variants.Ios | Variants.Android;
+export type PlatformVariant =
+  | Variants.Native
+  | Variants.Web
+  | Variants.Ios
+  | Variants.Android;
 
 export const platformVariants: PlatformVariant[] = [
   Variants.Native,
@@ -61,23 +55,48 @@ export type StyleVariants =
   | Variants.Visited
   | Variants.Keyboard;
 
-export type ReactNativeStyle = ViewStyle | TextStyle | ImageStyle;
+// export const transitions = <const>[
+//   "transition-none",
+//   "transition-all",
+//   "transition",
+//   "transition-colors",
+//   "transition-opacity",
+//   "transition-shadow",
+//   "transition-transform",
+// ];
 
-export type MediaStyles = { [Variants.Media]?: { [key: string]: ReactNativeStyle } };
+// export type TransitionType = typeof transitions[number];
 
-export type VariantsStyles = { [key in StyleVariants]?: ReactNativeStyle };
+export type StyleValue = string | number | boolean | object | undefined;
 
-export type AnimationConfiguration = {};
+export type Style = { [style: string]: StyleValue };
 
-export type AnimationsStyle = { animation?: AnimationConfiguration };
+export type MediaStyles = {
+  [Variants.Media]?: { [media: string]: Style };
+};
 
-export type PlatformVariantStyle = MediaStyles & VariantsStyles & AnimationsStyle;
+export type VariantsStyles = { [key in StyleVariants]?: any };
+
+// export type AnimationConfiguration = {
+//   transitionProperty?: string[];
+//   transitionDuration?: number;
+//   transitionTimingFunction?: any;
+//   transitionDelay?: number;
+// };
+
+// export type AnimationsStyle = { animation?: AnimationConfiguration };
+
+export type PlatformVariantStyle = MediaStyles & VariantsStyles;
+// &
+// AnimationsStyle;
 
 export type ComputedTailwindReactNativeStyles = {
   [key in PlatformVariant]?: PlatformVariantStyle;
 };
 
-export type TailwindReactNativeStyle = { __?: ComputedTailwindReactNativeStyles };
+export type TailwindReactNativeStyle = {
+  __?: ComputedTailwindReactNativeStyles;
+};
 
 export type VariantsProps = {
   onMouseEnter?: (e: any) => void;
@@ -87,7 +106,10 @@ export type VariantsProps = {
 };
 
 export interface Tw {
-  (stylesArray: TemplateStringsArray, ...variables: string[]): TailwindReactNativeStyle;
+  (
+    stylesArray: TemplateStringsArray,
+    ...variables: string[]
+  ): TailwindReactNativeStyle;
   /**
    * Gets the raw styles from Tailwind
    *
@@ -95,7 +117,10 @@ export interface Tw {
    * tw.raw`bg-white` // yields { backgroundColor: '#ffffff' }
    * ```
    */
-  raw: (stylesArray: TemplateStringsArray, ...variables: string[]) => ReactNativeStyle | undefined;
+  raw: (
+    stylesArray: TemplateStringsArray,
+    ...variables: string[]
+  ) => Style | undefined;
   /**
    * Gets the value or values of a Tailwind style
    *
@@ -106,5 +131,5 @@ export interface Tw {
   value: (
     stylesArray: TemplateStringsArray,
     ...variables: string[]
-  ) => undefined | number | number[] | string | string[];
+  ) => StyleValue | StyleValue[];
 }

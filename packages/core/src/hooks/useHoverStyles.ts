@@ -1,12 +1,12 @@
 import { useMemo, useCallback, useState } from "react";
-import { PlatformVariantStyle, ReactNativeStyle } from "../types";
+import { PlatformVariantStyle, Style } from "../types";
 
 export const useHoverStyles = (
   styles: (PlatformVariantStyle | undefined)[],
   onMouseEnter?: (e: any) => void,
   onMouseLeave?: (e: any) => void
 ): {
-  hoverStyles: (ReactNativeStyle | undefined)[];
+  hoverStyles: (Style | undefined)[];
   handleOnMouseEnter: (e: any) => void;
   handleOnMouseLeave: (e: any) => void;
 } => {

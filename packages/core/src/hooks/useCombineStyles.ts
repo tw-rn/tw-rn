@@ -1,10 +1,11 @@
 import { useMemo } from "react";
 import merge from "deepmerge";
-import { ReactNativeStyle } from "../types";
+import isPlainObject from "is-plain-object";
+import { Style } from "../types";
 
 export const useCombineStyles = (
-  stylesToCombine: (ReactNativeStyle | null | undefined)[][]
-): (ReactNativeStyle | null | undefined)[] => {
+  stylesToCombine: (Style | null | undefined)[][]
+): (Style | null | undefined)[] => {
   return useMemo(() => {
     const mergedStyles = stylesToCombine.reduce((acc, styles) => {
       const merged = styles.map((style, index) => {
@@ -15,7 +16,7 @@ export const useCombineStyles = (
 
         if (style === null || acc[index] === null || acc[index] === undefined) return null;
 
-        return merge({ ...acc[index] }, style);
+        return merge({ ...acc[index] }, style, { isMergeableObject: isPlainObject });
       }, {});
 
       return merged;

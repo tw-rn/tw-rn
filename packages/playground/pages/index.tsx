@@ -32,11 +32,30 @@ export default function App() {
 
   return (
     <View style={tw`flex items-center justify-center container h-full`}>
-      <Text style={tw`text-gray-600 mb-10 p-2 border border-gray-300 rounded-lg`}>
-        transition-opacity duration-500 opacity-25 hover:opacity-100
-      </Text>
+      <View style={tw`flex flex-row mb-6`}>
+        <Text
+          style={tw`text-xs text-gray-600 p-2 border border-gray-300 rounded-lg`}
+        >
+          transition-opacity
+        </Text>
+        <Text
+          style={tw`text-xs text-gray-600 p-2 border border-gray-300 rounded-lg ml-2`}
+        >
+          ease-in-out
+        </Text>
+        <Text
+          style={tw`text-xs text-gray-600 p-2 border border-gray-300 rounded-lg ml-2`}
+        >
+          duration-300
+        </Text>
+        <Text
+          style={tw`text-xs text-gray-600 p-2 border border-gray-300 rounded-lg ml-2`}
+        >
+          delay-100
+        </Text>
+      </View>
       <View
-        style={tw`p-4 bg-green-500 rounded-lg transition-opacity duration-500 opacity-25 hover:opacity-100 cursor-pointer`}
+        style={tw`p-4 bg-green-500 rounded-lg transition-opacity ease-in-out duration-300 delay-100 opacity-25 hover:opacity-100 cursor-pointer`}
       >
         <Text style={tw`text-lg text-white`}>tw-rn View</Text>
       </View>

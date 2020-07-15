@@ -1,84 +1,109 @@
-import { renderHook, act } from "@testing-library/react-hooks";
-import { wait } from "@testing-library/react-native";
+import { Animated } from "react-native";
+import { renderHook } from "@testing-library/react-hooks";
 import { useAnimationStyles } from "../useAnimationStyles";
-import { PlatformVariantStyle, Style } from "../../types";
-import { Animated } from "../..";
+import { Style } from "../../types";
 import { timeTravel, setupTimeTravel } from "../../helpers/tests";
 
 describe("useAnimationStyles", () => {
   beforeEach(setupTimeTravel);
 
   it("should render correctly", () => {
-    const styles: PlatformVariantStyle[] = [];
     const combinedStyles: Style[] = [];
 
-    const { result } = renderHook(() => useAnimationStyles(styles, combinedStyles));
-    const { needsAnimatedComponent, regularOrAnimatedStyles } = result.current;
+    const { result } = renderHook(() => useAnimationStyles(combinedStyles));
+    const {
+      requiresAnimatedComponent,
+      regularOrAnimatedStyles,
+    } = result.current;
 
-    expect(needsAnimatedComponent).toBe(false);
+    expect(requiresAnimatedComponent).toBe(false);
     expect(regularOrAnimatedStyles).toEqual([]);
   });
 
-  describe("transition-opacity", () => {
-    it("should have the opacity Animated.Value with the default opacity value", () => {
-      const styles: PlatformVariantStyle[] = [
-        { animation: { transitionType: "transition-opacity" } },
-      ];
-      const combinedStyles: Style[] = [{ backgroundColor: "#ffffff" }];
+  describe("transitionProperty", () => {
+    describe("opacity", () => {
+      it("should not have any opacity value if not specified", () => {
+        const combinedStyles: Style[] = [
+          { transitionProperty: ["opacity"], backgroundColor: "#ffffff" },
+        ];
 
-      const { result } = renderHook(() => useAnimationStyles(styles, combinedStyles));
-      const { needsAnimatedComponent, regularOrAnimatedStyles } = result.current;
+        const { result } = renderHook(() => useAnimationStyles(combinedStyles));
+        const {
+          requiresAnimatedComponent,
+          regularOrAnimatedStyles,
+        } = result.current;
 
-      const { opacity, backgroundColor } = regularOrAnimatedStyles[0] || {};
+        const { opacity, backgroundColor } = regularOrAnimatedStyles[0] || {};
 
-      expect(needsAnimatedComponent).toBe(true);
-      expect(backgroundColor).toBe("#ffffff");
-      expect((opacity as any) instanceof Animated.Value).toBe(true);
-      expect((opacity as any)._value).toBe(1);
-    });
+        expect(requiresAnimatedComponent).toBe(true);
+        expect(backgroundColor).toBe("#ffffff");
+        expect(opacity).toBeFalsy();
+      });
 
-    it("should have the opacity Animated.Value with the specified opacity value", () => {
-      const styles: PlatformVariantStyle[] = [
-        { animation: { transitionType: "transition-opacity" } },
-      ];
-      const combinedStyles: Style[] = [{ opacity: 0.75, backgroundColor: "#ffffff" }];
+      it("should have the opacity Animated.Value with the specified opacity value", () => {
+        const combinedStyles: Style[] = [
+          {
+            transitionProperty: ["opacity"],
+            opacity: 0.75,
+            backgroundColor: "#ffffff",
+          },
+        ];
 
-      const { result } = renderHook(() => useAnimationStyles(styles, combinedStyles));
-      const { needsAnimatedComponent, regularOrAnimatedStyles } = result.current;
+        const { result } = renderHook(() => useAnimationStyles(combinedStyles));
+        const {
+          requiresAnimatedComponent,
+          regularOrAnimatedStyles,
+        } = result.current;
 
-      const { opacity, backgroundColor } = regularOrAnimatedStyles[0] || {};
+        const { opacity, backgroundColor } = regularOrAnimatedStyles[0] || {};
 
-      expect(needsAnimatedComponent).toBe(true);
-      expect(backgroundColor).toBe("#ffffff");
-      expect((opacity as any) instanceof Animated.Value).toBe(true);
-      expect((opacity as any)._value).toBe(0.75);
-    });
+        expect(requiresAnimatedComponent).toBe(true);
+        expect(backgroundColor).toBe("#ffffff");
+        expect((opacity as any) instanceof Animated.Value).toBe(true);
+        expect((opacity as any)._value).toBe(0.75);
+      });
 
-    it("should change the opacity of Animated.Value when style changes", async () => {
-      const styles: PlatformVariantStyle[] = [
-        { animation: { transitionType: "transition-opacity" } },
-      ];
-      let combinedStyles: Style[] = [{ opacity: 1, backgroundColor: "#ffffff" }];
+      it("should change the opacity of Animated.Value when style changes", async () => {
+        let combinedStyles: Style[] = [
+          {
+            transitionProperty: ["opacity"],
+            opacity: 1,
+            backgroundColor: "#ffffff",
+          },
+        ];
 
-      const { result, rerender } = renderHook(
-        ({ styles, combinedStyles }) => useAnimationStyles(styles, combinedStyles),
-        { initialProps: { styles, combinedStyles } }
+        const { result, rerender } = renderHook(
+          ({ combinedStyles }) => useAnimationStyles(combinedStyles),
+          { initialProps: { combinedStyles } }
+        );
+        let { regularOrAnimatedStyles } = result.current;
+
+        expect(regularOrAnimatedStyles[0]?.backgroundColor).toBe("#ffffff");
+        expect(
+          (regularOrAnimatedStyles[0]?.opacity as any) instanceof Animated.Value
+        ).toBe(true);
+        expect((regularOrAnimatedStyles[0]?.opacity as any)._value).toBe(1);
+
+        combinedStyles = [
+          {
+            transitionProperty: ["opacity"],
+            opacity: 0,
+            backgroundColor: "#ffffff",
+          },
+        ];
+
+        rerender({ combinedStyles });
+
+        timeTravel(1000);
+
+        ({ regularOrAnimatedStyles } = result.current);
+
+        expect((regularOrAnimatedStyles[0]?.opacity as any)._value).toBe(0);
+      });
+
+      it.todo(
+        "should animate to the default if the opacity was specified before and is now removed"
       );
-      let { regularOrAnimatedStyles } = result.current;
-
-      expect(regularOrAnimatedStyles[0]?.backgroundColor).toBe("#ffffff");
-      expect((regularOrAnimatedStyles[0]?.opacity as any) instanceof Animated.Value).toBe(true);
-      expect((regularOrAnimatedStyles[0]?.opacity as any)._value).toBe(1);
-
-      combinedStyles = [{ opacity: 0, backgroundColor: "#ffffff" }];
-
-      rerender({ styles, combinedStyles });
-
-      timeTravel(1000);
-
-      ({ regularOrAnimatedStyles } = result.current);
-
-      expect((regularOrAnimatedStyles[0]?.opacity as any)._value).toBe(0);
     });
   });
 });

@@ -74,9 +74,9 @@ export const withTwrn = <P extends object, O extends keyof P>(
 
   // Convert animated styles if needed
   const {
-    needsAnimatedComponent,
+    requiresAnimatedComponent,
     regularOrAnimatedStyles,
-  } = useAnimationStyles(platformStyles, combinedStyles);
+  } = useAnimationStyles(combinedStyles);
 
   // Combining styles position with keys indicated in the styleKeys
   const regularOrAnimatedStylesProps = useMemo(
@@ -92,12 +92,12 @@ export const withTwrn = <P extends object, O extends keyof P>(
   );
 
   const ComponentToRender = useMemo(() => {
-    return needsAnimatedComponent
+    return requiresAnimatedComponent
       ? ((Animated.createAnimatedComponent(
           Component
         ) as unknown) as typeof Component)
       : Component;
-  }, [needsAnimatedComponent]);
+  }, [requiresAnimatedComponent]);
 
   // If combinedStyles are null, it means that we're in SSR and should not
   // render because we don't have the destination size. Note: can be improved.

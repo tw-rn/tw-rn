@@ -1,127 +1,143 @@
-import { Animated } from "react-native";
-import { useMemo, useCallback, useRef, useEffect } from "react";
-import merge from "deepmerge";
-import isPlainObject from "is-plain-object";
-import { PlatformVariantStyle, Style } from "../types";
+import { Animated, Easing } from "react-native";
+import { useMemo, useCallback, useRef } from "react";
+import { Style, StyleValue } from "../types";
+import { ANIMATION_CONFIG_STYLE_PROPS } from "../constants";
+import { dashToCamelCase } from "../helpers/string";
 
 export const useAnimationStyles = (
-  styles: (PlatformVariantStyle | undefined)[],
   combinedStyles: (Style | null | undefined)[]
 ): {
-  needsAnimatedComponent: boolean;
+  requiresAnimatedComponent: boolean;
   regularOrAnimatedStyles: typeof combinedStyles;
-  animatedValuesMaps: {
-    [styleIndex: number]: { [key: string]: Animated.Value };
-  };
 } => {
   const animatedValuesMaps = useRef<{
     [styleIndex: number]: { [key: string]: Animated.Value };
   }>({});
 
-  const animationConfigs = useMemo(() => {
-    return styles.map((style) => {
-      if (style === undefined) return;
-      return style.animation;
-    });
-  }, [styles]);
-
-  const getValuesFromStyle = useCallback(
-    (mapIndex: number, props: string[], defaults: any[]) => {
-      const combinedStyle = combinedStyles[mapIndex];
-
-      return props.map((prop, index) => {
-        return combinedStyle?.[prop] ?? defaults[index];
-      });
+  const getValueFromStyle = useCallback(
+    (combinedStyle: Style, prop: string, defaultValue: any) => {
+      return combinedStyle?.[prop] ?? defaultValue;
     },
-    [combinedStyles, animatedValuesMaps]
+    [animatedValuesMaps]
   );
 
-  const setAnimatedValues = useCallback(
-    (mapIndex: number, propsToSet: string[], values: any[]) => {
-      propsToSet.forEach((prop, index) => {
-        const animatedValueIsSet = Boolean(
-          animatedValuesMaps.current[mapIndex]?.[prop]
+  const animateValue = useCallback(
+    (
+      value: Animated.Value,
+      toValue: StyleValue,
+      transitionDuration: StyleValue = 0,
+      transitionTimingFunction: StyleValue,
+      transitionDelay: StyleValue = 0
+    ) => {
+      const { type = "linear", args = [] } =
+        (transitionTimingFunction as any) || {};
+
+      const easing =
+        type === "bezier"
+          ? Easing.bezier(args[0], args[1], args[2], args[3])
+          : Easing.linear;
+
+      if (typeof toValue === "number") {
+        Animated.timing(value, {
+          toValue,
+          duration: transitionDuration as number,
+          easing,
+          delay: transitionDelay as number,
+          useNativeDriver: true,
+        }).start();
+      }
+    },
+    []
+  );
+
+  const getAnimatedValue = useCallback(
+    (mapIndex: number, styleName: string): Animated.Value => {
+      if (
+        animatedValuesMaps.current[mapIndex] &&
+        animatedValuesMaps.current[mapIndex][styleName]
+      ) {
+        return animatedValuesMaps.current[mapIndex][styleName];
+      }
+
+      animatedValuesMaps.current[mapIndex] =
+        animatedValuesMaps.current[mapIndex] ?? {};
+
+      // TODO: check the animatedvalue for stylename
+      animatedValuesMaps.current[mapIndex][styleName] = new Animated.Value(1);
+
+      return animatedValuesMaps.current[mapIndex][styleName];
+    },
+    [animatedValuesMaps]
+  );
+
+  const transformStyles = useCallback((mapIndex, style: Style): Style => {
+    const {
+      transitionProperty,
+      transitionDuration,
+      transitionTimingFunction,
+      transitionDelay,
+      ...restStyles
+    } = style;
+
+    const restStylesKeys = Object.keys(restStyles);
+
+    const animatedStyles = (transitionProperty as string[]).reduce(
+      (acc, prop) => {
+        // Get the styles to animate for this prop
+        // NOTE: can be wrong so this needs to be tested exahustively
+        const regex = new RegExp(`^${prop.split("-").join(".*")}.*$`, "i");
+        const styleNamesToAnimate = restStylesKeys.filter((key) => {
+          return regex.exec(key);
+        });
+
+        const stylesAnimatedValues = styleNamesToAnimate.reduce(
+          (acc, styleName) => {
+            const animatedValue = getAnimatedValue(mapIndex, styleName);
+
+            animateValue(
+              animatedValue,
+              restStyles[styleName],
+              transitionDuration,
+              transitionTimingFunction,
+              transitionDelay
+            );
+
+            return { ...acc, [styleName]: animatedValue };
+          },
+          {}
         );
 
-        if (animatedValueIsSet) {
-          // Animate here
-          Animated.timing(animatedValuesMaps.current[mapIndex]![prop], {
-            toValue: values[index],
-            duration: 500,
-            useNativeDriver: true,
-          }).start();
+        return { ...acc, ...stylesAnimatedValues };
+      },
+      {}
+    );
 
-          return;
-        }
+    return { ...restStyles, ...animatedStyles };
+  }, []);
 
-        // Add animated value
-        // Check if the map is set
-        if (animatedValuesMaps.current[mapIndex]) {
-          animatedValuesMaps.current[mapIndex][prop] = new Animated.Value(
-            values[index]
+  const requiresAnimatedComponent = useMemo(
+    () =>
+      combinedStyles.some((combinedStyle) => {
+        if (combinedStyle) {
+          return Object.keys(combinedStyle).some((key) =>
+            ANIMATION_CONFIG_STYLE_PROPS.includes(key as any)
           );
-        } else {
-          animatedValuesMaps.current[mapIndex] = {
-            [prop]: new Animated.Value(values[index]),
-          };
         }
-      });
-      return animatedValuesMaps.current[mapIndex]!;
-    },
-    [animationConfigs, animatedValuesMaps]
+
+        return false;
+      }),
+    [combinedStyles]
   );
 
-  const needsAnimatedComponent = animationConfigs.some((config) => !!config);
-
   const regularOrAnimatedStyles = useMemo(() => {
-    if (!needsAnimatedComponent) return combinedStyles;
+    if (!requiresAnimatedComponent) return combinedStyles;
 
     return combinedStyles.map((combinedStyle, index) => {
-      if (!combinedStyle) return combinedStyle;
-
-      const config = animationConfigs[index];
-
-      if (!config) return combinedStyle;
-
-      return combinedStyle;
-
-      // REMOVE ALL THE ANIMATION STYLES HERE!
-
-      // // Get the transition type
-      // const { transitionType } = config;
-
-      // switch (transitionType) {
-      //   // transition-opacity:
-      //   // This will only handle the opacity style of the styles
-      //   case "transition-opacity": {
-      //     // Get the current config opacity or the dafault value
-      //     const [opacity] = getValuesFromStyle(index, ["opacity"], [1]);
-      //     const animatedValueStyles = setAnimatedValues(
-      //       index,
-      //       ["opacity"],
-      //       [opacity]
-      //     );
-
-      //     return merge(combinedStyle, animatedValueStyles, {
-      //       isMergeableObject: isPlainObject,
-      //     });
-      //   }
-
-      //   default:
-      //     // Here probably we clean up the animated values that are instantiated
-      //     return combinedStyle;
-      // }
+      return combinedStyle
+        ? transformStyles(index, combinedStyle)
+        : combinedStyle;
     });
-  }, [
-    animatedValuesMaps,
-    animationConfigs,
-    combinedStyles,
-    needsAnimatedComponent,
-  ]);
+  }, [animatedValuesMaps, combinedStyles, requiresAnimatedComponent]);
 
-  return {
-    needsAnimatedComponent,
-    regularOrAnimatedStyles,
-    animatedValuesMaps: animatedValuesMaps.current,
-  };
+  return { requiresAnimatedComponent, regularOrAnimatedStyles };
 };

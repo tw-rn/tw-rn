@@ -51,7 +51,11 @@ export const useAnimationStyles = (
   );
 
   const getAnimatedValue = useCallback(
-    (mapIndex: number, styleName: string): Animated.Value => {
+    (
+      mapIndex: number,
+      styleName: string,
+      nextValue: StyleValue
+    ): Animated.Value => {
       if (
         animatedValuesMaps.current[mapIndex] &&
         animatedValuesMaps.current[mapIndex][styleName]
@@ -92,8 +96,11 @@ export const useAnimationStyles = (
 
         const stylesAnimatedValues = styleNamesToAnimate.reduce(
           (acc, styleName) => {
-            const animatedValue = getAnimatedValue(mapIndex, styleName);
-
+            const animatedValue = getAnimatedValue(
+              mapIndex,
+              styleName,
+              restStyles[styleName]
+            );
             animateValue(
               animatedValue,
               restStyles[styleName],
@@ -101,17 +108,14 @@ export const useAnimationStyles = (
               transitionTimingFunction,
               transitionDelay
             );
-
             return { ...acc, [styleName]: animatedValue };
           },
           {}
         );
-
         return { ...acc, ...stylesAnimatedValues };
       },
       {}
     );
-
     return { ...restStyles, ...animatedStyles };
   }, []);
 

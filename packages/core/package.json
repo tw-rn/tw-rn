@@ -27,6 +27,7 @@
     "@types/node": "^14.0.14",
     "@types/react": "^16.9.41",
     "@types/react-native": "^0.62.16",
+    "@types/tinycolor2": "^1.4.2",
     "babel-jest": "^26.1.0",
     "declaration-bundler-webpack-plugin": "^1.0.3",
     "install-peers-cli": "^2.2.0",
@@ -47,7 +48,8 @@
   "dependencies": {
     "deepmerge": "^4.2.2",
     "fast-memoize": "^2.5.2",
-    "is-plain-object": "^3.0.1"
+    "is-plain-object": "^3.0.1",
+    "tinycolor2": "^1.4.1"
   },
   "publishConfig": {
     "access": "public"

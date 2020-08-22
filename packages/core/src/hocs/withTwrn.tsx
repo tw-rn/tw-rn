@@ -1,17 +1,5 @@
-import React, {
-  ComponentType,
-  useMemo,
-  useCallback,
-  useRef,
-  useEffect,
-  useState,
-} from "react";
-import {
-  NativeSyntheticEvent,
-  TargetedEvent,
-  StyleProp,
-  Animated,
-} from "react-native";
+import React, { ComponentType, useMemo } from "react";
+import { NativeSyntheticEvent, TargetedEvent, StyleProp } from "react-native";
 import { TailwindReactNativeStyle } from "../types";
 import {
   useTailwindReactNativeStyle,
@@ -20,7 +8,6 @@ import {
   useHoverStyles,
   useFocusStyles,
   useOrientationStyles,
-  useAnimationStyles,
   useCombineStyles,
 } from "../hooks";
 
@@ -72,39 +59,25 @@ export const withTwrn = <P extends object, O extends keyof P>(
     focusStyles,
   ]);
 
-  // Convert animated styles if needed
-  const {
-    requiresAnimatedComponent,
-    regularOrAnimatedStyles,
-  } = useAnimationStyles(combinedStyles);
-
   // Combining styles position with keys indicated in the styleKeys
   const regularOrAnimatedStylesProps = useMemo(
     () =>
       styleKeys.reduce(
         (acc, key, index) => ({
           ...acc,
-          [key]: regularOrAnimatedStyles[index],
+          [key]: combinedStyles[index],
         }),
         {}
       ),
-    [regularOrAnimatedStyles]
+    [combinedStyles]
   );
-
-  const ComponentToRender = useMemo(() => {
-    return requiresAnimatedComponent
-      ? ((Animated.createAnimatedComponent(
-          Component
-        ) as unknown) as typeof Component)
-      : Component;
-  }, [requiresAnimatedComponent]);
 
   // If combinedStyles are null, it means that we're in SSR and should not
   // render because we don't have the destination size. Note: can be improved.
   if (combinedStyles.some((style) => style === null)) return null;
 
   return (
-    <ComponentToRender
+    <Component
       {...(props as P)}
       {...regularOrAnimatedStylesProps}
       onMouseEnter={handleOnMouseEnter}

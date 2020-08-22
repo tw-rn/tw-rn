@@ -40,7 +40,7 @@ describe("useAnimationStyles", () => {
         expect(opacity).toBeFalsy();
       });
 
-      it("should have the opacity Animated.Value with the specified opacity value", () => {
+      it("should initialize the opacity with the specified opacity value", () => {
         const combinedStyles: Style[] = [
           {
             transitionProperty: ["opacity"],
@@ -57,16 +57,17 @@ describe("useAnimationStyles", () => {
 
         const { opacity, backgroundColor } = regularOrAnimatedStyles[0] || {};
 
-        expect(requiresAnimatedComponent).toBe(true);
+        expect(requiresAnimatedComponent).toBeTruthy();
         expect(backgroundColor).toBe("#ffffff");
-        expect((opacity as any) instanceof Animated.Value).toBe(true);
-        expect((opacity as any)._value).toBe(0.75);
+        expect(opacity).toBeTruthy();
+        expect((opacity as any).__getValue()).toBe(0.75);
       });
 
-      it("should change the opacity of Animated.Value when style changes", async () => {
+      it.only("should change the opacity of Animated.Value when style changes", async () => {
         let combinedStyles: Style[] = [
           {
             transitionProperty: ["opacity"],
+            transitionDuration: 1000,
             opacity: 1,
             backgroundColor: "#ffffff",
           },
@@ -77,16 +78,16 @@ describe("useAnimationStyles", () => {
           { initialProps: { combinedStyles } }
         );
         let { regularOrAnimatedStyles } = result.current;
+        let { opacity, backgroundColor } = regularOrAnimatedStyles[0] || {};
 
-        expect(regularOrAnimatedStyles[0]?.backgroundColor).toBe("#ffffff");
-        expect(
-          (regularOrAnimatedStyles[0]?.opacity as any) instanceof Animated.Value
-        ).toBe(true);
-        expect((regularOrAnimatedStyles[0]?.opacity as any)._value).toBe(1);
+        expect(backgroundColor).toBe("#ffffff");
+        expect(opacity as any).toBeTruthy();
+        expect((opacity as any).__getValue()).toBe(1);
 
         combinedStyles = [
           {
             transitionProperty: ["opacity"],
+            transitionDuration: 1000,
             opacity: 0,
             backgroundColor: "#ffffff",
           },
@@ -94,11 +95,12 @@ describe("useAnimationStyles", () => {
 
         rerender({ combinedStyles });
 
-        timeTravel(1000);
+        timeTravel(500);
 
         ({ regularOrAnimatedStyles } = result.current);
+        ({ opacity } = regularOrAnimatedStyles[0] || {});
 
-        expect((regularOrAnimatedStyles[0]?.opacity as any)._value).toBe(0);
+        expect((opacity as any).__getValue()).toBe(0);
       });
 
       it.todo(

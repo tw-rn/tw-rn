@@ -1,6 +1,6 @@
 {
   "name": "@tw-rn/playground",
-  "version": "0.0.11",
+  "version": "0.0.12",
   "private": true,
   "main": "__generated__/AppEntry.js",
   "scripts": {
@@ -26,15 +26,15 @@
     "react-dom": "16.11.0",
     "react-native": "https://github.com/expo/react-native/archive/sdk-38.0.0.tar.gz",
     "react-native-web": "~0.11.7",
-    "tw-rn": "^0.0.11"
+    "tw-rn": "^0.0.12"
   },
   "devDependencies": {
     "@babel/core": "^7.8.6",
     "@expo/next-adapter": "2.1.9",
-    "@tw-rn/loader": "^0.0.11",
-    "@tw-rn/next-adapter": "^0.0.11",
-    "@tw-rn/transformer": "^0.0.11",
-    "@tw-rn/plugin": "^0.0.11",
+    "@tw-rn/loader": "^0.0.12",
+    "@tw-rn/next-adapter": "^0.0.12",
+    "@tw-rn/plugin": "^0.0.12",
+    "@tw-rn/transformer": "^0.0.12",
     "@types/node": "^14.0.14",
     "@types/react": "~16.9.41",
     "@types/react-dom": "16.9.8",

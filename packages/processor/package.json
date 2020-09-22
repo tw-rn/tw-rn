@@ -34,7 +34,7 @@
     "md5": "^2.2.1",
     "node-cache": "^5.1.1",
     "postcss": "^7.0.32",
-    "tailwindcss": "^1.4.6"
+    "tailwindcss": "^1.8.7"
   },
   "publishConfig": {
     "access": "public"

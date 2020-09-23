@@ -1,7 +1,7 @@
 {
   "name": "@tw-rn/pre-compiled",
   "author": "Erick Tamayo",
-  "version": "0.0.16",
+  "version": "0.0.17",
   "license": "MIT",
   "private": false,
   "main": "dist/index.js",
@@ -23,8 +23,8 @@
     "react-native": "*"
   },
   "dependencies": {
-    "@tw-rn/plugin": "^0.0.16",
-    "@tw-rn/processor": "^0.0.16"
+    "@tw-rn/plugin": "^0.0.17",
+    "@tw-rn/processor": "^0.0.17"
   },
   "publishConfig": {
     "access": "public"

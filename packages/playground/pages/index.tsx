@@ -1,7 +1,6 @@
 // @generated: @expo/next-adapter@2.1.9
 import "./_app.css";
-import React, { useState, useRef } from "react";
-// import { Animated } from "react-native";
+import React, { useRef } from "react";
 import { tw, Text, View, Animated } from "tw-rn";
 import { Button } from "react-native";
 

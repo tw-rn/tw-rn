@@ -1,4 +1,4 @@
-import { TargetedEvent, NativeSyntheticEvent } from "react-native";
+import { TargetedEvent, NativeSyntheticEvent, StyleProp } from "react-native";
 
 declare global {
   namespace NodeJS {
@@ -55,18 +55,6 @@ export type StyleVariants =
   | Variants.Visited
   | Variants.Keyboard;
 
-// export const transitions = <const>[
-//   "transition-none",
-//   "transition-all",
-//   "transition",
-//   "transition-colors",
-//   "transition-opacity",
-//   "transition-shadow",
-//   "transition-transform",
-// ];
-
-// export type TransitionType = typeof transitions[number];
-
 export type StyleValue = string | number | boolean | object | undefined;
 
 export type Style = { [style: string]: StyleValue };
@@ -77,18 +65,7 @@ export type MediaStyles = {
 
 export type VariantsStyles = { [key in StyleVariants]?: any };
 
-// export type AnimationConfiguration = {
-//   transitionProperty?: string[];
-//   transitionDuration?: number;
-//   transitionTimingFunction?: any;
-//   transitionDelay?: number;
-// };
-
-// export type AnimationsStyle = { animation?: AnimationConfiguration };
-
 export type PlatformVariantStyle = MediaStyles & VariantsStyles;
-// &
-// AnimationsStyle;
 
 export type ComputedTailwindReactNativeStyles = {
   [key in PlatformVariant]?: PlatformVariantStyle;
@@ -97,6 +74,11 @@ export type ComputedTailwindReactNativeStyles = {
 export type TailwindReactNativeStyle = {
   __?: ComputedTailwindReactNativeStyles;
 };
+
+export type TailwindReactNativeStyleProp<P, O extends keyof P> = {
+  [key in O]?: StyleProp<TailwindReactNativeStyle & P[O]>;
+} &
+  Omit<P, O>;
 
 export type VariantsProps = {
   onMouseEnter?: (e: any) => void;

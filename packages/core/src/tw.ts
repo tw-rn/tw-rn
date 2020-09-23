@@ -118,7 +118,7 @@ const checkForTailwindStylePresence = () => {
   if (typeof global.__TW_RN_STYLES__ === "undefined") {
     __DEV__ &&
       console.warn(
-        `Tailwind styles not found. You might be missing installations steps: http://localhost:3000/tw-rn/docs/fundamentals/getting-started`
+        `Tailwind styles not found. You might be missing installations steps: https://tw-rn.github.io/tw-rn/docs/fundamentals/getting-started`
       );
     return false;
   }

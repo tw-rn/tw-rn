@@ -1,4 +1,5 @@
 // @generated: @expo/next-adapter@2.1.9
+//
 import "./_app.css";
 import React, { useRef } from "react";
 import { tw, Text, View, Animated } from "tw-rn";

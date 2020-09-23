@@ -1,6 +1,6 @@
 import React, { ComponentType, useMemo } from "react";
 import { NativeSyntheticEvent, TargetedEvent } from "react-native";
-import { TailwindReactNativeStyleProp } from "../types";
+import { TailwindReactNativeStyleProps } from "../types";
 import {
   useTailwindReactNativeStyle,
   usePlatformStyles,
@@ -16,7 +16,7 @@ export type VariantProps<P, O extends keyof P> = {
   onMouseLeave?: (e: any) => void;
   onFocus?: (e: NativeSyntheticEvent<TargetedEvent>) => void;
   onBlur?: (e: NativeSyntheticEvent<TargetedEvent>) => void;
-} & TailwindReactNativeStyleProp<P, O>;
+} & TailwindReactNativeStyleProps<P, O>;
 
 export const withTwrn = <P extends object, O extends keyof P>(
   Component: ComponentType<P>,

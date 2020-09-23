@@ -75,7 +75,7 @@ export type TailwindReactNativeStyle = {
   __?: ComputedTailwindReactNativeStyles;
 };
 
-export type TailwindReactNativeStyleProp<P, O extends keyof P> = {
+export type TailwindReactNativeStyleProps<P, O extends keyof P> = {
   [key in O]?: StyleProp<TailwindReactNativeStyle & P[O]>;
 } &
   Omit<P, O>;

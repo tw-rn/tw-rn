@@ -3,10 +3,10 @@ import { generate, tw } from "../tw";
 
 describe("tw", () => {
   it.each<[string[], TailwindReactNativeStyle]>([
-    // Native platform pseudo selector
+    // Common platform pseudo selector
     [
       ["bg-white"],
-      { __: { native: { media: { "": { backgroundColor: "#ffffff" } } } } },
+      { __: { common: { media: { "": { backgroundColor: "#ffffff" } } } } },
     ],
     // Web platform pseudo selector
     [
@@ -30,7 +30,7 @@ describe("tw", () => {
       ["sm:bg-red"],
       {
         __: {
-          native: {
+          common: {
             media: { "(min-width: 640px)": { backgroundColor: "#ff0000" } },
           },
         },
@@ -40,7 +40,7 @@ describe("tw", () => {
       ["md:bg-green"],
       {
         __: {
-          native: {
+          common: {
             media: { "(min-width: 768px)": { backgroundColor: "#00ff00" } },
           },
         },
@@ -50,7 +50,7 @@ describe("tw", () => {
       ["lg:bg-blue"],
       {
         __: {
-          native: {
+          common: {
             media: { "(min-width: 1024px)": { backgroundColor: "#0000ff" } },
           },
         },
@@ -60,7 +60,7 @@ describe("tw", () => {
       ["xl:bg-black"],
       {
         __: {
-          native: {
+          common: {
             media: { "(min-width: 1280px)": { backgroundColor: "#000000" } },
           },
         },
@@ -70,7 +70,7 @@ describe("tw", () => {
       ["bg-white", "sm:bg-red", "md:bg-green", "lg:bg-blue", "xl:bg-black"],
       {
         __: {
-          native: {
+          common: {
             media: {
               "": { backgroundColor: "#ffffff" },
               "(min-width: 640px)": { backgroundColor: "#ff0000" },
@@ -274,7 +274,7 @@ describe("tw", () => {
     // Native landscape selector
     [
       ["landscape:bg-white"],
-      { __: { native: { landscape: { backgroundColor: "#ffffff" } } } },
+      { __: { common: { landscape: { backgroundColor: "#ffffff" } } } },
     ],
     [
       ["web:landscape:bg-white"],
@@ -291,7 +291,7 @@ describe("tw", () => {
     // Focus landscape selector
     [
       ["focus:bg-white"],
-      { __: { native: { focus: { backgroundColor: "#ffffff" } } } },
+      { __: { common: { focus: { backgroundColor: "#ffffff" } } } },
     ],
     [
       ["web:focus:bg-white"],
@@ -308,7 +308,7 @@ describe("tw", () => {
     // Active landscape selector
     [
       ["active:bg-white"],
-      { __: { native: { active: { backgroundColor: "#ffffff" } } } },
+      { __: { common: { active: { backgroundColor: "#ffffff" } } } },
     ],
     [
       ["web:active:bg-white"],
@@ -325,7 +325,7 @@ describe("tw", () => {
     // Hover landscape selector
     [
       ["hover:bg-white"],
-      { __: { native: { hover: { backgroundColor: "#ffffff" } } } },
+      { __: { common: { hover: { backgroundColor: "#ffffff" } } } },
     ],
     [
       ["web:hover:bg-white"],
@@ -342,7 +342,7 @@ describe("tw", () => {
     // Disabled landscape selector
     [
       ["disabled:bg-white"],
-      { __: { native: { disabled: { backgroundColor: "#ffffff" } } } },
+      { __: { common: { disabled: { backgroundColor: "#ffffff" } } } },
     ],
     [
       ["web:disabled:bg-white"],
@@ -359,7 +359,7 @@ describe("tw", () => {
     // Visited landscape selector
     [
       ["visited:bg-white"],
-      { __: { native: { visited: { backgroundColor: "#ffffff" } } } },
+      { __: { common: { visited: { backgroundColor: "#ffffff" } } } },
     ],
     [
       ["web:visited:bg-white"],
@@ -375,17 +375,17 @@ describe("tw", () => {
     ],
     [
       ["transition-none"],
-      { __: { native: { media: { "": { transitionProperty: [] } } } } },
+      { __: { common: { media: { "": { transitionProperty: [] } } } } },
     ],
     [
       ["transition-all"],
-      { __: { native: { media: { "": { transitionProperty: ["all"] } } } } },
+      { __: { common: { media: { "": { transitionProperty: ["all"] } } } } },
     ],
     [
       ["transition"],
       {
         __: {
-          native: {
+          common: {
             media: {
               "": {
                 transitionProperty: [
@@ -408,7 +408,7 @@ describe("tw", () => {
       ["transition-colors"],
       {
         __: {
-          native: {
+          common: {
             media: {
               "": {
                 transitionProperty: [
@@ -427,14 +427,14 @@ describe("tw", () => {
     [
       ["transition-opacity"],
       {
-        __: { native: { media: { "": { transitionProperty: ["opacity"] } } } },
+        __: { common: { media: { "": { transitionProperty: ["opacity"] } } } },
       },
     ],
     [
       ["transition-shadow"],
       {
         __: {
-          native: { media: { "": { transitionProperty: ["box-shadow"] } } },
+          common: { media: { "": { transitionProperty: ["box-shadow"] } } },
         },
       },
     ],
@@ -442,7 +442,7 @@ describe("tw", () => {
       ["transition-transform"],
       {
         __: {
-          native: { media: { "": { transitionProperty: ["transform"] } } },
+          common: { media: { "": { transitionProperty: ["transform"] } } },
         },
       },
     ],
@@ -450,7 +450,7 @@ describe("tw", () => {
       ["duration-75", "delay-75", "ease-in-out"],
       {
         __: {
-          native: {
+          common: {
             media: {
               "": {
                 transitionDuration: 75,

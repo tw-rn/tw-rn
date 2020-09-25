@@ -1,9 +1,8 @@
-import { ViewStyle, TextStyle, ImageStyle, Platform, StyleProp } from "react-native";
+import { Platform, StyleProp } from "react-native";
 import merge from "deepmerge";
 import isPlainObject from "is-plain-object";
 
 import {
-  // Style,
   TailwindReactNativeStyle,
   ComputedTailwindReactNativeStyles,
   PlatformVariantStyle,
@@ -34,7 +33,7 @@ export const convertToTailwindReactNativeStyle = (
   if (isTailwindStyle) return style as Required<TailwindReactNativeStyle>;
 
   // If not, convert it to tw style as a default screen style
-  return { __: { native: { media: { "": (style as any) ?? {} } } } };
+  return { __: { common: { media: { "": (style as any) ?? {} } } } };
 };
 
 export const getStylesFromPlatform = (
@@ -42,11 +41,18 @@ export const getStylesFromPlatform = (
 ): PlatformVariantStyle | undefined => {
   if (styles === undefined) return;
 
-  const native = styles.native ?? {};
+  const common = styles.common || {};
 
   const os: PlatformVariant = Platform.OS as any;
 
-  if (!platformVariants.includes(os)) return native;
+  // Native os variant handling
+  const isNative = Platform.OS === "android" || Platform.OS === "ios";
+  const nativeStyles = isNative && styles.native ? styles.native : {};
 
-  return merge(native, styles[os] ?? {}, { isMergeableObject: isPlainObject });
+  // OS specific styles
+  const osStyles = styles[os] || {};
+
+  return merge.all([common, osStyles, nativeStyles], {
+    isMergeableObject: isPlainObject,
+  });
 };

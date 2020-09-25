@@ -15,6 +15,7 @@ declare global {
 }
 
 export enum Variants {
+  Common = "common",
   Native = "native",
   Web = "web",
   Ios = "ios",
@@ -30,15 +31,17 @@ export enum Variants {
   Keyboard = "keyboard",
 }
 
-export const DefaultPlatformVariant = Variants.Native;
+export const DefaultPlatformVariant = Variants.Common;
 
 export type PlatformVariant =
+  | Variants.Common
   | Variants.Native
   | Variants.Web
   | Variants.Ios
   | Variants.Android;
 
 export const platformVariants: PlatformVariant[] = [
+  Variants.Common,
   Variants.Native,
   Variants.Web,
   Variants.Ios,

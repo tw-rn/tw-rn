@@ -63,7 +63,7 @@ export const generate = memoize(
 
         const [
           ,
-          platform = "native",
+          platform = "common",
           platformStylesName,
         ] = platformRegExpExecArray;
 
@@ -136,7 +136,7 @@ const twFunction = (
 twFunction.raw = memoize(
   (stylesArray: TemplateStringsArray, ...variables: string[]) => {
     if (!checkForTailwindStylePresence()) return;
-    return generate(mergeStyles(stylesArray, ...variables)).__?.native?.media?.[
+    return generate(mergeStyles(stylesArray, ...variables)).__?.common?.media?.[
       ""
     ];
   },
@@ -150,7 +150,7 @@ twFunction.value = memoize(
     if (!checkForTailwindStylePresence()) return;
 
     const generated = generate(mergeStyles(stylesArray, ...variables)).__
-      ?.native?.media?.[""];
+      ?.common?.media?.[""];
     const generatedValues = Object.values(generated ?? {});
 
     const value =

@@ -49,7 +49,9 @@ export const ImageBackground = withTwrn(RN.ImageBackground, [
 export const SafeAreaView = withTwrn(RN.SafeAreaView, ["style"]);
 export const TouchableHighlight = withTwrn(RN.TouchableHighlight, ["style"]);
 export const TouchableOpacity = withTwrn(RN.TouchableOpacity, ["style"]);
-
+export const TouchableWithoutFeedback = withTwrn(RN.TouchableWithoutFeedback, [
+  "style",
+]);
 // For some reason "ListFooterComponentStyle" and "ListHeaderComponentStyle" are not in FlatList type
 // definitions but they are in the docs https://reactnative.dev/docs/virtualizedlist
 type VirtualizedListPropsWithMissingStyles<ItemT> = {
